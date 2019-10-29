@@ -1,5 +1,6 @@
 # Project Starter 
 A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
+SplitIt is a web development that allows users to split recent transactions among people for an easier alternative than doing it manually. Our proposed idea was for merchants to have a QR code for the items that were ordered and through that QR code, users can scan it and will automatically ring up the bill. Through the code it will automatically split the bill among it's users, or if some people do not wish to use it; the application will allow its users to select options on how they want to split the bill accordingly. The account will be linked to your bank account and from there it will be saved. To use this service the user will have to log-in into the account and it will prompt the user to select one of three options.<br> 1.  QR Code Scan <br>2. Google API image recognition<br>3. User Input<br> The application will be mostly be used through the QR code becasue through Google API image recognition it will sometimes be faulty and not  work. 
 
 ## Stack
 
