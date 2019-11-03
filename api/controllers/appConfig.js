@@ -3,8 +3,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   res.json({
-    title: 'APP TITLE',
-    description: 'A short description about this app',
+    title: 'Split It',
+    description: 'A web based server that could also be accessed on mobile to help split bills or payments.',
   });
 });
 
