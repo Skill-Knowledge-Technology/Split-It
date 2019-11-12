@@ -4,46 +4,30 @@ import {
   BrowserRouter as Router, 
   Switch, 
   Route, 
-  Link,
-  NavLink
 } from 'react-router-dom';
-import PostsListPage from './pages/PostsListPage';
+import HomePage from './pages/HomePage';
 import AboutUsPage from './pages/AboutUsPage';
+import CameraPage from './pages/CameraPage';
+import ManualPage from './pages/ManualPage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
 
 import './App.css';
-
-
-function Navigation(props) {
-  return (
-    <nav className="nav-extended deep-purple accent-1">
-    <div className="nav-wrapper">
-    <a href="/" className="brand-logo center" to="/">Split It</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-    <div class="nav-content">
-      <ul class="tabs tabs-transparent center">
-        <li class="tab"><a href="/">Test 1</a></li>
-        <li class="tab"><a href="/">Test 2</a></li>
-        <li class="tab"><a href="/">Test 3</a></li>
-        <li class="tab"><a href="about-us">About Us</a></li>
-      </ul>
-    </div>
-  </nav>
-  );
-}
-
 
 class App extends React.Component {
   render() {
     return (
         <Router>
           <Sidebar/>
-          <Navigation />
           <div className="container-fluid text-center">
             <div className="row justify-content-center">
               <Switch>
-                <Route path="/about-us" component={AboutUsPage} />
-                <Route path="/" component={PostsListPage} />
+                <Route path="/RegisterPage" component={RegisterPage} />
+                <Route path="/LoginPage" component={LoginPage} />
+                <Route path="/CameraPage" component={CameraPage} />
+                <Route path="/ManualPage" component={ManualPage} />
+                <Route path="/AboutUs" component={AboutUsPage} />
+                <Route path="/" component={HomePage} />
               </Switch>
             </div>
           </div>
