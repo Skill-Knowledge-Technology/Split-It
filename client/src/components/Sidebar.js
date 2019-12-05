@@ -50,7 +50,7 @@ class Sidebar extends Component {
           </a>
         </div>
         <a href="/" className="brand-logo center">
-        {/* <img src={ require('./client/public/logo519.png')} width = "70px" height="40px" /> */}
+        {<img src={ require('../public/logo.png')} width = "50px" height="50px" />}
           Split It
         </a>
       </div>
