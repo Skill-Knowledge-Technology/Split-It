@@ -41,6 +41,14 @@ class Sidebar extends Component {
             <li>
               <div className="divider" />
             </li>
+            <li>
+              <a className="waves-effect" href="AboutUs">
+                About Us
+              </a>
+            </li>
+            <li>
+              <div className="divider" />
+            </li>
             {/* <li>
               <a className="subheader">Subheader</a>
             </li> */}
@@ -50,7 +58,7 @@ class Sidebar extends Component {
           </a>
         </div>
         <a href="/" className="brand-logo center">
-        {/* <img src={ require('./client/public/logo519.png')} width = "70px" height="40px" /> */}
+        {<img src={ require('../public/logo.png')} width = "50px" height="50px" />}
           Split It
         </a>
       </div>
