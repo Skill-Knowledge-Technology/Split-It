@@ -74,9 +74,9 @@ class AboutUs extends React.Component {
                     <h4 className = "center">Christian Suleiman</h4>
                 </div>
                 <div className = "col s8">
-                    {/* <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in//" target="_blank">https://www.linkedin.com/in//</a>
-                    <br/> */}
+                    <h4><u>LinkedIn:</u></h4>
+                    <a href="https://www.linkedin.com/in/christian-suleiman/" target="_blank">https://www.linkedin.com/in/christian-suleiman/</a>
+                    <br/>
                     <h4><u>GitHub:</u></h4>
                     <a href="https://github.com/Cristo12345" target="_blank">https://github.com/Cristo12345</a>
                 </div>
