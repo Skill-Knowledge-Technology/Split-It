@@ -1,7 +1,7 @@
 import React from 'react';
-import './AboutUsPage.css'
+import './AboutUs.css'
 
-class AboutUsPage extends React.Component {
+class AboutUs extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -37,7 +37,7 @@ class AboutUsPage extends React.Component {
             </div>
             <div className = "row">
                 <div className = "col s4">
-                    <img src={ require('../public/Kev.jpg')}  alt = "Kevin" className = "responsive-img"/>
+                    <img src={ require('../../public/Kev.jpg')}  alt = "Kevin" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Kevin Chen</h4>
                 </div>
@@ -54,7 +54,7 @@ class AboutUsPage extends React.Component {
             <hr/>
             <div className = "row">
                 <div className = "col s4">
-                    <img src={ require('../public/YuBin.jpg')}  alt = "Yubin" className = "responsive-img"/>
+                    <img src={ require('../../public/YuBin.jpg')}  alt = "Yubin" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Yu Bin Liu</h4>
                 </div>
@@ -69,7 +69,7 @@ class AboutUsPage extends React.Component {
             <hr/>
             <div className = "row">
                 <div className = "col s4">
-                    <img src={ require('../public/Chris.jpg')}  alt = "Chris" className = "responsive-img"/>
+                    <img src={ require('../../public/Chris.jpg')}  alt = "Chris" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Christian Suleiman</h4>
                 </div>
@@ -84,7 +84,7 @@ class AboutUsPage extends React.Component {
             <hr/>
             <div className = "row">
                 <div className = "col s4">
-                    {/* <img src={ require('../public/Jimmy.jpg')}  alt = "Jimmy" className = "responsive-img"/>
+                    {/* <img src={ require('../../public/Jimmy.jpg')}  alt = "Jimmy" className = "responsive-img"/>
                     <br/> */}
                     <h4 className = "center">Jimmy Luy</h4>
                 </div>
@@ -99,7 +99,7 @@ class AboutUsPage extends React.Component {
             <hr/>
             <div className = "row">
                 <div className = "col s4">
-                    {/* <img src={ require('../public/Alex.jpg')}  alt = "Alex" className = "responsive-img"/>
+                    {/* <img src={ require('../../public/Alex.jpg')}  alt = "Alex" className = "responsive-img"/>
                     <br/> */}
                     <h4 className = "center">Jia Peng Zhen</h4>
                 </div>
@@ -116,4 +116,4 @@ class AboutUsPage extends React.Component {
   }
 }
 
-export default AboutUsPage;
+export default AboutUs;

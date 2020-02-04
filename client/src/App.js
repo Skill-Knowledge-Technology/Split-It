@@ -1,16 +1,16 @@
 import React from 'react';
-import Sidebar from './components/Sidebar'
+import Sidebar from './components/Sidebar/Sidebar'
 import { 
   BrowserRouter as Router, 
   Switch, 
   Route, 
 } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import AboutUsPage from './pages/AboutUsPage';
-import CameraPage from './pages/CameraPage';
-import ManualPage from './pages/ManualPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
+import Home from './components/Home/Home';
+import AboutUs from './components/AboutUs/AboutUs';
+import Camera from './components/Camera/Camera';
+import UserInput from './components/UserInput/UserInput';
+import Register from './components/Register/Register';
+import LogIn from './components/LogIn/LogIn';
 
 import './App.css';
 
@@ -22,12 +22,12 @@ class App extends React.Component {
           <div className="container-fluid text-center">
             <div className="row justify-content-center">
               <Switch>
-                <Route path="/RegisterPage" component={RegisterPage} />
-                <Route path="/LoginPage" component={LoginPage} />
-                <Route path="/CameraPage" component={CameraPage} />
-                <Route path="/ManualPage" component={ManualPage} />
-                <Route path="/AboutUs" component={AboutUsPage} />
-                <Route path="/" component={HomePage} />
+                <Route path="/Register" component={Register} />
+                <Route path="/Login" component={LogIn} />
+                <Route path="/Camera" component={Camera} />
+                <Route path="/UserInput" component={UserInput} />
+                <Route path="/AboutUs" component={AboutUs} />
+                <Route path="/" component={Home} />
               </Switch>
             </div>
           </div>

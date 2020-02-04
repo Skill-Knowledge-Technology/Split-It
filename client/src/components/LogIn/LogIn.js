@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LoginPage(props) {
+function Login(props) {
   return (
     <h1>
       This is the Login Page.
@@ -8,4 +8,4 @@ function LoginPage(props) {
   );
 }
 
-export default LoginPage;
+export default Login;
