@@ -1,6 +1,6 @@
 import React from 'react';
 
-function HomePage(props) {
+function Home(props) {
   return (
     <h1 className= "center">
       Home Page
@@ -16,4 +16,4 @@ function HomePage(props) {
 }
 
 
-export default HomePage;
+export default Home;

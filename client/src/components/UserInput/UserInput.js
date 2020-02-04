@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ManualPage(props) {
+function UserInput(props) {
   return (
     <h1>
       This is Used For Manual Input Ouput.
@@ -8,4 +8,4 @@ function ManualPage(props) {
   );
 }
 
-export default ManualPage;
+export default UserInput;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RegisterPage(props) {
+function Register(props) {
   return (
     <h1>
       This is the Regsiter Page.
@@ -8,4 +8,4 @@ function RegisterPage(props) {
   );
 }
 
-export default RegisterPage;
+export default Register;

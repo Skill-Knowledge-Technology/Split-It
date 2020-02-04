@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CameraPage(props) {
+function Camera(props) {
   return (
     <h1>
       This is Used For Camera
@@ -8,4 +8,4 @@ function CameraPage(props) {
   );
 }
 
-export default CameraPage;
+export default Camera;
