@@ -29,12 +29,12 @@ class Sidebar extends Component {
               <div className="divider" />
             </li>
             <li>
-              <a className="waves-effect" href="LoginPage">
+              <a className="waves-effect" href="Login">
                 Login
               </a>
             </li>
             <li>
-              <a className="waves-effect" href="RegisterPage">
+              <a className="waves-effect" href="Register">
                 Register
               </a>
             </li>
