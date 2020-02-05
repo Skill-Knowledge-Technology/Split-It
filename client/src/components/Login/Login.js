@@ -3,7 +3,7 @@ import React from 'react';
 function Login(props) {
   return (
     <h1>
-      This is the Login Page.
+      This is the Login Page
     </h1>
   );
 }
