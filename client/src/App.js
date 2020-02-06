@@ -13,8 +13,6 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
 
-import './App.css';
-
 class App extends React.Component {
   render() {
     return (

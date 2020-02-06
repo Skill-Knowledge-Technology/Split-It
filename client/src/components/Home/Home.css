@@ -1,0 +1,17 @@
+.img-size{
+    height: 200px;
+    width: auto;
+}
+
+.btn-large {
+    display: flex;
+    justify-content: center;
+}
+
+/* For devices 400px and larger: */
+@media only screen and (min-device-width: 600px) {
+    .img-size{
+        height: 300px;
+        width: auto;
+    }
+  }
