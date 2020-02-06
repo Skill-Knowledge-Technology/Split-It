@@ -11,6 +11,7 @@ import Camera from './components/Camera/Camera';
 import UserInput from './components/UserInput/UserInput';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import Maps from './components/Maps/Maps';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ class App extends React.Component {
                 <Route path="/Camera" component={Camera} />
                 <Route path="/UserInput" component={UserInput} />
                 <Route path="/AboutUs" component={AboutUs} />
+                <Route path="/Maps" component={Maps} />
                 <Route path="/" component={Home} />
               </Switch>
             </div>
