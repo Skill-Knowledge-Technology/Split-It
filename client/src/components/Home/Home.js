@@ -5,11 +5,11 @@ function Home(props) {
     <h1 className= "center">
       Home Page
         <div className="divider" />
-        <a className="waves-effect waves-light btn" href="CameraPage">Button (CAMERA PAGE)</a>
+        <a className="waves-effect waves-light btn" href="Camera">Button (CAMERA PAGE)</a>
         <div className="divider" />
-        <a className="waves-effect waves-light btn" href="ManualPage">Button (MANUAL PAGE) <i className="material-icons right">cloud</i></a>
+        <a className="waves-effect waves-light btn" href="UserInput">Button (MANUAL PAGE) <i className="material-icons right">cloud</i></a>
         <div className="divider" />
-        <a className="waves-effect waves-light btn-large" href="CameraPage">Large Button (CAMERA PAGE)</a>
+        <a className="waves-effect waves-light btn-large" href="Camera">Large Button (CAMERA PAGE)</a>
         <div className="divider" />
     </h1>
   );
