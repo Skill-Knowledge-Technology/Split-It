@@ -84,8 +84,8 @@ class AboutUs extends React.Component {
             <hr/>
             <div className = "row">
                 <div className = "col s4">
-                    {/* <img src={ require('../../public/Jimmy.jpg')}  alt = "Jimmy" className = "responsive-img"/>
-                    <br/> */}
+                    <img src={ require('../../public/dummy.jpg')}  alt = "Jimmy" className = "responsive-img"/>
+                    <br/>
                     <h4 className = "center">Jimmy Luy</h4>
                 </div>
                 <div className = "col s8">
@@ -99,14 +99,14 @@ class AboutUs extends React.Component {
             <hr/>
             <div className = "row">
                 <div className = "col s4">
-                    {/* <img src={ require('../../public/Alex.jpg')}  alt = "Alex" className = "responsive-img"/>
-                    <br/> */}
+                    <img src={ require('../../public/dummy.jpg')}  alt = "Alex" className = "responsive-img"/>
+                    <br/>
                     <h4 className = "center">Jia Peng Zhen</h4>
                 </div>
                 <div className = "col s8">
-                    {/* <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in//" target="_blank">https://www.linkedin.com/in//</a>
-                    <br/> */}
+                    <h4><u>LinkedIn:</u></h4>
+                    <a href="https://www.linkedin.com/in/jia-peng-zhen-6455a1170/" target="_blank">https://www.linkedin.com/in/jia-peng-zhen-6455a1170/</a>
+                    <br/>
                     <h4><u>GitHub:</u></h4>
                     <a href="https://github.com/alexzhen93" target="_blank">https://github.com/alexzhen93</a>
                 </div>
