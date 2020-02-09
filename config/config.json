@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "password",
+    "database": "SplitIt_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "user",
+    "password": "password",
+    "database": "SplitIt_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
