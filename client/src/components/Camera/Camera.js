@@ -2,9 +2,9 @@ import React from 'react';
 import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
  
-function App (props) {
+function cameratake (props) {
   function handleTakePhoto (dataUri) {
-    // Do stuff with the photo...
+    
     console.log('takePhoto');
   }
  
@@ -46,4 +46,4 @@ function App (props) {
   );
 }
  
-export default App;
+export default cameratake;
