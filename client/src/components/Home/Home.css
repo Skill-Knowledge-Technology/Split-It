@@ -8,10 +8,10 @@
     justify-content: center;
 }
 
-/* For devices 400px and larger: */
+/* For devices 600px and larger: */
 @media only screen and (min-device-width: 600px) {
     .img-size{
         height: 300px;
         width: auto;
     }
-  }
+}

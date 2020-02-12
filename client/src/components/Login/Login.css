@@ -1,4 +1,4 @@
-.registerbox{
+.loginbox{
     width: 90%;
     background-color: #1e88e5;
     color: #ffffff;
@@ -14,7 +14,7 @@
 
 /* For devices 600px and larger: */
 @media only screen and (min-device-width: 600px) {
-    .registerbox{
-        width: 60%;
+    .loginbox{
+        width: 500px;
     }
 }
