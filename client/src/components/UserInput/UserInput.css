@@ -1,0 +1,8 @@
+.UserInputBox{
+    width: 90%;
+    opacity: 0.95;
+    filter: alpha(opacity=95); /* For IE8 and earlier */
+    background-color: white;
+    padding: 1px 20px;
+    box-sizing: border-box;
+}

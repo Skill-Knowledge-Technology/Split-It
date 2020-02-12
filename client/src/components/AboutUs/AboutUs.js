@@ -1,7 +1,7 @@
 import React from 'react';
 import './AboutUs.css'
 
-class AboutUs extends React.Component {
+export default class AboutUs extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -36,12 +36,12 @@ class AboutUs extends React.Component {
             <h2><u>Our Developers:</u></h2>
             </div>
             <div className = "row">
-                <div className = "col s4">
+                <div className = "col s12 md4 l4">
                     <img src={ require('../../public/People/Kev.jpg')}  alt = "Kevin" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Kevin Chen</h4>
                 </div>
-                <div className = "col s8">
+                <div className = "col s12 md8 l8">
                   <span class= "black-text">
                     <h4><u>LinkedIn:</u></h4>
                     <a href="https://www.linkedin.com/in/kevinchen07cd/" target="_blank">https://www.linkedin.com/in/kevinchen07cd/</a>
@@ -53,12 +53,12 @@ class AboutUs extends React.Component {
             </div>
             <hr/>
             <div className = "row">
-                <div className = "col s4">
+                <div className = "col s12 md4 l4">
                     <img src={ require('../../public/People/YuBin.jpg')}  alt = "Yubin" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Yu Bin Liu</h4>
                 </div>
-                <div className = "col s8">
+                <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
                     <a href="https://www.linkedin.com/in/jacky-liu97/" target="_blank">https://www.linkedin.com/in/jacky-liu97/</a>
                     <br/>
@@ -68,12 +68,12 @@ class AboutUs extends React.Component {
             </div>
             <hr/>
             <div className = "row">
-                <div className = "col s4">
+                <div className = "col s12 md4 l4">
                     <img src={ require('../../public/People/Chris.jpg')}  alt = "Chris" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Christian Suleiman</h4>
                 </div>
-                <div className = "col s8">
+                <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
                     <a href="https://www.linkedin.com/in/christian-suleiman/" target="_blank">https://www.linkedin.com/in/christian-suleiman/</a>
                     <br/>
@@ -83,12 +83,12 @@ class AboutUs extends React.Component {
             </div>
             <hr/>
             <div className = "row">
-                <div className = "col s4">
+                <div className = "col s12 md4 l4">
                     <img src={ require('../../public/People/dummy.jpg')}  alt = "Jimmy" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Jimmy Luy</h4>
                 </div>
-                <div className = "col s8">
+                <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
                     <a href="https://www.linkedin.com/in/jimmy-luy-788a0a177/" target="_blank">https://www.linkedin.com/in/jimmy-luy-788a0a177/</a>
                     <br/>
@@ -98,12 +98,12 @@ class AboutUs extends React.Component {
             </div>
             <hr/>
             <div className = "row">
-                <div className = "col s4">
+                <div className = "col s12 md4 l4">
                     <img src={ require('../../public/People/dummy.jpg')}  alt = "Alex" className = "responsive-img"/>
                     <br/>
                     <h4 className = "center">Jia Peng Zhen</h4>
                 </div>
-                <div className = "col s8">
+                <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
                     <a href="https://www.linkedin.com/in/jia-peng-zhen-6455a1170/" target="_blank">https://www.linkedin.com/in/jia-peng-zhen-6455a1170/</a>
                     <br/>
@@ -115,5 +115,3 @@ class AboutUs extends React.Component {
     );
   }
 }
-
-export default AboutUs;

@@ -1,0 +1,4 @@
+body {
+    background: url("./public/Background.jpg") no-repeat center fixed !important;
+    background-size: cover !important;
+}
