@@ -1,11 +1,11 @@
 {
   "name": "api-backend",
   "version": "1.0.0",
-  "description": "An api backend",
+  "description": "backend API for split it",
   "main": "index.js",
   "scripts": {
-    "start": "node api/app.js",
-    "dev": "nodemon -r dotenv/config api/app.js",
+    "start": "node server/app.js",
+    "dev": "nodemon -r dotenv/config server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm install && npm run build"
   },
