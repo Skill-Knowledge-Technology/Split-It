@@ -24,7 +24,7 @@ export default class UserInput extends React.Component {
             <p>-Obtain Number of People <br/> -Obtain Total Cost + Tax</p>
           </div>
           <div className="col s6">
-            <h4>Step 2 [Detaied Split]:</h4>
+            <h4>Step 2 [Detailed Split]:</h4>
             <p>-Obtain Number of People <br/> -Obtain Number of Items Ordered</p>
           </div>
         </div>
@@ -34,7 +34,7 @@ export default class UserInput extends React.Component {
             <p>-Calculate by Cost/People -> Cost Per Person</p>
           </div>
           <div className="col s6">
-            <h4>Step 3 [Detaied Split]:</h4>
+            <h4>Step 3 [Detailed Split]:</h4>
             <p>-2 Column List<br/>-Items Name<br/>-Price</p>
             <p>-Displays Total and Allows Input of Tax</p>
             <p>Ex: Steak = $10 + $2 Tax</p>
@@ -53,7 +53,7 @@ export default class UserInput extends React.Component {
           <div className="col s6">
           </div>
           <div className="col s6">
-            <h4>Step 4 [Detaied Split]:</h4>
+            <h4>Step 4 [Detailed Split]:</h4>
             <p>-Names of People</p>
             <p>Ex: Steve and Josh</p>
           </div>
@@ -62,7 +62,7 @@ export default class UserInput extends React.Component {
           <div className="col s6">
           </div>
           <div className="col s6">
-            <h4>Step 5 [Detaied Split]:</h4>
+            <h4>Step 5 [Detailed Split]:</h4>
             <p>-Click and Drag People Into a Box's With Associated Food</p>
             <p>-Give Appropriate Percentages of People Per Food</p>
             <p>Ex: Steak -> Steve (100%)<br/> Rice -> Steve (50%), Josh (50%)</p>
@@ -72,7 +72,7 @@ export default class UserInput extends React.Component {
           <div className="col s6">
           </div>
           <div className="col s6">
-            <h4>Step 6 [Detaied Split]:</h4>
+            <h4>Step 6 [Detailed Split]:</h4>
             <p>-Calculate by Using Cost of Food and Percentage and Tax Per Person For Individual Prices</p>
             <p>Ex: Steak($10 + $2(tax)) -> Steve(100%)) = $12</p>
             <p>Rice ($4 + $1(tax)) -> Steve (50%) = $2.50, Josh (50%) = $2.50</p>
@@ -82,7 +82,7 @@ export default class UserInput extends React.Component {
           <div className="col s6">
           </div>
           <div className="col s6">
-            <h4>Step 7 [Detaied Split]:</h4>
+            <h4>Step 7 [Detailed Split]:</h4>
             <p>-Display Individual Prices</p>
             <p>Ex: Steve $14.50</p>
             <p>Josh = $2.50</p>

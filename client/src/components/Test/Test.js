@@ -78,32 +78,33 @@ nextButton(){
   render() {
     return (
         <React.Fragment>
-        <h1>React Wizard Form 🧙‍♂️</h1>
-        <p>Step {this.state.currentStep} </p> 
-  
-        <form onSubmit={this.handleSubmit}>
-        {/* 
-          render the form steps and pass required props in
-        */}
-          <Step1 
-            currentStep={this.state.currentStep} 
-            handleChange={this.handleChange}
-            email={this.state.email}
-          />
-          <Step2 
-            currentStep={this.state.currentStep} 
-            handleChange={this.handleChange}
-            username={this.state.username}
-          />
-          <Step3 
-            currentStep={this.state.currentStep} 
-            handleChange={this.handleChange}
-            password={this.state.password}
-          />
-          {this.previousButton()}
-          {this.nextButton()}
-  
-        </form>
+        <div className="TestBox">
+            <h1>React Form</h1>
+            <p>Step {this.state.currentStep} </p> 
+    
+            <form onSubmit={this.handleSubmit}>
+            {/* 
+            render the form steps and pass required props in
+            */}
+            <Step1 
+                currentStep={this.state.currentStep} 
+                handleChange={this.handleChange}
+                email={this.state.email}
+            />
+            <Step2 
+                currentStep={this.state.currentStep} 
+                handleChange={this.handleChange}
+                username={this.state.username}
+            />
+            <Step3 
+                currentStep={this.state.currentStep} 
+                handleChange={this.handleChange}
+                password={this.state.password}
+            />
+            {this.previousButton()}
+            {this.nextButton()}
+            </form>
+        </div>
         </React.Fragment>
     );
   }
