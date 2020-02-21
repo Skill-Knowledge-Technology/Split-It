@@ -1,10 +1,8 @@
 'use strict';
 
-var Sequelize = require('sequelize');
-
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert('Users', [
+  up: (queryInterface, Sequelize) => {
+     return queryInterface.bulkInsert('users', [
             {
                 name: "User 1",
                 email: "user1@mail.com",
@@ -29,17 +27,17 @@ module.exports = {
         ], { timestamps: true })
     },
 
-    down: (queryInterface, Sequelize) => {
-        queryInterface.bulkDelete('Users', [
-            {
-                name: "User 1"
-            },
-            {
-                name: "User 2"
-            },
-            {
-                name: "User 3"
-            }
-        ])
-    }
-}; 
+  down: (queryInterface, Sequelize) => {
+     queryInterface.bulkDelete('Users', [
+      {
+          name: "User 1"
+      },
+      {
+          name: "User 2"
+      },
+      {
+          name: "User 3"
+      }
+    ])
+  }
+};

@@ -1,5 +1,4 @@
+const userServices = require('../services/users');
 
 
-// Controllers take the request object, pull out data from request, validate, then send to service(s) 
-
-// in this case, this is the controller for users
+/* need to work on login , register and finding a user */

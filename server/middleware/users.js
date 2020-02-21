@@ -1,4 +1,22 @@
 
+const userServices = require('../services/users');
+const bcrypt = require('bcryptjs');
+
+const expressValidator = {
+  attachDecodedToken: async (value, {req}) => {
+    const splitted = value.split(' ');
+    if (splitted.length !== 2) {
+      throw new Error('Malformed authorization header');
+    }
+    if (splitted[0].toLowerCase() !== 'bearer') {
+      throw new Error('Incorrect authorization type (Must be Bearer)');
+    }
+    // This returns the same payload that userServices.getJwtToken accepts
+    const decoded = await userServices.verifyJwtToken(splitted[1]);
+    req.jwtDecoded = decoded;
+    return true;
+  },
+}
 
 /*
 Middleware literally means anything you put in the middle of one layer of the software and another.
@@ -11,3 +29,7 @@ Middleware literally means anything you put in the middle of one layer of the so
 
   REFERENCE: https://developer.okta.com/blog/2018/09/13/build-and-understand-express-middleware-through-examples
 */
+
+module.exports = {
+  expressValidator
+}
