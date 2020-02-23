@@ -14,7 +14,10 @@ function Home(props) {
             <div class="card-content">
               <p>TEXT.</p>
             </div> */}
-            <a className="waves-effect waves-light btn-large" href="UserInput"> Manual Input <i className="material-icons right">computer</i> </a>
+            <a className="waves-effect waves-light btn-large" href="UserInput"> 
+            Manual Input 
+            <i className="material-icons right">computer</i>
+            </a>
           </div>
         </div>
         <div className="col s12 m6 l6">
@@ -26,7 +29,10 @@ function Home(props) {
             <div class="card-content">
               <p>TEXT.</p>
             </div> */}
-            <a className="waves-effect waves-light btn-large" href="Camera"> Camera <i className="material-icons right">photo_camera</i> </a>
+            <a className="waves-effect waves-light btn-large" href="Camera">
+            Camera
+            <i className="material-icons right">photo_camera</i> 
+            </a>
           </div>
         </div>
       </div>
