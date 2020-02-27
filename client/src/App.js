@@ -13,6 +13,7 @@ import UserInput from './components/UserInput/UserInput';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
+import Test from './components/Test/Test';
 
 class App extends React.Component {
   render() {
@@ -28,6 +29,7 @@ class App extends React.Component {
                 <Route path="/UserInput" component={UserInput} />
                 <Route path="/AboutUs" component={AboutUs} />
                 <Route path="/Maps" component={Maps} />
+                <Route path="/Test" component={Test} />
                 <Route path="/" component={Home} />
               </Switch>
             </div>
