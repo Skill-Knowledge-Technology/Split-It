@@ -5,8 +5,8 @@ var Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     const Transaction = sequelize.define("Transaction", {
         transactionID: {
-            type: DataTypes.UUID,
-            defaultValue: Sequelize.UUIDV4,
+            type: DataTypes.INTEGER,
+            defaultValue: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
