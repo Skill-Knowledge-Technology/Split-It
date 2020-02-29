@@ -13,15 +13,17 @@ export default class UserInput extends React.Component {
       <div className="container UserInputBox">
         <h2><u>User Input Technique</u></h2>
         <div className="row">
-          <div className="col s4 offset-s4">
+          <div className="col s5 m4 l4 offset-s0 offset-s4 offset-l4">
             <h4>Step 1:</h4>
             <p>EZ Split OR Detailed Split</p>
           </div>
-          <a className="btn-large waves-effect waves-light float-right"
-            href="Test">
-            In Testing
-            <i className="material-icons right">cached</i>
-          </a>
+          <div className="col s7 m4 l4">
+            <a className="btn waves-effect waves-light"
+              href="Test">
+              In Testing
+              <i className="material-icons right">cached</i>
+            </a>
+          </div>
         </div>
         <div className="row">
           <div className="col s6">
