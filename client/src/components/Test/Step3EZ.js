@@ -6,9 +6,14 @@ export default class Step3EZ extends React.Component {
       this.props.prevStep();
     };
 
+    save = e => {
+      e.preventDefault();
+      alert("Saved");
+    }
+
     render(){ 
       const { 
-        EzSplit: { EZpeople, EZcost, EZtotal}
+        EZSplit: { people, EZcost, EZtotal}
       } = this.props;
       return(
         <div className="row">
@@ -22,15 +27,25 @@ export default class Step3EZ extends React.Component {
                 </button>
               </div>
               <div className="card-content white-text">
-                <h4>
-                  Total People: {EZpeople}
-                  <br/>
-                  Total Cost: {EZcost}
-                  <br/>
-                  Total : {EZtotal}
-                </h4>
+                <div className = "col s12">
+                  <div className = "row">
+                    <p className = "flow-text">
+                      Total People: {people}
+                    </p>
+                  </div>
+                  <div className = "row">
+                    <p className = "flow-text">
+                      Total Cost: {EZcost}
+                    </p>
+                  </div>
+                  <div className = "row">
+                    <p className = "flow-text">
+                      Total Cost Per Person: {EZtotal}
+                    </p>
+                  </div>
+                </div>
                 <button className="btn waves-effect waves-light float-right"
-                  type="submit" name="action">
+                  type="submit" name="action" onClick = {this.save}>
                   Save
                   <i className="material-icons right">save</i>
                 </button>

@@ -10,9 +10,10 @@ export default class Test extends React.Component {
     super(props);
     this.state = {
         currentStep: 1,
-        EZpeople: '',
+        people: '',
         EZcost: '',
         EZtotal: '',
+        orders: '',
     };
   }
 
@@ -53,9 +54,11 @@ export default class Test extends React.Component {
   }
 
   render() {
-    const { currentStep } = this.state;
-    const { EZpeople, EZcost, EZtotal } = this.state;
-    const EzSplit = { EZpeople, EZcost, EZtotal }
+    const { currentStep , people } = this.state;
+    const { EZcost, EZtotal } = this.state;
+    const EZSplit = { people, EZcost, EZtotal };
+    const { orders } = this.state;
+    const DetailedSplit = { people, orders };
 
     switch (currentStep){
       case 1:
@@ -75,7 +78,7 @@ export default class Test extends React.Component {
               prevStep={this.prevStep}
               changeEZTotal={this.changeEZTotal}
               handleChange={this.handleChange}
-              EzSplit = {EzSplit}
+              EZSplit = {EZSplit}
             />
           </div>
         );
@@ -85,7 +88,7 @@ export default class Test extends React.Component {
               <Step3EZ
                 prevStep={this.prevStep}
                 handleChange={this.handleChange}
-                EzSplit = {EzSplit}
+                EZSplit = {EZSplit}
               />
             </div>
           );
@@ -96,6 +99,7 @@ export default class Test extends React.Component {
                 nextStep = {this.nextStep}
                 prevJump={this.prevJump}
                 handleChange={this.handleChange}
+                DetailedSplit = {DetailedSplit}
               />
             </div>
           );

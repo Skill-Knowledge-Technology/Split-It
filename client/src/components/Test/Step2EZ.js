@@ -3,7 +3,7 @@ import React from 'react';
 export default class Step2EZ extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.changeEZTotal(this.total(this.props.EzSplit.EZpeople,this.props.EzSplit.EZcost));
+    this.props.changeEZTotal(this.total(this.props.EZSplit.people,this.props.EZSplit.EZcost));
     this.props.nextStep();
   };
 
@@ -22,7 +22,7 @@ export default class Step2EZ extends React.Component {
   }
 
   render(){ 
-    const { EzSplit, handleChange } = this.props;
+    const { EZSplit, handleChange } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -35,32 +35,32 @@ export default class Step2EZ extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-                <form className = "col s12">
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <i className="material-icons prefix">people</i>
-                      <input type="number" min="1" placeholder="Total Number of People" className="validate"
-                       defaultValue={EzSplit.EZpeople} onChange={handleChange('EZpeople')}/>
-                      <label className="active">Total Number of People</label>
-                      <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
-                    </div>
+              <form className = "col s12">
+                <div className="row">
+                  <div className="input-field col s12">
+                    <i className="material-icons prefix">people</i>
+                    <input type="number" min="1" placeholder="Total Number of People" className="validate"
+                      defaultValue={EZSplit.people} onChange={handleChange('people')}/>
+                    <label className="active">Total Number of People</label>
+                    <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <i className="material-icons prefix">payment</i>
-                      <input type="number" min="0" step="0.01" placeholder="Total Cost" className="validate"
-                      defaultValue={EzSplit.EZcost} onChange={handleChange('EZcost')}/>
-                      <label className="active">Total Cost</label>
-                      <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
-                    </div>
+                </div>
+                <div className="row">
+                  <div className="input-field col s12">
+                    <i className="material-icons prefix">payment</i>
+                    <input type="number" min="0" step="0.01" placeholder="Total Cost" className="validate"
+                    defaultValue={EZSplit.EZcost} onChange={handleChange('EZcost')}/>
+                    <label className="active">Total Cost</label>
+                    <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
-                  <div className = "row">
-                    <div className="input-field col s12">
-                      <p>Total Cost Per Person</p> 
-                      {this.total(EzSplit.EZpeople,EzSplit.EZcost)}
-                    </div>
+                </div>
+                <div className = "row">
+                  <div className="input-field col s12">
+                    <p>Total Cost Per Person</p> 
+                    {this.total(EZSplit.people,EZSplit.EZcost)}
                   </div>
-                </form>
+                </div>
+              </form>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
