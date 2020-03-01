@@ -3,8 +3,13 @@ import React from 'react';
 export default class Step2EZ extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.changeEZTotal(this.total(this.props.EZSplit.people,this.props.EZSplit.EZcost));
-    this.props.nextStep();
+    if(this.props.EZSplit.people == '' || this.props.EZSplit.EZcost == ''){
+      alert("Please Enter a Valid Number For People or Cost To Proceed");
+    }
+    else{
+      this.props.changeEZTotal(this.total(this.props.EZSplit.people,this.props.EZSplit.EZcost));
+      this.props.nextStep();
+    }
   };
 
   back = e => {
