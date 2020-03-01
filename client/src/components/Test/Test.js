@@ -4,6 +4,11 @@ import Step1 from './Step1'
 import Step2EZ from './Step2EZ'
 import Step3EZ from './Step3EZ'
 import Step2Detailed from './Step2Detailed'
+import Step3Detailed from './Step3Detailed'
+import Step4Detailed from './Step4Detailed'
+import Step5Detailed from './Step5Detailed'
+import Step6Detailed from './Step6Detailed'
+import Step7Detailed from './Step7Detailed'
 
 export default class Test extends React.Component {
   constructor(props) {
@@ -82,28 +87,79 @@ export default class Test extends React.Component {
             />
           </div>
         );
-        case 3:
-          return(
-            <div className = "container">
-              <Step3EZ
-                prevStep={this.prevStep}
-                handleChange={this.handleChange}
-                EZSplit = {EZSplit}
-              />
-            </div>
-          );
-        case 102:
-          return(
-            <div className = "container">
-              <Step2Detailed
-                nextStep = {this.nextStep}
-                prevJump={this.prevJump}
-                handleChange={this.handleChange}
-                DetailedSplit = {DetailedSplit}
-              />
-            </div>
-          );
-
+      case 3:
+        return(
+          <div className = "container">
+            <Step3EZ
+              prevStep={this.prevStep}
+              EZSplit = {EZSplit}
+            />
+          </div>
+        );
+      case 102:
+        return(
+          <div className = "container">
+            <Step2Detailed
+              nextStep = {this.nextStep}
+              prevJump={this.prevJump}
+              handleChange={this.handleChange}
+              DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      case 103:
+        return(
+          <div className = "container">
+            <Step3Detailed
+              nextStep = {this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleChange}
+              DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      case 104:
+        return(
+          <div className = "container">
+            <Step4Detailed
+              nextStep = {this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleChange}
+              DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      case 105:
+        return(
+          <div className = "container">
+            <Step5Detailed
+              nextStep = {this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleChange}
+              DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      case 106:
+        return(
+          <div className = "container">
+            <Step6Detailed
+              nextStep = {this.nextStep}
+              prevStep={this.prevStep}
+              handleChange={this.handleChange}
+              DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      case 107:
+        return(
+          <div className = "container">
+            <Step7Detailed
+              prevStep={this.prevStep}
+              DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
     }
   }
 }
