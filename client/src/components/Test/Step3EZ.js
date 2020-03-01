@@ -7,6 +7,9 @@ export default class Step3EZ extends React.Component {
     };
 
     render(){ 
+      const { 
+        EzSplit: { EZpeople, EZcost, EZtotal}
+      } = this.props;
       return(
         <div className="row">
           <div className="col s12 m12 l12">
@@ -19,7 +22,13 @@ export default class Step3EZ extends React.Component {
                 </button>
               </div>
               <div className="card-content white-text">
-
+                <h4>
+                  Total People: {EZpeople}
+                  <br/>
+                  Total Cost: {EZcost}
+                  <br/>
+                  Total : {EZtotal}
+                </h4>
                 <button className="btn waves-effect waves-light float-right"
                   type="submit" name="action">
                   Save
