@@ -19,10 +19,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(10,2),
             allowNull: false
         },
-        totalPaid: {
-            type: DataTypes.BOOLEAN,
-            allowNull:false
-        }
     })
 
     Transaction.associate = function(models) {

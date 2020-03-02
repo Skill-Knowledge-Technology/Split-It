@@ -20,10 +20,6 @@ module.exports = {
         type: Sequelize.DataTypes.DECIMAL(10,2),
         allowNull: false
     },
-    totalPaid: {
-        type: Sequelize.DataTypes.BOOLEAN,
-        allowNull: false
-    }
     });
   },
   down: (queryInterface, Sequelize) => {
