@@ -33,7 +33,7 @@ if(process.env.NODE_ENV==='production') {
 db.sequelize.sync({ force: false });
 
 // Test the connection
-/*
+
 db.sequelize
   .authenticate()
   .then(() => {
@@ -42,6 +42,6 @@ db.sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-*/
+  
 // start up the server
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
