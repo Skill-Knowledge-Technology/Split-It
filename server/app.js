@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
+var passport = require('passport');
 const db = require('./models');
 const app = express();
 const apiRoutes = require('./routes/api/index');
@@ -27,6 +29,13 @@ if(process.env.NODE_ENV==='production') {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });
 }
+
+// // required for passport
+// app.use(session({ secret: 'sessionsecret' })); // session secret
+// app.use(passport.initialize());
+// app.use(passport.session()); // persistent login sessions
+
+
 
 // update DB tables based on model updates. Does not handle renaming tables/columns
 // NOTE: toggling this to true drops all tables (including data)
