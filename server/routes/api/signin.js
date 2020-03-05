@@ -9,8 +9,8 @@ const User = require("../../models/User");
 
 router.post('/signup', (req, res, next) => {
     const {body} = req;
-    const {password} = body;
-    let {email} = body;
+    const {password} = body.password;
+    let {email} = body.email;
 
     // check that email is non-empty
     if (!email) {
