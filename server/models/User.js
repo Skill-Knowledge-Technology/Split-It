@@ -1,6 +1,7 @@
 'use strict';
 
 var Sequelize = require('sequelize');
+// bcrypt being used to hash & compare passwords
 var bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
