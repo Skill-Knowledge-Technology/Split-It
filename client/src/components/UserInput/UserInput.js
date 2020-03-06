@@ -41,7 +41,16 @@ export default class UserInput extends React.Component {
             <p>-Calculate by Cost/People -> Cost Per Person</p>
           </div>
           <div className="col s6">
-            <h4>Step 3 [Detailed Split]:</h4>
+          <h4>Step 3 [Detailed Split]:</h4>
+            <p>-Names of People</p>
+            <p>Ex: Steve and Josh</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s6">
+          </div>
+          <div className="col s6">
+            <h4>Step 4 [Detailed Split]:</h4>
             <p>-2 Column List<br/>-Items Name<br/>-Price</p>
             <p>-Displays Total and Allows Input of Tax</p>
             <p>Ex: Steak = $10 + $2 Tax</p>
@@ -54,15 +63,6 @@ export default class UserInput extends React.Component {
             <p>Total = $14 </p>
             <p>Tax = $3 </p>
             <p>System Will Calcuate %Tax Using That and Assign to Each Item Appropriatly</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-          </div>
-          <div className="col s6">
-            <h4>Step 4 [Detailed Split]:</h4>
-            <p>-Names of People</p>
-            <p>Ex: Steve and Josh</p>
           </div>
         </div>
         <div className="row">
