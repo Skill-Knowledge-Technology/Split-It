@@ -26,7 +26,34 @@ export default class Step4Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <h1>Detailed: Step 4</h1>
+            <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DetailedSplit.orderNumbers.map(index => (
+                    <tr key = {index}>
+                      <td>
+                        {index}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Order"/>
+                        </form>
+                      </td> 
+                      <td>
+                        <form>
+                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"/>                        </form>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next

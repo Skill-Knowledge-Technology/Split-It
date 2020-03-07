@@ -20,6 +20,7 @@ export default class Test extends React.Component {
         EZtotal: '',
         orders: '',
         names: [],
+        orderNumbers: [],
         listNames: [],
         listOrders: [],
         listCost: [],
@@ -64,28 +65,28 @@ export default class Test extends React.Component {
 
   changePeopleOrder = (people,orders) => {
     this.setState({ names: [] });
+    this.setState({ orderNumbers: [] });
     this.setState({ listOrders: [] });
     this.setState({ listCost: [] });
     var i;
     var temp = [];
     for(i = 0; i < people; i++){
-        temp.push(`Persons ${i+1}`);
+        temp.push(`Person ${i+1}`);
     }
     this.setState({names: temp});
     temp = [];
     for(i = 0; i < orders; i++){
-        temp.push('');
+      temp.push(`Order #${i+1}`);
     }
-    this.setState({listOrders: temp});
-    this.setState({listCost: temp});
+    this.setState({orderNumbers: temp});
   }
 
   render() {
     const { currentStep , people } = this.state;
     const { EZcost, EZtotal } = this.state;
     const EZSplit = { people, EZcost, EZtotal };
-    const { orders, names, listNames } = this.state;
-    const DetailedSplit = { people, orders, names, listNames };
+    const { orders, names, orderNumbers, listNames } = this.state;
+    const DetailedSplit = { people, orders, names, orderNumbers, listNames };
 
     switch (currentStep){
       case 1:
