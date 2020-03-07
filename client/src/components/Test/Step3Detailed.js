@@ -34,9 +34,15 @@ export default class Step3Detailed extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  
+
                 </tbody>
               </table>
+              <ul>
+                {DetailedSplit.names.map(index => (
+                  <li key = {index}> {index} 
+                  </li>
+                ))}
+              </ul>
               <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
