@@ -17,6 +17,8 @@ const getUserById = (req, res, next) => {
 Login
 Register
 */
+
+/*
 const signupUser = (req, res, next) => {
     const { body } = req;
     const { password } = body.password;
@@ -44,14 +46,43 @@ const signupUser = (req, res, next) => {
 
 
     // first check that email entered does not already exist, then save user if it is new
-    
+    UserServices.findUserByEmail({
+        email: email
+    }, (err, exisingUser) => {
+        if (err) {
+            return res.send({
+                success: false,
+                message: "Error. Server Error"
+            });
+        }
+        else if (exisingUser.length > 0) {
+            return res.send({
+                success: false,
+                message: "An account with that email already exists."
+            });
+        }
 
+        // Save new user
+        // const newUser = UserServices.createUser()
+    });
+
+};
+*/
+
+const register = async (req,res, next) => {
+    const {name, email, password} = req.body
+    try {
+        const hashedPassword = await UserServices.generateHash(password)
+        const user = {name, email, password: hashedPassword}
+        const createUser = UserServices.createUser(user)
+        res.json(createUser)
+        console.log("user register working")
+    } catch(err) {
+        return res.status(422).json(error)
+    }
 }
-
-
-
 
 module.exports = {
     getUserById,
-    signupUser
+    register
 }

@@ -7,7 +7,7 @@ const validatorErrors = require('../../middleware/validatorErrors');
 
 /* get a User */
 router.get(':/userId', [validatorErrors], userController.getUserById);
-router.post(':/signup', userController.signupUser);
+router.post(':/register', [validatorErrors], userController.register);
 
 
 module.exports = router;

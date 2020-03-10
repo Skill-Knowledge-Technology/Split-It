@@ -26,20 +26,24 @@ const createUser = async (data) => {
     })
     return newUser
 }
+
+
 // function to generate a hash of the password asynchronously with 8 rounds
 const generateHash = async (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
 };
 
 // function to compare password when signing in
-const validPassword = async (password) => {
-    return bcrypt.compareSync(password, this.password);
-};
+// const validPassword = async (password) => {
+//     return bcrypt.compareSync(password, this.password);
+// };
 
 module.exports = {
     findUserByEmail,
     findUser,
     createUser,
     generateHash,
-    validPassword
+    // validPassword
 }
