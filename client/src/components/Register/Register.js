@@ -9,20 +9,34 @@ export default class Register extends Component {
         email: "",
         password:"",
         password2: "",
-        error: ""
       };
     }
 
     // Handle field change
-    handleChange = e => {
-      this.setState({[e.target.id]: e.target.value})
-    }
+    handleChange = input => e => {
+      this.setState({ [input]: e.target.value });
+    };
+
     // eventually api call to call the backend 
     handleSubmit = e => {
-      e.preventDefault()
-      const { name, email, password, password2} = this.state
-      this.setState({ name, email, password, password2})
-      console.log(this.state)
+      e.preventDefault();
+      const { name, email, password, password2 } = this.state;
+      if (name == ''){
+        alert("Please Enter a Username");
+      }
+      else if (email == ''){
+        alert("Please Enter a Correct Email");
+      }
+      else if (password == ''){
+        alert("Please Enter a Password");
+      }
+      else if (password != password2){
+        alert("Your Password and Confirmation Password Do Not Match.");
+      }
+      else{
+        // Insert Backend Here.
+        console.log(this.state);
+      }
     }
   
     render() {
@@ -33,34 +47,34 @@ export default class Register extends Component {
             <div className="row">
               <div className="input-field col s12">
                 <i className="material-icons prefix">account_circle</i>
-                <input placeholder="Enter Name" id="first_name" type="text" className="validate" onChange={this.handleChange}/>
-                <label for="first_name">Name</label>
+                <input placeholder="Enter Name" id="first_name" type="text" onChange={this.handleChange('name')}/>
+                <label>Username</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
                 <i className="material-icons prefix">email</i>
-                <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange}/>
-                <label for="email">Email</label>
-                <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span>
+                <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange('email')}/>
+                <label>Email</label>
+                <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange('error')}>Please Enter a Valid Email</span>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
                 <i className="material-icons prefix">lock</i>
-                <input id="password" type="password" placeholder="Enter Password" className="validate" onChange={this.handleChange}/>
-                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Enter Password" onChange={this.handleChange('password')}/>
+                <label>Password</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
                 <i className="material-icons prefix">lock</i>
-                <input id="password" type="password" placeholder="Reenter Password" className="validate" onChange={this.handleChange}/>
-                <label for="password">Confirm Password</label>
+                <input type="password" placeholder="Reenter Password" onChange={this.handleChange('password2')}/>
+                <label>Confirm Password</label>
               </div>
             </div>
           </form>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Sign Up<i class="material-icons right">send</i></button>
+          <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleSubmit}>Sign Up<i className="material-icons right">send</i></button>
         </div>
       );
     }
