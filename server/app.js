@@ -9,9 +9,6 @@ const db = require('./models');
 
 const app = express();
 const apiRoutes = require('./routes/api/index');
-const userRoutes = require('./routes/api/users');
-const signupRoutes = require('./routes/api/signup');
-
 
 const PORT = process.env.PORT || 8080;
 
@@ -25,8 +22,6 @@ app.use(morgan(logFormat));
 
 // Routes
 app.use('/api', apiRoutes);
-app.use('/users', userRoutes);
-app.use('/signup', signupRoutes);
 
 // for production use, we serve the static react build folder
 if(process.env.NODE_ENV==='production') {

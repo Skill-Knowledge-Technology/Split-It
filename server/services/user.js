@@ -2,9 +2,11 @@
 // in this case we will be querying data from the user 
 
 const db = require("../models")
+// bcrypt being used to hash & compare passwords
+var bcrypt = require('bcrypt');
 
 const findUserByEmail = async (email) => {
-    const User = await db.User.findOne({ where: {email: email }})
+    const User = await db.User.findOne({ where: { email: email } })
     return User
 }
 
@@ -12,8 +14,8 @@ const findUserByEmail = async (email) => {
 const findUser = async (id) => {
     const User = await db.User.findByPk(id)
     console.log(User + 'Hello world')
-    return User 
-} 
+    return User
+}
 
 
 const createUser = async (data) => {
@@ -24,9 +26,20 @@ const createUser = async (data) => {
     })
     return newUser
 }
+// function to generate a hash of the password asynchronously with 8 rounds
+const generateHash = async (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// function to compare password when signing in
+const validPassword = async (password) => {
+    return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = {
     findUserByEmail,
     findUser,
-    createUser
+    createUser,
+    generateHash,
+    validPassword
 }

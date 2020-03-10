@@ -1,8 +1,6 @@
 'use strict';
 
 var Sequelize = require('sequelize');
-// bcrypt being used to hash & compare passwords
-var bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -36,16 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.Transaction, {
             as: 'transactions'
         });
-    };
-
-    // function to generate a hash of the password asynchronously with 8 rounds
-    User.generateHash = function(password) {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-    };
-
-    // function to compare password when signing in
-    User.validPassword = function(password) {
-        return bcrypt.compareSync(password, this.password);
     };
 
     return User;
