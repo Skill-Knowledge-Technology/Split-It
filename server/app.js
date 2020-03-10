@@ -8,7 +8,7 @@ var passport = require('passport');
 const db = require('./models');
 
 const app = express();
-const apiRoutes = require('./routes/api/index');
+const apiRoutes = require('./routes/index');
 
 const PORT = process.env.PORT || 8080;
 
@@ -21,7 +21,7 @@ const logFormat = process.env.NODE_ENV==='production' ? 'combined' : 'dev';
 app.use(morgan(logFormat));
 
 // Routes
-app.use('/api', apiRoutes);
+app.use(apiRoutes);
 
 // for production use, we serve the static react build folder
 if(process.env.NODE_ENV==='production') {
