@@ -6,7 +6,8 @@ const {check, param, header} = require('express-validator');
 const validatorErrors = require('../../middleware/validatorErrors');
 
 /* get a User */
-router.get(':/userId', [validatorErrors], userController.getUserById)
+router.get(':/userId', [validatorErrors], userController.getUserById);
+router.post(':/signup', userController.signupUser);
 
 
 module.exports = router;
