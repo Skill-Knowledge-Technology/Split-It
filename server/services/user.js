@@ -19,13 +19,13 @@ const findUser = async (id) => {
 
 
 const createUser = async (data) => {
-    const newUser = await db.User.create({
-        name: data.name,
-        email: data.email,
-        password: data.password
-    })
+    // const newUser = await db.User.create({
+    //     name: data.name,
+    //     email: data.email,
+    //     password: data.password
+    // })
     console.log("service has created a User");
-    return newUser
+    // return newUser
 }
 
 
