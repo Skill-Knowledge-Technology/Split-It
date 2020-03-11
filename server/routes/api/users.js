@@ -22,7 +22,7 @@ router.route("/:id")
     });
 
 router.route("/register")
-    .get(function (req, res) {
+    .post(function (req, res) {
         res.send("hit api/users/register route");
     });
 
