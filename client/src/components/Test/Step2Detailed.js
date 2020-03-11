@@ -3,7 +3,7 @@ import React from 'react';
 export default class Step2Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    if(this.props.DetailedSplit.people == '' || this.props.DetailedSplit.orders == ''){
+    if(this.props.DetailedSplit.people <= 0 || this.props.DetailedSplit.orders <= ''){
       alert("Please Enter a Valid Number For People or Order");
     }
     else{
