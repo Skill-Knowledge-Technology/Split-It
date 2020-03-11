@@ -13,7 +13,7 @@ const findUserByEmail = async (email) => {
 
 const findUser = async (id) => {
     const User = await db.User.findByPk(id)
-    console.log(User + 'Hello world')
+    console.log(User + ' has been found by service')
     return User
 }
 
@@ -24,6 +24,7 @@ const createUser = async (data) => {
         email: data.email,
         password: data.password
     })
+    console.log("service has created a User");
     return newUser
 }
 

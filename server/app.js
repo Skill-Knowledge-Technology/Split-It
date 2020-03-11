@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 8080;
 
 
 // this lets us parse 'application/json' content in http requests
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
+// app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // add http request logging to help us debug and audit app use
 const logFormat = process.env.NODE_ENV==='production' ? 'combined' : 'dev';

@@ -16,15 +16,16 @@ router.route("/")
     });
 
 router.route("/:id")
-    // .get(userController.getUserById);
-    .get(function (req,res) {
-        res.send("hit api/users/id route");
-    });
+    .get(userController.getUserById);
+    // .get(function (req,res) {
+    //     res.send("hit api/users/id route");
+    // });
 
 router.route("/register")
-    .post(function (req, res) {
-        res.send("hit api/users/register route");
-    });
+    .post(userController.register);
+    // .post(function (req, res) {
+    //     res.send("hit api/users/register route");
+    // });
 
 
 module.exports = router;

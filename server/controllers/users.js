@@ -7,7 +7,7 @@ const UserServices = require("../services/user")
 const getUserById = (req, res, next) => {
     return UserServices.findUser(req.params.userId)
         .then((user) => {
-            console.log(user, 'has reached the terminal')
+            console.log(user, 'has been found')
             res.json(user)
         })
         .catch(error => res.status(422).json(error))
@@ -69,16 +69,22 @@ const signupUser = (req, res, next) => {
 };
 */
 
-const register = async (req,res, next) => {
-    const {name, email, password} = req.body
+const register = async (req, res) => {
+    // const {name, email, password} = req.body
+    // console.log(req.body);
+    let name = req.body.name;
+    let email = req.body.email;
+    let password = req.body.password;
+    // console.log(name + " " + email + " " + password + " have been sent to controller");
     try {
         const hashedPassword = await UserServices.generateHash(password)
+        console.log("hashed password is " + hashedPassword);
         const user = {name, email, password: hashedPassword}
         const createUser = UserServices.createUser(user)
         res.json(createUser)
-        console.log("user register working")
+        console.log("user register working - new user " + user.name + " created");
     } catch(err) {
-        return res.status(422).json(error)
+        return res.status(422).json(err)
     }
 }
 
