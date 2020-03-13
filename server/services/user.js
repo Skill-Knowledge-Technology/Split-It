@@ -24,7 +24,7 @@ const createUser = async (data) => {
         email: data.email,
         password: data.password
     });
-    console.log("service has created a User " + newUser);
+    console.log("service has created a User " + newUser.name);
     return newUser;
     // console.log(data.name + " " + data.email + " " + data.password + " - read from createUser function");
     // console.log("createUser function invoked");

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     const Transaction = sequelize.define("Transaction", {
         transactionID: {
             type: DataTypes.INTEGER,
-            defaultValue: Sequelize.INTEGER,
+            // defaultValue: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
