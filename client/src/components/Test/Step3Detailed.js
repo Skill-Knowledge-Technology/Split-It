@@ -26,7 +26,29 @@ export default class Step3Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <h1>Detailed: Step 3</h1>
+              <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Number of People</th>
+                    <th>Names</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DetailedSplit.names.map(index => (
+                    <tr key = {index}>
+                      <td>
+                        {index}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Name"/>
+                        </form>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
