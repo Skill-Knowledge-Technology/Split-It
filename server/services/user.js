@@ -12,20 +12,22 @@ const findUserByEmail = async (email) => {
 
 
 const findUser = async (id) => {
-    const User = await db.User.findByPk(id)
-    console.log(User + ' has been found by service')
-    return User
+    const User = await db.User.findByPk(id);
+    console.log(User + ' has been found by service');
+    return User;
 }
 
 
 const createUser = async (data) => {
-    // const newUser = await db.User.create({
-    //     name: data.name,
-    //     email: data.email,
-    //     password: data.password
-    // })
-    console.log("service has created a User");
-    // return newUser
+    const newUser = await db.User.create({
+        name: data.name,
+        email: data.email,
+        password: data.password
+    });
+    console.log("service has created a User " + newUser);
+    return newUser;
+    // console.log(data.name + " " + data.email + " " + data.password + " - read from createUser function");
+    // console.log("createUser function invoked");
 }
 
 

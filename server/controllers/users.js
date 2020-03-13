@@ -82,7 +82,7 @@ const register = async (req, res) => {
         const user = {name, email, password: hashedPassword}
         const createUser = UserServices.createUser(user)
         res.json(createUser)
-        console.log("user register working - new user " + user.name + " created");
+        console.log("user register working - new user " + user.name + "being created");
     } catch(err) {
         return res.status(422).json(err)
     }
