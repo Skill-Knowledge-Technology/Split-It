@@ -15,6 +15,7 @@ const users = require('./users');
 
   router.use('/users', users);
 
+  // ../api/
   router.route("/")
     .get(function (req, res) {
         res.send("hit main api route");
