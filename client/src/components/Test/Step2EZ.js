@@ -3,7 +3,7 @@ import React from 'react';
 export default class Step2EZ extends React.Component {
   next = e => {
     e.preventDefault();
-    if(this.props.EZSplit.people == '' || this.props.EZSplit.EZcost == ''){
+    if(this.props.EZSplit.people <= 0 || this.props.EZSplit.EZcost < 0){
       alert("Please Enter a Valid Number For People or Cost To Proceed");
     }
     else{

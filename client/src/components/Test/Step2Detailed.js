@@ -3,9 +3,14 @@ import React from 'react';
 export default class Step2Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.nextStep();
+    if(this.props.DetailedSplit.people <= 0 || this.props.DetailedSplit.orders <= ''){
+      alert("Please Enter a Valid Number For People or Order");
+    }
+    else{
+      this.props.changePeopleOrder(this.props.DetailedSplit.people, this.props.DetailedSplit.orders);
+      this.props.nextStep();
+    }
   };
-
 
   back = e => {
     e.preventDefault();
