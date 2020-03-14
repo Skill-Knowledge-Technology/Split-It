@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import M from 'materialize-css'
 
 export default class Step5Detailed extends React.Component {

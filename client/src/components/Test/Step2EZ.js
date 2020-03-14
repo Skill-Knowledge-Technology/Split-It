@@ -20,7 +20,7 @@ export default class Step2EZ extends React.Component {
   total(totalPeople,cost){
     var total = cost/totalPeople; // Total
     total = Math.ceil(total * 100) / 100; // Round Up
-    if (total === "Infinity" || isNaN(total)){ // Checks for Fail
+    if (total === Infinity || isNaN(total)){ // Checks for Fail
       return("Invalid Inputs");
     }
     return('$ ' + total);

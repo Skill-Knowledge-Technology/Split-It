@@ -9,6 +9,7 @@ import Step4Detailed from './Step4Detailed'
 import Step5Detailed from './Step5Detailed'
 import Step6Detailed from './Step6Detailed'
 import Step7Detailed from './Step7Detailed'
+import WrongPage from './WrongPage'
 
 export default class Test extends React.Component {
   constructor(props) {
@@ -23,6 +24,12 @@ export default class Test extends React.Component {
         orders: [],
     };
   }
+
+  wrongStep = () => {
+    this.setState({
+      currentStep: 1
+    });
+  };
 
   nextStep = () => {
     const { currentStep } = this.state;
@@ -195,6 +202,14 @@ export default class Test extends React.Component {
             <Step7Detailed
               prevStep={this.prevStep}
               DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      default:
+        return(
+          <div className = "container">
+            <WrongPage
+              wrongStep = {this.wrongStep}
             />
           </div>
         );
