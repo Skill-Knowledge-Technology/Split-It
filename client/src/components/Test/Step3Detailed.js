@@ -6,7 +6,6 @@ export default class Step3Detailed extends React.Component {
     this.props.nextStep();
   };
 
-
   back = e => {
     e.preventDefault();
     this.props.prevStep();

@@ -77,13 +77,21 @@ export default class Test extends React.Component {
   }
 
   changeNames = (index) => e => {
-    var replacement = this.state.names.slice();
-    replacement[index] = {number: `Person ${index+1}`, name: e.target.value};
-    this.setState({names: replacement});
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
   }
 
-  changeOrders = () => {
+  changeOrders = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].order = e.target.value;
+    this.setState(newState);
+  }
 
+  changeCost = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].cost = e.target.value;
+    this.setState(newState);
   }
 
   render() {
@@ -154,6 +162,7 @@ export default class Test extends React.Component {
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
               changeOrders={this.changeOrders}
+              changeCost={this.changeCost}
               DetailedSplit = {DetailedSplit}
             />
           </div>
