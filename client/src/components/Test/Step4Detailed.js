@@ -13,7 +13,7 @@ export default class Step4Detailed extends React.Component {
   };
 
   render(){ 
-    const { DetailedSplit, handleChange } = this.props;
+    const { DetailedSplit, changeOrders } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -35,10 +35,10 @@ export default class Step4Detailed extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.orders.map(index => (
-                    <tr key = {index.number}>
+                  {DetailedSplit.orders.map((list, index) => (
+                    <tr key = {index}>
                       <td>
-                        {index.number}
+                        {list.number}
                       </td>
                       <td>
                         <form>

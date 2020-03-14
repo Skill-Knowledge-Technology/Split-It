@@ -66,7 +66,7 @@ export default class Test extends React.Component {
     var i;
     var temp = [];
     for(i = 0; i < totalPeople; i++){
-        temp.push({number: `Person ${i+1}`, user: ""});
+        temp.push({number: `Person ${i+1}`, name: ''});
     }
     this.setState({names: temp});
     temp = [];
@@ -74,6 +74,16 @@ export default class Test extends React.Component {
       temp.push({number: `Order #${i+1}`, order: '', cost: ''});
     }
     this.setState({orders: temp});
+  }
+
+  changeNames = (index) => e => {
+    var replacement = this.state.names.slice();
+    replacement[index] = {number: `Person ${index+1}`, name: e.target.value};
+    this.setState({names: replacement});
+  }
+
+  changeOrders = () => {
+
   }
 
   render() {
@@ -132,7 +142,7 @@ export default class Test extends React.Component {
             <Step3Detailed
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
-              handleChange={this.handleChange}
+              changeNames={this.changeNames}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -143,7 +153,7 @@ export default class Test extends React.Component {
             <Step4Detailed
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
-              handleChange={this.handleChange}
+              changeOrders={this.changeOrders}
               DetailedSplit = {DetailedSplit}
             />
           </div>
