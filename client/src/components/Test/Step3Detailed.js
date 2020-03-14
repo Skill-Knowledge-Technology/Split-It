@@ -35,9 +35,9 @@ export default class Step3Detailed extends React.Component {
                 </thead>
                 <tbody>
                   {DetailedSplit.names.map(index => (
-                    <tr key = {index}>
+                    <tr key = {index.number}>
                       <td>
-                        {index}
+                        {index.number}
                       </td>
                       <td>
                         <form>

@@ -3,11 +3,11 @@ import React from 'react';
 export default class Step2EZ extends React.Component {
   next = e => {
     e.preventDefault();
-    if(this.props.EZSplit.people <= 0 || this.props.EZSplit.EZcost < 0){
+    if(this.props.EZSplit.totalPeople <= 0 || this.props.EZSplit.EZcost < 0){
       alert("Please Enter a Valid Number For People or Cost To Proceed");
     }
     else{
-      this.props.changeEZTotal(this.total(this.props.EZSplit.people,this.props.EZSplit.EZcost));
+      this.props.changeEZTotal(this.total(this.props.EZSplit.totalPeople,this.props.EZSplit.EZcost));
       this.props.nextStep();
     }
   };
@@ -17,8 +17,8 @@ export default class Step2EZ extends React.Component {
     this.props.prevStep();
   };
 
-  total(people,cost){
-    var total = cost/people; // Total
+  total(totalPeople,cost){
+    var total = cost/totalPeople; // Total
     total = Math.ceil(total * 100) / 100; // Round Up
     if (total == "Infinity" || isNaN(total)){ // Checks for Fail
       return("Invalid Inputs");
@@ -45,7 +45,7 @@ export default class Step2EZ extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">people</i>
                     <input type="number" min="1" placeholder="Total Number of People" className="validate"
-                      defaultValue={EZSplit.people} onChange={handleChange('people')}/>
+                      defaultValue={EZSplit.totalPeople} onChange={handleChange('totalPeople')}/>
                     <label className="active">Total Number of People</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
@@ -62,7 +62,7 @@ export default class Step2EZ extends React.Component {
                 <div className = "row">
                   <div className="input-field col s12">
                     <p>Total Cost Per Person</p> 
-                    {this.total(EZSplit.people,EZSplit.EZcost)}
+                    {this.total(EZSplit.totalPeople,EZSplit.EZcost)}
                   </div>
                 </div>
               </form>

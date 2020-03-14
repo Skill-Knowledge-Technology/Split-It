@@ -35,10 +35,10 @@ export default class Step4Detailed extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.orderNumbers.map(index => (
-                    <tr key = {index}>
+                  {DetailedSplit.orders.map(index => (
+                    <tr key = {index.number}>
                       <td>
-                        {index}
+                        {index.number}
                       </td>
                       <td>
                         <form>

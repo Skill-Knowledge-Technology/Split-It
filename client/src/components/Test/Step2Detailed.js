@@ -3,11 +3,11 @@ import React from 'react';
 export default class Step2Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    if(this.props.DetailedSplit.people <= 0 || this.props.DetailedSplit.orders <= ''){
+    if(this.props.DetailedSplit.totalPeople <= 0 || this.props.DetailedSplit.totalOrders <= ''){
       alert("Please Enter a Valid Number For People or Order");
     }
     else{
-      this.props.changePeopleOrder(this.props.DetailedSplit.people, this.props.DetailedSplit.orders);
+      this.props.changePeopleOrder(this.props.DetailedSplit.totalPeople, this.props.DetailedSplit.totalOrders);
       this.props.nextStep();
     }
   };
@@ -36,7 +36,7 @@ export default class Step2Detailed extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">people</i>
                     <input type="number" min="1" placeholder="Total Number of People" className="validate"
-                    defaultValue={DetailedSplit.people} onChange={handleChange('people')} />
+                    defaultValue={DetailedSplit.totalPeople} onChange={handleChange('totalPeople')} />
                     <label className="active">Total Number of People</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
@@ -45,7 +45,7 @@ export default class Step2Detailed extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">restaurant_menu</i>
                     <input type="number" min="1" placeholder="Total Orders" className="validate"
-                    defaultValue={DetailedSplit.orders} onChange={handleChange('orders')}/>
+                    defaultValue={DetailedSplit.totalOrders} onChange={handleChange('totalOrders')}/>
                     <label className="active">Total Orders</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>

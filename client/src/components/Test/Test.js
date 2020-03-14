@@ -15,15 +15,12 @@ export default class Test extends React.Component {
     super(props);
     this.state = {
         currentStep: 1,
-        people: '',
+        totalPeople: '',
         EZcost: '',
         EZtotal: '',
-        orders: '',
+        totalOrders: '',
         names: [],
-        orderNumbers: [],
-        listNames: [],
-        listOrders: [],
-        listCost: [],
+        orders: [],
     };
   }
 
@@ -63,30 +60,28 @@ export default class Test extends React.Component {
     this.setState({EZtotal: newTotal});
   }
 
-  changePeopleOrder = (people,orders) => {
+  changePeopleOrder = (totalPeople,totalOrders) => {
     this.setState({ names: [] });
     this.setState({ orderNumbers: [] });
-    this.setState({ listOrders: [] });
-    this.setState({ listCost: [] });
     var i;
     var temp = [];
-    for(i = 0; i < people; i++){
-        temp.push(`Person ${i+1}`);
+    for(i = 0; i < totalPeople; i++){
+        temp.push({number: `Person ${i+1}`, user: ""});
     }
     this.setState({names: temp});
     temp = [];
-    for(i = 0; i < orders; i++){
-      temp.push(`Order #${i+1}`);
+    for(i = 0; i < totalOrders; i++){
+      temp.push({number: `Order #${i+1}`, order: '', cost: ''});
     }
-    this.setState({orderNumbers: temp});
+    this.setState({orders: temp});
   }
 
   render() {
-    const { currentStep , people } = this.state;
+    const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
-    const EZSplit = { people, EZcost, EZtotal };
-    const { orders, names, orderNumbers, listNames } = this.state;
-    const DetailedSplit = { people, orders, names, orderNumbers, listNames };
+    const EZSplit = { totalPeople, EZcost, EZtotal };
+    const { totalOrders, names, orders} = this.state;
+    const DetailedSplit = { totalPeople, totalOrders, names, orders};
 
     switch (currentStep){
       case 1:
