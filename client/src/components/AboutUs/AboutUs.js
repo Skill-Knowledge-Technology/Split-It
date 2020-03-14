@@ -2,10 +2,6 @@ import React from 'react';
 import './AboutUs.css'
 
 export default class AboutUs extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
         <div className="container AboutUsBox">
@@ -44,10 +40,10 @@ export default class AboutUs extends React.Component {
                 <div className = "col s12 md8 l8">
                   <span class= "black-text">
                     <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in/kevinchen07cd/" target="_blank">https://www.linkedin.com/in/kevinchen07cd/</a>
+                    <a href="https://www.linkedin.com/in/kevinchen07cd/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/kevinchen07cd/</a>
                     <br/>
                     <h4><u>GitHub:</u></h4>
-                    <a href="https://github.com/ChibiKev" target="_blank">https://github.com/ChibiKev</a>
+                    <a href="https://github.com/ChibiKev" rel="noopener noreferrer" target="_blank">https://github.com/ChibiKev</a>
                     </span>
                 </div>
             </div>
@@ -60,10 +56,10 @@ export default class AboutUs extends React.Component {
                 </div>
                 <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in/jacky-liu97/" target="_blank">https://www.linkedin.com/in/jacky-liu97/</a>
+                    <a href="https://www.linkedin.com/in/jacky-liu97/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/jacky-liu97/</a>
                     <br/>
                     <h4><u>GitHub:</u></h4>
-                    <a href="https://github.com/JackyLiu97" target="_blank">https://github.com/JackyLiu97</a>
+                    <a href="https://github.com/JackyLiu97" rel="noopener noreferrer" target="_blank">https://github.com/JackyLiu97</a>
                 </div>
             </div>
             <hr/>
@@ -75,10 +71,10 @@ export default class AboutUs extends React.Component {
                 </div>
                 <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in/christian-suleiman/" target="_blank">https://www.linkedin.com/in/christian-suleiman/</a>
+                    <a href="https://www.linkedin.com/in/christian-suleiman/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/christian-suleiman/</a>
                     <br/>
                     <h4><u>GitHub:</u></h4>
-                    <a href="https://github.com/Cristo12345" target="_blank">https://github.com/Cristo12345</a>
+                    <a href="https://github.com/Cristo12345" rel="noopener noreferrer" target="_blank">https://github.com/Cristo12345</a>
                 </div>
             </div>
             <hr/>
@@ -90,10 +86,10 @@ export default class AboutUs extends React.Component {
                 </div>
                 <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in/jimmy-luy-788a0a177/" target="_blank">https://www.linkedin.com/in/jimmy-luy-788a0a177/</a>
+                    <a href="https://www.linkedin.com/in/jimmy-luy-788a0a177/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/jimmy-luy-788a0a177/</a>
                     <br/>
                     <h4><u>GitHub:</u></h4>
-                    <a href="https://github.com/jimmyluy1" target="_blank">https://github.com/jimmyluy1</a>
+                    <a href="https://github.com/jimmyluy1" rel="noopener noreferrer" target="_blank">https://github.com/jimmyluy1</a>
                 </div>
             </div>
             <hr/>
@@ -105,10 +101,10 @@ export default class AboutUs extends React.Component {
                 </div>
                 <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>
-                    <a href="https://www.linkedin.com/in/jia-peng-zhen-6455a1170/" target="_blank">https://www.linkedin.com/in/jia-peng-zhen-6455a1170/</a>
+                    <a href="https://www.linkedin.com/in/jia-peng-zhen-6455a1170/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/jia-peng-zhen-6455a1170/</a>
                     <br/>
                     <h4><u>GitHub:</u></h4>
-                    <a href="https://github.com/alexzhen93" target="_blank">https://github.com/alexzhen93</a>
+                    <a href="https://github.com/alexzhen93" rel="noopener noreferrer" target="_blank">https://github.com/alexzhen93</a>
                 </div>
                 </div>
             </div>
