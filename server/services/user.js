@@ -1,7 +1,7 @@
 // In the services folder, we want to be able to query data from our database,
 // in this case we will be querying data from the user 
 
-const db = require("../models")
+const db = require("../models/index")
 // bcrypt being used to hash & compare passwords
 var bcrypt = require('bcrypt');
 
@@ -13,8 +13,8 @@ const findUserByEmail = async (email) => {
 
 const findUser = async (id) => {
     const User = await db.User.findByPk(id)
-    console.log(User + 'Hello world')
     return User
+    
 }
 
 
@@ -35,15 +35,9 @@ const generateHash = async (password) => {
     return hash;
 };
 
-// function to compare password when signing in
-// const validPassword = async (password) => {
-//     return bcrypt.compareSync(password, this.password);
-// };
-
 module.exports = {
     findUserByEmail,
     findUser,
     createUser,
     generateHash,
-    // validPassword
 }
