@@ -70,7 +70,6 @@ const signupUser = (req, res, next) => {
 */
 
 const register = async (req, res) => {
-    // const {name, email, password} = req.body
     // console.log(req.body);
     let name = req.body.name;
     let email = req.body.email;

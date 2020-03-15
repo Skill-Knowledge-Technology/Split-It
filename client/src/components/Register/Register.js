@@ -36,6 +36,17 @@ export default class Register extends Component {
       else{
         // Insert Backend Here.
         console.log(this.state);
+
+      fetch('api/users/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password
+        })
+      })
+      .then(console.log("form data sent to register route"));
+        
       }
     }
   
