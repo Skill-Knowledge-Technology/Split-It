@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Register.css';
+import API from "../../utils/api";
 
 export default class Register extends Component {
   constructor(props) {
@@ -10,6 +11,16 @@ export default class Register extends Component {
       password: "",
       password2: "",
     };
+  }
+
+  // save user
+  handleUserSave = id => {
+    console.log("handleUserSave function invoked");
+    API.saveUser({
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    }).then(console.log("user data sent to register route"))
   }
 
   // Handle field change
@@ -37,16 +48,7 @@ export default class Register extends Component {
       // Insert Backend Here.
       console.log(this.state);
 
-      fetch('api/users/register', {
-        method: 'POST',
-        body: JSON.stringify({
-          name: this.state.name,
-          email: this.state.email,
-          password: this.state.password
-        })
-      })
-        .then(console.log("form data sent to register route"));
-
+      this.handleUserSave();
     }
   }
 
