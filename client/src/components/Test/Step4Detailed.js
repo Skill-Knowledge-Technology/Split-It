@@ -6,14 +6,20 @@ export default class Step4Detailed extends React.Component {
     this.props.nextStep();
   };
 
-
   back = e => {
     e.preventDefault();
     this.props.prevStep();
   };
 
+  show = input => e =>{
+    e.preventDefault();
+    input.orders.map((list) => (
+      console.log(list)
+      ))
+  }
+
   render(){ 
-    const { DetailedSplit, handleChange } = this.props;
+    const { DetailedSplit, changeOrders, changeCost } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -26,10 +32,46 @@ export default class Step4Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <h1>Detailed: Step 4</h1>
+            <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DetailedSplit.orders.map((list, index) => (
+                    <tr key = {index}>
+                      <td>
+                        {list.number}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Order"
+                            defaultValue={list.order} onChange={changeOrders(index)}/>
+                        </form>
+                      </td> 
+                      <td>
+                        <form>
+                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
+                            defaultValue={list.cost} onChange={changeCost(index)}/>
+                        </form>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
+                <i className="material-icons right">navigate_next</i>
+              </button>
+              <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                Show
                 <i className="material-icons right">navigate_next</i>
               </button>
             </div>

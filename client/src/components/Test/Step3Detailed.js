@@ -6,14 +6,20 @@ export default class Step3Detailed extends React.Component {
     this.props.nextStep();
   };
 
-
   back = e => {
     e.preventDefault();
     this.props.prevStep();
   };
 
+  show = input => e =>{
+    e.preventDefault();
+    input.names.map((list) => (
+      console.log(list)
+      ))
+  }
+
   render(){ 
-    const { DetailedSplit, handleChange } = this.props;
+    const { DetailedSplit, changeNames } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -26,10 +32,39 @@ export default class Step3Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <h1>Detailed: Step 3</h1>
+              <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Number of People</th>
+                    <th>Names</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DetailedSplit.names.map((list, index) => (
+                    <tr key = {index}>
+                      <td>
+                        {list.number}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Name"
+                            defaultValue={list.name} onChange={changeNames(index)}/>
+                        </form>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
+                <i className="material-icons right">navigate_next</i>
+              </button>
+              <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                Show
                 <i className="material-icons right">navigate_next</i>
               </button>
             </div>

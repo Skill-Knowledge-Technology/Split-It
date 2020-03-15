@@ -9,18 +9,27 @@ import Step4Detailed from './Step4Detailed'
 import Step5Detailed from './Step5Detailed'
 import Step6Detailed from './Step6Detailed'
 import Step7Detailed from './Step7Detailed'
+import WrongPage from './WrongPage'
 
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
         currentStep: 1,
-        people: '',
+        totalPeople: '',
         EZcost: '',
         EZtotal: '',
-        orders: '',
+        totalOrders: '',
+        names: [],
+        orders: [],
     };
   }
+
+  wrongStep = () => {
+    this.setState({
+      currentStep: 1
+    });
+  };
 
   nextStep = () => {
     const { currentStep } = this.state;
@@ -58,12 +67,46 @@ export default class Test extends React.Component {
     this.setState({EZtotal: newTotal});
   }
 
+  changePeopleOrder = (totalPeople,totalOrders) => {
+    this.setState({ names: [] });
+    this.setState({ orderNumbers: [] });
+    var i;
+    var temp = [];
+    for(i = 0; i < totalPeople; i++){
+        temp.push({number: `Person ${i+1}`, name: ''});
+    }
+    this.setState({names: temp});
+    temp = [];
+    for(i = 0; i < totalOrders; i++){
+      temp.push({number: `Order #${i+1}`, order: '', cost: ''});
+    }
+    this.setState({orders: temp});
+  }
+
+  changeNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+  }
+
+  changeOrders = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].order = e.target.value;
+    this.setState(newState);
+  }
+
+  changeCost = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].cost = e.target.value;
+    this.setState(newState);
+  }
+
   render() {
-    const { currentStep , people } = this.state;
+    const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
-    const EZSplit = { people, EZcost, EZtotal };
-    const { orders } = this.state;
-    const DetailedSplit = { people, orders };
+    const EZSplit = { totalPeople, EZcost, EZtotal };
+    const { totalOrders, names, orders} = this.state;
+    const DetailedSplit = { totalPeople, totalOrders, names, orders};
 
     switch (currentStep){
       case 1:
@@ -102,6 +145,7 @@ export default class Test extends React.Component {
             <Step2Detailed
               nextStep = {this.nextStep}
               prevJump={this.prevJump}
+              changePeopleOrder={this.changePeopleOrder}
               handleChange={this.handleChange}
               DetailedSplit = {DetailedSplit}
             />
@@ -113,7 +157,7 @@ export default class Test extends React.Component {
             <Step3Detailed
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
-              handleChange={this.handleChange}
+              changeNames={this.changeNames}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -124,7 +168,8 @@ export default class Test extends React.Component {
             <Step4Detailed
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
-              handleChange={this.handleChange}
+              changeOrders={this.changeOrders}
+              changeCost={this.changeCost}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -157,6 +202,14 @@ export default class Test extends React.Component {
             <Step7Detailed
               prevStep={this.prevStep}
               DetailedSplit = {DetailedSplit}
+            />
+          </div>
+        );
+      default:
+        return(
+          <div className = "container">
+            <WrongPage
+              wrongStep = {this.wrongStep}
             />
           </div>
         );
