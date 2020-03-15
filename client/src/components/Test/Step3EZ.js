@@ -13,7 +13,7 @@ export default class Step3EZ extends React.Component {
 
   render(){ 
     const { 
-      EZSplit: { people, EZcost, EZtotal}
+      EZSplit: { totalPeople, EZcost, EZtotal}
     } = this.props;
     return(
       <div className="row">
@@ -30,7 +30,7 @@ export default class Step3EZ extends React.Component {
               <div className = "col s12">
                 <div className = "row">
                   <p className = "flow-text">
-                    Total People: {people}
+                    Total People: {totalPeople}
                   </p>
                 </div>
                 <div className = "row">
