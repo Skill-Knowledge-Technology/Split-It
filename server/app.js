@@ -1,14 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+//const bodyParser = require('body-parser');
+//var cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
-var passport = require('passport');
+//var passport = require('passport');
 
-const db = require('./models');
+const db = require('./models/');
 
 const app = express();
-const apiRoutes = require('./routes/index');
+const apiRoutes = require('./routes/api/index');
 
 const PORT = process.env.PORT || 8080;
 
@@ -24,7 +24,7 @@ const logFormat = process.env.NODE_ENV==='production' ? 'combined' : 'dev';
 app.use(morgan(logFormat));
 
 // Routes
-app.use(apiRoutes);
+app.use('/api', apiRoutes);
 
 // for production use, we serve the static react build folder
 if(process.env.NODE_ENV==='production') {
@@ -45,7 +45,7 @@ if(process.env.NODE_ENV==='production') {
 
 // update DB tables based on model updates. Does not handle renaming tables/columns
 // NOTE: toggling this to true drops all tables (including data)
-db.sequelize.sync({ force: true });
+db.sequelize.sync({ force: false });
 
 // Test the connection
 
