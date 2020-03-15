@@ -1,22 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
+var passport = require('passport');
+
 const db = require('./models');
+
 const app = express();
-const apiRoutes = require('./routes/api/index');
+const apiRoutes = require('./routes/index');
+
 const PORT = process.env.PORT || 8080;
 
 
 // this lets us parse 'application/json' content in http requests
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
+// app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // add http request logging to help us debug and audit app use
 const logFormat = process.env.NODE_ENV==='production' ? 'combined' : 'dev';
 app.use(morgan(logFormat));
 
 // Routes
-app.use('/api', apiRoutes);
+app.use(apiRoutes);
 
 // for production use, we serve the static react build folder
 if(process.env.NODE_ENV==='production') {
@@ -28,12 +36,19 @@ if(process.env.NODE_ENV==='production') {
   });
 }
 
+// // required for passport
+// app.use(session({ secret: 'sessionsecret' })); // session secret
+// app.use(passport.initialize());
+// app.use(passport.session()); // persistent login sessions
+
+
+
 // update DB tables based on model updates. Does not handle renaming tables/columns
 // NOTE: toggling this to true drops all tables (including data)
-db.sequelize.sync({ force: false });
+db.sequelize.sync({ force: true });
 
 // Test the connection
-/*
+
 db.sequelize
   .authenticate()
   .then(() => {
@@ -42,6 +57,6 @@ db.sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-*/
+  
 // start up the server
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
