@@ -14,6 +14,7 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
 import Test from './components/Test/Test';
+import Profile from './components/Profile/Profile';
 
 class App extends React.Component {
   render() {
@@ -30,6 +31,7 @@ class App extends React.Component {
                 <Route path="/AboutUs" component={AboutUs} />
                 <Route path="/Maps" component={Maps} />
                 <Route path="/Test" component={Test} />
+                <Route path="/Profile" component={Profile} />
                 <Route path="/" component={Home} />
               </Switch>
             </div>

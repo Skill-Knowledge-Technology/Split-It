@@ -21,7 +21,7 @@ export default class Login extends React.Component {
             <div className="input-field col s12">
               <i className="material-icons prefix">email</i>
               <input id="email" type="email" placeholder="Enter Email" className="validate"/>
-              <label for="email">Email</label>
+              <label>Email</label>
               <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span>
             </div>
           </div>
@@ -29,11 +29,11 @@ export default class Login extends React.Component {
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
               <input id="password" type="password" placeholder="Enter Password" className="validate"/>
-              <label for="password">Password</label>
+              <label>Password</label>
             </div>
           </div>
         </form>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Login<i class="material-icons right">send</i></button>
+        <button className="btn waves-effect waves-light" type="submit" name="action">Login<i className="material-icons right">send</i></button>
       </div>
     );
   }
