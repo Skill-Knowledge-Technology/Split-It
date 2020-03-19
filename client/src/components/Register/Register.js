@@ -32,16 +32,16 @@ export default class Register extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name, email, password, password2 } = this.state;
-    if (name == '') {
+    if (name === '') {
       alert("Please Enter a Username");
     }
-    else if (email == '') {
+    else if (email === '') {
       alert("Please Enter a Correct Email");
     }
-    else if (password == '') {
+    else if (password === '') {
       alert("Please Enter a Password");
     }
-    else if (password != password2) {
+    else if (password !== password2) {
       alert("Your Password and Confirmation Password Do Not Match.");
     }
     else {

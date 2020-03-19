@@ -11,6 +11,8 @@
   box-sizing: border-box;
   padding: 20px 20px;
   text-align: center;
+  overflow-y: auto;
+  height: 85%;
 }
 
 /* For devices 600px and larger: */
