@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         total: {
-            // int with 2 decimal places
+            // int with 2 decimal placesgit
             type: DataTypes.DECIMAL(10,2),
             allowNull: false
         },
