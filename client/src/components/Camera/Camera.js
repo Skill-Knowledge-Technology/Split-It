@@ -1,39 +1,31 @@
-import React, { useState } from 'react';
-import Camera, {FACING_MODES} from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
-import ImagePreview from './ImagePreview'; 
+import React from 'react';
+import ImageUploader from 'react-images-upload';
  
-function Cameratake(props) {
-  const [dataUri, setDataUri] = useState('');
+class Camera extends React.Component {
  
-  function handleTakePhotoAnimationDone (dataUri) {
-    console.log('takePhoto');
-    setDataUri(dataUri);
-  }
+    constructor(props) {
+        super(props);
+         this.state = { pictures: [] };
+         this.onDrop = this.onDrop.bind(this);
+    }
  
-  const isfullscreen = false;
-  return (
-    <div>
-      {
-        (dataUri)
-          ? <ImagePreview dataUri={dataUri}
-            isFullscreen={isfullscreen}
-          />
-          : <Camera onTakePhotoAnimationDone = {handleTakePhotoAnimationDone}
-            isFullscreen={isfullscreen}
-            isMaxResolution = {true}
-            //set to max resolution
-            idealFacingMode ={FACING_MODES.ENVIRONMENT}
-            //ideal facing mode for the camera via mobile (rear end)
-            isImageMirror = {false}
-            // have the right faceing mode 
-            isDisplayStartCameraError = {true}
-            //displays camera error
-            
-          />
-      }
-    </div>
-  );
+    onDrop(picture) {
+        this.setState({
+            pictures: this.state.pictures.concat(picture),
+        });
+    }
+ 
+    render() {
+        return (
+            <ImageUploader
+                withIcon={true}
+                withPreview={true}
+                buttonText='Choose images'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png']}
+                maxFileSize={5242880}
+            />
+        );
+    }
 }
- 
-export default Cameratake ;
+export default Camera;
