@@ -3,7 +3,28 @@
 
 const db = require("../models")
 // bcrypt being used to hash & compare passwords
-var bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const JWT_OPTIONS = {
+    expiresIn: 31556926,
+}
+
+const getJwtToken = (payload) => {
+    return new promise((resolve, reject) => {
+        jwt.sign(payload, secretorKey, JWT_OPTIONS, (err, token) => {
+            return err ? reject(err) : resolve(token);
+        });
+    });
+};
+
+const verifyJwtToken = (token) => {
+    return new promise((resolve,reject)=> {
+        jwt.verify(token ,secretorKey, (err, decoded) => {
+            return err ? reject(err) : resolve(decoded);
+        });
+    });
+};
+
 
 const findUserByEmail = async (email) => {
     const User = await db.User.findOne({ where: { email: email } })
@@ -48,5 +69,6 @@ module.exports = {
     findUser,
     createUser,
     generateHash,
-    // validPassword
+    getJwtToken,
+    verifyJwtToken
 }

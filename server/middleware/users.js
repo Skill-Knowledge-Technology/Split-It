@@ -1,13 +1,37 @@
+const userServices = require('../services/user');
+const bcrypt = require('bcrypt');
 
 
-/*
-Middleware literally means anything you put in the middle of one layer of the software and another.
- Express middleware are functions that execute during the lifecycle of a request to the Express server.
-  Each middleware has access to the HTTP request and response for each route (or path) it’s attached to. 
-  In fact, Express itself is compromised wholly of middleware functions. 
-  Additionally, middleware can either terminate the HTTP request or pass it on to another middleware function using next (more on that soon). 
-  This “chaining” of middleware allows you to compartmentalize your code and create reusable middleware.
+const expressValidator = {
+  emailShouldExist: (shouldExist) => async(value, {req}) => {
+    const user = await userServices.findUserByEmail(value);
+    if (shouldExist && !user) {
+      throw new Error("Email not found")
+    }
+    if (!shouldExist && user) {
+      throw new Error("Email already exist")
+    }
+    if (user) {
+      req.user = user
+    }
+    return true 
+  },
+  passwordMatchesHash: async(value, {req}) => {
+    // req.user is attched in emailShouldExist middleware
+    const match = await bcrypt.compare(value, req.user.password)
+    if (!match) {
+      throw new Error("incorrect password")
+    }
+    return true 
+  },
+  matches: async(value, {req}) => {
+    if (value !== req.user.password2) {
+      throw new Error("Passwords don\'t match")
+    }
+    return true 
+  }
+}
 
-
-  REFERENCE: https://developer.okta.com/blog/2018/09/13/build-and-understand-express-middleware-through-examples
-*/
+module.exports = {
+  expressValidator
+}
