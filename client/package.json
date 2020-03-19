@@ -7,7 +7,6 @@
     "materialize-css": "^1.0.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
-    "react-html5-camera-photo": "^1.5.4",
     "react-images-upload": "^1.2.8",
     "react-materialize": "^3.5.9",
     "react-router-dom": "^5.1.2",
