@@ -38,7 +38,7 @@ export default class AboutUs extends React.Component {
                     <h4 className = "center">Kevin Chen</h4>
                 </div>
                 <div className = "col s12 md8 l8">
-                  <span class= "black-text">
+                  <span className= "black-text">
                     <h4><u>LinkedIn:</u></h4>
                     <a href="https://www.linkedin.com/in/kevinchen07cd/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/kevinchen07cd/</a>
                     <br/>

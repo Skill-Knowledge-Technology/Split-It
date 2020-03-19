@@ -5,56 +5,70 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      pnumber: "",
-      gender: "",
-      image: ""
+      first: "",
+      last: "",
+      phone: "",
+      email: "",
+      image: "",
     };
-    
   }
+
+  // Handle field change
+  handleChange = input => e => {
+    this.setState({ [input]: e.target.value });
+  };
+
+  // eventually api call to call the backend 
+  handleSubmit = e => {
+    e.preventDefault();
+    // Insert Backend Here.
+    console.log(this.state);
+  }
+
   render() {
     return (
-      <div className="ProfileBox">
-        <h4><u>Profile Page</u></h4>
+      <div className="profilebox">
+        <h4><u>Profile</u></h4>
         <form className = "col s12">
-           <div class="row">
-            <div class="small-12 medium-2 large-2 columns">
-              <div class="circle">
-              <img class="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg"/>
+           <div className="row">
+            <div>
+              <img src={ require('../../public/People/dummy.jpg')}  alt = "Empty"/>
             </div>
-              <div class="p-image">
-                <i class="fa fa-camera upload-button"></i>
-                <input class="file-upload" type="file" accept="image/*"/>
-              </div> 
+            <div>
+              <input className="file-upload" type="file" accept="image/*"/>
             </div> 
           </div>
-
           <div className="row">
             <div className="input-field col s12">
-            <input placeholder="FIRST NAME" id="fname" type="text" className="validate" onChange={this.handleChange}/>
-                <label for="fname">First Name</label>
+              <i className="material-icons prefix">account_circle</i>
+              <input placeholder="First Name" id="first_name" type="text" className="validate" onChange={this.handleChange('first')}/>
+              <label>First Name</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input id="lname" type="text" placeholder="LAST NAME" className="validate" onChange={this.handleChange}/>
-              <label for="lname">Last Name</label>
+              <i className="material-icons prefix">account_circle</i>
+              <input id="last_name" type="text" placeholder="Last Name" className="validate" onChange={this.handleChange('last')}/>
+              <label>Last Name</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input id="pnumber" type="text" placeholder="PHONE NUMBER" className="validate" onChange={this.handleChange}/>
-              <label for="pbumber">Phone Number</label>
+              <i className="material-icons prefix">local_phone</i>
+              <input id="phone" type="tel" placeholder="Phone Number" className="validate" onChange={this.handleChange('phone')}/>
+              <label>Phone Number</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input id="gender" type="text" placeholder="GENDER" className="validate" onChange={this.handleChange}/>
-              <label for="gender">Gender</label>
+              <i className="material-icons prefix">email</i>
+              <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange('email')} />
+              <label>Email</label>
+              <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange('error')}>Please Enter a Valid Email</span>
             </div>
-           </div>
+          </div>
          </form>
-        <button class="btn waves-effect waves-light" type="edit" name="action">Edit<i class="material-icons right">edit</i></button>
+         <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleSubmit}>Submit<i className="material-icons right">send</i></button>
       </div> 
     );
   }
