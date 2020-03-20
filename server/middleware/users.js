@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt');
 
 
 const expressValidator = {
+  // this function asserts if the email should exist or not
+  // NOTE we also have access to the current user information  
+  // based on the email. Thus req.user contains the user information.
   emailShouldExist: (shouldExist) => async(value, {req}) => {
     const user = await userServices.findUserByEmail(value);
     if (shouldExist && !user) {

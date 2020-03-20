@@ -4,7 +4,6 @@
 
 const UserServices = require("../services/user")
 const bcrypt = require('bcrypt')
-const secretorKey = 'secret'
 
 const getUserById = (req, res, next) => {
     return UserServices.findUser(req.params.userId)
@@ -16,10 +15,15 @@ const getUserById = (req, res, next) => {
 
 
 const login = async (req,res,next) => {
+    // we are able to get the userID and name because 
+    // we passed emailShouldExist middleware and that contains
+    // the req.user information
     const payload = {
         id: req.user.userID,
         name: req.user.name
     }
+    console.log(payload)
+    console.log("reached the terminal")
     return UserServices.getJwtToken(payload)
     .then((token) => {
         res.json({

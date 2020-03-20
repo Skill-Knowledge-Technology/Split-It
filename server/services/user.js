@@ -4,22 +4,29 @@
 const db = require("../models")
 // bcrypt being used to hash & compare passwords
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const JWT_OPTIONS = {
     expiresIn: 31556926,
-}
+  };
+const secretOrPrivateKey = 'secret';
 
+
+// function that accepts an payload of type object 
+// and creates a token of type string
 const getJwtToken = (payload) => {
-    return new promise((resolve, reject) => {
-        jwt.sign(payload, secretorKey, JWT_OPTIONS, (err, token) => {
+    return new Promise((resolve, reject) => {
+        jwt.sign(payload, secretOrPrivateKey, JWT_OPTIONS, (err, token) => {
             return err ? reject(err) : resolve(token);
         });
     });
 };
 
+
+
+// function that verify and decode a JWT token back to its original object
 const verifyJwtToken = (token) => {
-    return new promise((resolve,reject)=> {
-        jwt.verify(token ,secretorKey, (err, decoded) => {
+    return new Promise((resolve,reject)=> {
+        jwt.verify(token ,secretOrPrivateKey, (err, decoded) => {
             return err ? reject(err) : resolve(decoded);
         });
     });
@@ -58,11 +65,6 @@ const generateHash = async (password) => {
     const hash = await bcrypt.hash(password, salt);
     return hash;
 };
-
-// function to compare password when signing in
-// const validPassword = async (password) => {
-//     return bcrypt.compareSync(password, this.password);
-// };
 
 module.exports = {
     findUserByEmail,
