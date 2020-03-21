@@ -26,6 +26,12 @@ module.exports = (sequelize, DataTypes) => {
         password : {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        balance : {
+            // integer type with 9 digits, 2 of them being in decimal part
+            type: DataTypes.DECIMAL(9,2),
+            allowNull: false,
+            defaultValue: 0
         }
     })
 
