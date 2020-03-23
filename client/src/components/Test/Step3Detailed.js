@@ -3,7 +3,24 @@ import React from 'react';
 export default class Step3Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.nextStep();
+    this.props.setNames();
+    var array = this.props.DetailedSplit.names;
+    var found = false;
+    var valuesSoFar = Object.create(null);
+    for (var i = 0; i < array.length; ++i){
+      var value = array[i].name;
+      if (value in valuesSoFar){
+          found = true;
+          break;
+      }
+      valuesSoFar[value] = true;
+    }
+    if (found === true){
+      alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
+    }
+    else{
+      this.props.nextStep();
+    }
   };
 
   back = e => {
@@ -36,7 +53,7 @@ export default class Step3Detailed extends React.Component {
                 <thead>
                   <tr>
                     <th>Number of People</th>
-                    <th>Names</th>
+                    <th>Names (Set Unique Names)</th>
                   </tr>
                 </thead>
                 <tbody>
