@@ -16,6 +16,20 @@ export default class Step5Detailed extends React.Component {
     this.props.prevStep();
   };
 
+  call = index => e => {
+    let elems = document.querySelector('select[name="' + index + '"]');
+    let instances = M.FormSelect.init(elems);
+    let selectedOne = instances.getSelectedValues();
+    this.props.changeAssociation(index,selectedOne)
+  }
+
+  show = input => e =>{
+    e.preventDefault();
+    input.orders.map((list) => (
+      console.log(list)
+      ))
+  }
+
   render(){ 
     const { DetailedSplit } = this.props;
     return(
@@ -48,9 +62,9 @@ export default class Step5Detailed extends React.Component {
                         {list.order}
                       </td>
                       <td>
-                        <select multiple>
+                        <select multiple name={index} onChange={this.call(index)}>
                           {DetailedSplit.names.map((list2, index2) => (
-                            <option key = {index2} value={list2.name}>
+                            <option key = {index2} value = {list2.name}>
                               {list2.name}
                             </option>
                           ))}
@@ -64,6 +78,12 @@ export default class Step5Detailed extends React.Component {
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
+                <i className="material-icons right">navigate_next</i>
+              </button>
+              <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                Show
                 <i className="material-icons right">navigate_next</i>
               </button>
             </div>

@@ -73,12 +73,12 @@ export default class Test extends React.Component {
     var i;
     var temp = [];
     for(i = 0; i < totalPeople; i++){
-        temp.push({number: `Person ${i+1}`, name: ''});
+        temp.push({number: `Person ${i+1}`, name: '', cost: 0});
     }
     this.setState({names: temp});
     temp = [];
     for(i = 0; i < totalOrders; i++){
-      temp.push({number: `Order #${i+1}`, order: '', cost: ''});
+      temp.push({number: `Order #${i+1}`, order: '', cost: '', association: ''});
     }
     this.setState({orders: temp});
   }
@@ -95,10 +95,25 @@ export default class Test extends React.Component {
     this.setState(newState);
   }
 
-  changeCost = (index) => e => {
+  changeOrderCost = (index) => e => {
     var newState = Object.assign({}, this.state);
     newState.orders[index].cost = e.target.value;
     this.setState(newState);
+  }
+
+  changeAssociation = (index,value) => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].association = value;
+    this.setState(newState);
+  }
+
+  resetAssociation = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      newState.orders[i].association = '';
+      this.setState(newState);
+    }
   }
 
   render() {
@@ -169,7 +184,7 @@ export default class Test extends React.Component {
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
               changeOrders={this.changeOrders}
-              changeCost={this.changeCost}
+              changeOrderCost={this.changeOrderCost}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -180,7 +195,7 @@ export default class Test extends React.Component {
             <Step5Detailed
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
-              handleChange={this.handleChange}
+              changeAssociation={this.changeAssociation}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -191,7 +206,7 @@ export default class Test extends React.Component {
             <Step6Detailed
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
-              handleChange={this.handleChange}
+              resetAssociation={this.resetAssociation}
               DetailedSplit = {DetailedSplit}
             />
           </div>

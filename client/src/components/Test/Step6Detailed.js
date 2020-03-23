@@ -9,6 +9,7 @@ export default class Step6Detailed extends React.Component {
 
   back = e => {
     e.preventDefault();
+    this.props.resetAssociation();
     this.props.prevStep();
   };
 
