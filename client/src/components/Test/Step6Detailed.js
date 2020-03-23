@@ -6,15 +6,24 @@ export default class Step6Detailed extends React.Component {
     this.props.nextStep();
   };
 
-
   back = e => {
     e.preventDefault();
     this.props.resetAssociation();
     this.props.prevStep();
+    alert("Associations Has Been Resetted");
   };
 
+  total(totalPeople,cost){
+    var total = cost/totalPeople; // Total
+    total = Math.ceil(total * 100) / 100; // Round Up
+    if (total === Infinity || isNaN(total)){ // Checks for Fail
+      return("Invalid Inputs");
+    }
+    return('$ ' + total);
+  }
+
   render(){ 
-    const { DetailedSplit, handleChange } = this.props;
+    const { DetailedSplit } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -27,7 +36,44 @@ export default class Step6Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <h1>Detailed: Step 6</h1>
+            <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
+                    <th>Associations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DetailedSplit.orders.map((list, index) => (
+                    <tr key = {index}>
+                      <td>
+                        {list.order}
+                      </td>
+                      <td>
+                        $ {list.cost}
+                      </td>
+                      <td>
+                        <table>
+                          <tbody>
+                            {list.association.map((list2, index2) => (
+                              <tr key = {index2}>
+                                <td>
+                                  {list2}
+                                </td>
+                                <td>
+                                  {this.total(list.association.length,list.cost)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next

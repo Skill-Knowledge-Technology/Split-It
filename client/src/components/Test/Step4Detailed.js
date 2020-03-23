@@ -3,6 +3,8 @@ import React from 'react';
 export default class Step4Detailed extends React.Component {
   next = e => {
     e.preventDefault();
+    this.props.setOrders();
+    this.props.setOrderCost();
     this.props.nextStep();
   };
 

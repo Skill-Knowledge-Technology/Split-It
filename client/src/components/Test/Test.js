@@ -78,7 +78,7 @@ export default class Test extends React.Component {
     this.setState({names: temp});
     temp = [];
     for(i = 0; i < totalOrders; i++){
-      temp.push({number: `Order #${i+1}`, order: '', cost: '', association: ''});
+      temp.push({number: `Order #${i+1}`, order: '', cost: '', association: []});
     }
     this.setState({orders: temp});
   }
@@ -89,16 +89,49 @@ export default class Test extends React.Component {
     this.setState(newState);
   }
 
+  setNames = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name == ''){
+        newState.names[i].name = newState.names[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
   changeOrders = (index) => e => {
     var newState = Object.assign({}, this.state);
     newState.orders[index].order = e.target.value;
     this.setState(newState);
   }
 
+  setOrders = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].order == ''){
+        newState.orders[i].order = newState.orders[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
   changeOrderCost = (index) => e => {
     var newState = Object.assign({}, this.state);
     newState.orders[index].cost = e.target.value;
     this.setState(newState);
+  }
+
+  setOrderCost = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].cost == ''){
+        newState.orders[i].cost = 0;
+        this.setState(newState);
+      }
+    }
   }
 
   changeAssociation = (index,value) => {
@@ -111,9 +144,13 @@ export default class Test extends React.Component {
     var newState = Object.assign({}, this.state);
     var size = newState.orders.length;
     for (var i = 0; i < size; i++){
-      newState.orders[i].association = '';
+      newState.orders[i].association = [];
       this.setState(newState);
     }
+  }
+
+  setNameCost = () => {
+
   }
 
   render() {
@@ -173,6 +210,7 @@ export default class Test extends React.Component {
               nextStep = {this.nextStep}
               prevStep={this.prevStep}
               changeNames={this.changeNames}
+              setNames = {this.setNames}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -185,6 +223,8 @@ export default class Test extends React.Component {
               prevStep={this.prevStep}
               changeOrders={this.changeOrders}
               changeOrderCost={this.changeOrderCost}
+              setOrders = {this.setOrders}
+              setOrderCost = {this.setOrderCost}
               DetailedSplit = {DetailedSplit}
             />
           </div>

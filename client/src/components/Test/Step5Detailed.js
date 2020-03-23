@@ -17,9 +17,9 @@ export default class Step5Detailed extends React.Component {
   };
 
   call = index => e => {
-    let elems = document.querySelector('select[name="' + index + '"]');
-    let instances = M.FormSelect.init(elems);
-    let selectedOne = instances.getSelectedValues();
+    var elems = document.querySelector('select[name="' + index + '"]');
+    var instances = M.FormSelect.init(elems);
+    var selectedOne = instances.getSelectedValues();
     this.props.changeAssociation(index,selectedOne)
   }
 
@@ -44,7 +44,7 @@ export default class Step5Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-            <table className="highlight centered">
+              <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Order Number</th>

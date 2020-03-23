@@ -3,6 +3,7 @@ import React from 'react';
 export default class Step3Detailed extends React.Component {
   next = e => {
     e.preventDefault();
+    this.props.setNames();
     this.props.nextStep();
   };
 
