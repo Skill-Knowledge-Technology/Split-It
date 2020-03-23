@@ -5,11 +5,9 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      first: "",
-      last: "",
+      name: "",
       phone: "",
       email: "",
-      image: "",
     };
   }
 
@@ -41,15 +39,8 @@ export default class Profile extends React.Component {
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">account_circle</i>
-              <input placeholder="First Name" id="first_name" type="text" className="validate" onChange={this.handleChange('first')}/>
-              <label>First Name</label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <i className="material-icons prefix">account_circle</i>
-              <input id="last_name" type="text" placeholder="Last Name" className="validate" onChange={this.handleChange('last')}/>
-              <label>Last Name</label>
+              <input placeholder="Name" id="first_name" type="text" onChange={this.handleChange('name')}/>
+              <label>Name</label>
             </div>
           </div>
           <div className="row">
@@ -62,9 +53,9 @@ export default class Profile extends React.Component {
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">email</i>
-              <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange('email')} />
+              <input id="email" type="email" placeholder="Email" className="validate" onChange={this.handleChange('email')} />
               <label>Email</label>
-              <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange('error')}>Please Enter a Valid Email</span>
+              <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span>
             </div>
           </div>
          </form>
