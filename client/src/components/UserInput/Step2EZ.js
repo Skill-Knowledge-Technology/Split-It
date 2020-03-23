@@ -23,7 +23,7 @@ export default class Step2EZ extends React.Component {
     if (total === Infinity || isNaN(total)){ // Checks for Fail
       return("Invalid Inputs");
     }
-    return('$ ' + total);
+    return(total);
   }
 
   render(){ 
@@ -62,7 +62,7 @@ export default class Step2EZ extends React.Component {
                 <div className = "row">
                   <div className="input-field col s12">
                     <p>Total Cost Per Person</p> 
-                    {this.total(EZSplit.totalPeople,EZSplit.EZcost)}
+                    ${this.total(EZSplit.totalPeople,EZSplit.EZcost)}
                   </div>
                 </div>
               </form>

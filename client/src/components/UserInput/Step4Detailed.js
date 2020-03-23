@@ -1,13 +1,10 @@
 import React from 'react';
-import M from 'materialize-css'
 
-export default class Step5Detailed extends React.Component {
-  componentDidMount() {
-    M.AutoInit();
-  }
-  
+export default class Step4Detailed extends React.Component {
   next = e => {
     e.preventDefault();
+    this.props.setOrders();
+    this.props.setOrderCost();
     this.props.nextStep();
   };
 
@@ -15,13 +12,6 @@ export default class Step5Detailed extends React.Component {
     e.preventDefault();
     this.props.prevStep();
   };
-
-  call = index => e => {
-    var elems = document.querySelector('select[name="' + index + '"]');
-    var instances = M.FormSelect.init(elems);
-    var selectedOne = instances.getSelectedValues();
-    this.props.changeAssociation(index,selectedOne)
-  }
 
   show = input => e =>{
     e.preventDefault();
@@ -31,7 +21,7 @@ export default class Step5Detailed extends React.Component {
   }
 
   render(){ 
-    const { DetailedSplit } = this.props;
+    const { DetailedSplit, changeOrders, changeOrderCost } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -44,12 +34,12 @@ export default class Step5Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <table className="highlight centered">
+            <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Order Number</th>
                     <th>Order Names</th>
-                    <th>Choose Names That Are Associated To Orders</th>
+                    <th>Order Cost</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,16 +49,16 @@ export default class Step5Detailed extends React.Component {
                         {list.number}
                       </td>
                       <td>
-                        {list.order}
-                      </td>
+                        <form>
+                          <input type="text" placeholder="Insert Order"
+                            defaultValue={list.order} onChange={changeOrders(index)}/>
+                        </form>
+                      </td> 
                       <td>
-                        <select multiple name={index} onChange={this.call(index)}>
-                          {DetailedSplit.names.map((list2, index2) => (
-                            <option key = {index2} value = {list2.name}>
-                              {list2.name}
-                            </option>
-                          ))}
-                        </select>
+                        <form>
+                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
+                            defaultValue={list.cost} onChange={changeOrderCost(index)}/>
+                        </form>
                       </td> 
                     </tr>
                   ))}
@@ -80,12 +70,12 @@ export default class Step5Detailed extends React.Component {
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
-              <hr/>
+              {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(DetailedSplit)}>
                 Show
                 <i className="material-icons right">navigate_next</i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

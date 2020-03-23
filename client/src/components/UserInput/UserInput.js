@@ -1,101 +1,291 @@
 import React from 'react';
 import './UserInput.css'
+import Step1 from './Step1'
+import Step2EZ from './Step2EZ'
+import Step3EZ from './Step3EZ'
+import Step2Detailed from './Step2Detailed'
+import Step3Detailed from './Step3Detailed'
+import Step4Detailed from './Step4Detailed'
+import Step5Detailed from './Step5Detailed'
+import Step6Detailed from './Step6Detailed'
+import Step7Detailed from './Step7Detailed'
+import WrongPage from './WrongPage'
 
 export default class UserInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        currentStep: 1,
+        totalPeople: '',
+        EZcost: '',
+        EZtotal: '',
+        totalOrders: '',
+        names: [],
+        orders: [],
     };
   }
 
+  wrongStep = () => {
+    this.setState({
+      currentStep: 1
+    });
+  };
+
+  nextStep = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep + 1
+    });
+  };
+
+  prevStep = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep - 1
+    });
+  };
+
+  nextJump = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep + 1 + 100
+    });
+  };
+
+  prevJump = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep - 1 -100
+    });
+  };
+
+  handleChange = input => e => {
+    this.setState({ [input]: e.target.value });
+  };
+
+  changeEZTotal = (newTotal) => {
+    this.setState({EZtotal: newTotal});
+  }
+
+  changePeopleOrder = (totalPeople,totalOrders) => {
+    this.setState({ names: [] });
+    this.setState({ orderNumbers: [] });
+    var i;
+    var temp = [];
+    for(i = 0; i < totalPeople; i++){
+        temp.push({number: `Person ${i+1}`, name: '', cost: 0});
+    }
+    this.setState({names: temp});
+    temp = [];
+    for(i = 0; i < totalOrders; i++){
+      temp.push({number: `Order #${i+1}`, order: '', cost: '', association: []});
+    }
+    this.setState({orders: temp});
+  }
+
+  changeNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+  }
+
+  setNames = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === ''){
+        newState.names[i].name = newState.names[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
+  changeOrders = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].order = e.target.value;
+    this.setState(newState);
+  }
+
+  setOrders = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].order === ''){
+        newState.orders[i].order = newState.orders[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
+  changeOrderCost = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].cost = e.target.value;
+    this.setState(newState);
+  }
+
+  setOrderCost = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].cost === ''){
+        newState.orders[i].cost = 0;
+        this.setState(newState);
+      }
+    }
+  }
+
+  changeAssociation = (index,value) => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].association = value;
+    this.setState(newState);
+  }
+
+  resetAssociation = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      newState.orders[i].association = [];
+      this.setState(newState);
+    }
+  }
+
+  setNameCost = (name, total) => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === name){
+        newState.names[i].cost += total;
+        this.setState(newState);
+      }
+    }
+  }
+
+  resetNameCost = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].cost = 0;
+      this.setState(newState);
+    }
+  }
+
   render() {
-    return (
-      <div className="container UserInputBox">
-        <h2><u>User Input Technique</u></h2>
-        <div className="row">
-          <div className="col s5 m4 l4 offset-s0 offset-s4 offset-l4">
-            <h4>Step 1:</h4>
-            <p>EZ Split OR Detailed Split</p>
+    const { currentStep , totalPeople } = this.state;
+    const { EZcost, EZtotal } = this.state;
+    const EZSplit = { totalPeople, EZcost, EZtotal };
+    const { totalOrders, names, orders} = this.state;
+    const DetailedSplit = { totalPeople, totalOrders, names, orders};
+
+    switch (currentStep){
+      case 1:
+        return(
+          <div className = "container">
+            <Step1
+              nextStep = {this.nextStep}
+              nextJump = {this.nextJump}
+            />
           </div>
-          <div className="col s7 m4 l4">
-            <a className="btn waves-effect waves-light"
-              href="Test">
-              In Testing
-              <i className="material-icons right">cached</i>
-            </a>
+        );
+      case 2:
+        return(
+          <div className = "container">
+            <Step2EZ
+              nextStep = {this.nextStep}
+              prevStep = {this.prevStep}
+              changeEZTotal = {this.changeEZTotal}
+              handleChange = {this.handleChange}
+              EZSplit = {EZSplit}
+            />
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-            <h4>Step 2 [EZ Split]:</h4>
-            <p>-Obtain Number of People <br/> -Obtain Total Cost + Tax</p>
+        );
+      case 3:
+        return(
+          <div className = "container">
+            <Step3EZ
+              prevStep = {this.prevStep}
+              EZSplit = {EZSplit}
+            />
           </div>
-          <div className="col s6">
-            <h4>Step 2 [Detailed Split]:</h4>
-            <p>-Obtain Number of People <br/> -Obtain Number of Items Ordered</p>
+        );
+      case 102:
+        return(
+          <div className = "container">
+            <Step2Detailed
+              nextStep = {this.nextStep}
+              prevJump = {this.prevJump}
+              changePeopleOrder = {this.changePeopleOrder}
+              handleChange = {this.handleChange}
+              DetailedSplit = {DetailedSplit}
+            />
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-            <h4>Step 3 [EZ Split]:</h4>
-            <p>-Calculate by Cost/People -> Cost Per Person</p>
+        );
+      case 103:
+        return(
+          <div className = "container">
+            <Step3Detailed
+              nextStep = {this.nextStep}
+              prevStep = {this.prevStep}
+              changeNames = {this.changeNames}
+              setNames = {this.setNames}
+              DetailedSplit = {DetailedSplit}
+            />
           </div>
-          <div className="col s6">
-          <h4>Step 3 [Detailed Split]:</h4>
-            <p>-Names of People</p>
-            <p>Ex: Steve and Josh</p>
+        );
+      case 104:
+        return(
+          <div className = "container">
+            <Step4Detailed
+              nextStep = {this.nextStep}
+              prevStep = {this.prevStep}
+              changeOrders = {this.changeOrders}
+              changeOrderCost = {this.changeOrderCost}
+              setOrders = {this.setOrders}
+              setOrderCost = {this.setOrderCost}
+              DetailedSplit = {DetailedSplit}
+            />
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
+        );
+      case 105:
+        return(
+          <div className = "container">
+            <Step5Detailed
+              nextStep = {this.nextStep}
+              prevStep = {this.prevStep}
+              changeAssociation = {this.changeAssociation}
+              DetailedSplit = {DetailedSplit}
+            />
           </div>
-          <div className="col s6">
-            <h4>Step 4 [Detailed Split]:</h4>
-            <p>-2 Column List<br/>-Items Name<br/>-Price</p>
-            <p>-Displays Total and Allows Input of Tax</p>
-            <p>Ex: Steak = $10 + $2 Tax</p>
-            <p>Rice = $4 + $1 Tax </p>
-            <p>Total = $17 </p>
-            <p>Tax = $0 </p>
-            <p><u>OR</u></p>
-            <p>Ex: Steak = $10</p>
-            <p>Rice = $4</p>
-            <p>Total = $14 </p>
-            <p>Tax = $3 </p>
-            <p>System Will Calcuate %Tax Using That and Assign to Each Item Appropriatly</p>
+        );
+      case 106:
+        return(
+          <div className = "container">
+            <Step6Detailed
+              nextStep = {this.nextStep}
+              prevStep = {this.prevStep}
+              resetAssociation = {this.resetAssociation}
+              setNameCost = {this.setNameCost}
+              DetailedSplit = {DetailedSplit}
+            />
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
+        );
+      case 107:
+        return(
+          <div className = "container">
+            <Step7Detailed
+              prevStep = {this.prevStep}
+              resetNameCost = {this.resetNameCost}
+              DetailedSplit = {DetailedSplit}
+            />
           </div>
-          <div className="col s6">
-            <h4>Step 5 [Detailed Split]:</h4>
-            <p>-Click and Drag People Into a Box's With Associated Food</p>
-            <p>-Give Appropriate Percentages of People Per Food</p>
-            <p>Ex: Steak -> Steve (100%)<br/> Rice -> Steve (50%), Josh (50%)</p>
+        );
+      default:
+        return(
+          <div className = "container">
+            <WrongPage
+              wrongStep = {this.wrongStep}
+            />
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-          </div>
-          <div className="col s6">
-            <h4>Step 6 [Detailed Split]:</h4>
-            <p>-Calculate by Using Cost of Food and Percentage and Tax Per Person For Individual Prices</p>
-            <p>Ex: Steak($10 + $2(tax)) -> Steve(100%)) = $12</p>
-            <p>Rice ($4 + $1(tax)) -> Steve (50%) = $2.50, Josh (50%) = $2.50</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-          </div>
-          <div className="col s6">
-            <h4>Step 7 [Detailed Split]:</h4>
-            <p>-Display Individual Prices</p>
-            <p>Ex: Steve $14.50</p>
-            <p>Josh = $2.50</p>
-          </div>
-        </div>
-      </div>
-    );
+        );
+    }
   }
 }

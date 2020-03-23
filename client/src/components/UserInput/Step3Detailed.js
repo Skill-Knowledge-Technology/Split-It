@@ -78,12 +78,12 @@ export default class Step3Detailed extends React.Component {
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
-              <hr/>
+              {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(DetailedSplit)}>
                 Show
                 <i className="material-icons right">navigate_next</i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
