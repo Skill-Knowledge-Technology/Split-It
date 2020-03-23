@@ -38,8 +38,8 @@ export default class Register extends Component {
     else if (email === '') {
       alert("Please Enter a Correct Email");
     }
-    else if (password === '') {
-      alert("Please Enter a Password");
+    else if (password === '' || password.length < 6) {
+      alert("Please Enter a Password With a Length of At Least 6");
     }
     else if (password !== password2) {
       alert("Your Password and Confirmation Password Do Not Match.");

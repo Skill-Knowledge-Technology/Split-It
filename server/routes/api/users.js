@@ -27,7 +27,7 @@ router.post('/register', [
     check('email').isEmail().withMessage('Email must be valid')
     .bail()
     .custom(userMiddleware.expressValidator.emailShouldExist(false)),
-    check('password').isLength({min:6}).withMessage('Password must be > 6 characters long'),
+    check('password').isLength({min:6}).withMessage('Password must be at least 6 or more characters long'),
     validatorErrors
 ], userController.register);
 
