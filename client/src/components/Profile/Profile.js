@@ -6,7 +6,6 @@ export default class Profile extends React.Component {
     super(props);
     this.state = {
       name: "",
-      phone: "",
       email: "",
     };
   }
@@ -41,13 +40,6 @@ export default class Profile extends React.Component {
               <i className="material-icons prefix">account_circle</i>
               <input placeholder="Name" id="first_name" type="text" onChange={this.handleChange('name')}/>
               <label>Name</label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <i className="material-icons prefix">local_phone</i>
-              <input id="phone" type="tel" placeholder="Phone Number" className="validate" onChange={this.handleChange('phone')}/>
-              <label>Phone Number</label>
             </div>
           </div>
           <div className="row">
