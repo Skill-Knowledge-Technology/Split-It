@@ -3,6 +3,16 @@ import React from 'react';
 export default class Step6Detailed extends React.Component {
   next = e => {
     e.preventDefault();
+    var ordersSize = this.props.DetailedSplit.orders.length;
+    for(var i = 0; i < ordersSize; i++){
+      var associationSize = this.props.DetailedSplit.orders[i].association.length;
+      for(var j = 0; j < associationSize; j++){
+        var name = this.props.DetailedSplit.orders[i].association[j];
+        var cost = this.props.DetailedSplit.orders[i].cost;
+        var total = this.total(associationSize,cost)
+        this.props.setNameCost(name,total);
+      }
+    }
     this.props.nextStep();
   };
 
@@ -16,10 +26,7 @@ export default class Step6Detailed extends React.Component {
   total(totalPeople,cost){
     var total = cost/totalPeople; // Total
     total = Math.ceil(total * 100) / 100; // Round Up
-    if (total === Infinity || isNaN(total)){ // Checks for Fail
-      return("Invalid Inputs");
-    }
-    return('$ ' + total);
+    return(total);
   }
 
   render(){ 
@@ -59,10 +66,7 @@ export default class Step6Detailed extends React.Component {
                             {list.association.map((list2, index2) => (
                               <tr key = {index2}>
                                 <td>
-                                  {list2}
-                                </td>
-                                <td>
-                                  {this.total(list.association.length,list.cost)}
+                                  {list2} Pays $ {this.total(list.association.length,list.cost)} For This Order
                                 </td>
                               </tr>
                             ))}

@@ -93,7 +93,7 @@ export default class Test extends React.Component {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
     for (var i = 0; i < size; i++){
-      if(newState.names[i].name == ''){
+      if(newState.names[i].name === ''){
         newState.names[i].name = newState.names[i].number;
         this.setState(newState);
       }
@@ -110,7 +110,7 @@ export default class Test extends React.Component {
     var newState = Object.assign({}, this.state);
     var size = newState.orders.length;
     for (var i = 0; i < size; i++){
-      if(newState.orders[i].order == ''){
+      if(newState.orders[i].order === ''){
         newState.orders[i].order = newState.orders[i].number;
         this.setState(newState);
       }
@@ -127,7 +127,7 @@ export default class Test extends React.Component {
     var newState = Object.assign({}, this.state);
     var size = newState.orders.length;
     for (var i = 0; i < size; i++){
-      if(newState.orders[i].cost == ''){
+      if(newState.orders[i].cost === ''){
         newState.orders[i].cost = 0;
         this.setState(newState);
       }
@@ -149,8 +149,24 @@ export default class Test extends React.Component {
     }
   }
 
-  setNameCost = () => {
+  setNameCost = (name, total) => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === name){
+        newState.names[i].cost += total;
+        this.setState(newState);
+      }
+    }
+  }
 
+  resetNameCost = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].cost = 0;
+      this.setState(newState);
+    }
   }
 
   render() {
@@ -175,9 +191,9 @@ export default class Test extends React.Component {
           <div className = "container">
             <Step2EZ
               nextStep = {this.nextStep}
-              prevStep={this.prevStep}
-              changeEZTotal={this.changeEZTotal}
-              handleChange={this.handleChange}
+              prevStep = {this.prevStep}
+              changeEZTotal = {this.changeEZTotal}
+              handleChange = {this.handleChange}
               EZSplit = {EZSplit}
             />
           </div>
@@ -186,7 +202,7 @@ export default class Test extends React.Component {
         return(
           <div className = "container">
             <Step3EZ
-              prevStep={this.prevStep}
+              prevStep = {this.prevStep}
               EZSplit = {EZSplit}
             />
           </div>
@@ -196,9 +212,9 @@ export default class Test extends React.Component {
           <div className = "container">
             <Step2Detailed
               nextStep = {this.nextStep}
-              prevJump={this.prevJump}
-              changePeopleOrder={this.changePeopleOrder}
-              handleChange={this.handleChange}
+              prevJump = {this.prevJump}
+              changePeopleOrder = {this.changePeopleOrder}
+              handleChange = {this.handleChange}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -208,8 +224,8 @@ export default class Test extends React.Component {
           <div className = "container">
             <Step3Detailed
               nextStep = {this.nextStep}
-              prevStep={this.prevStep}
-              changeNames={this.changeNames}
+              prevStep = {this.prevStep}
+              changeNames = {this.changeNames}
               setNames = {this.setNames}
               DetailedSplit = {DetailedSplit}
             />
@@ -220,9 +236,9 @@ export default class Test extends React.Component {
           <div className = "container">
             <Step4Detailed
               nextStep = {this.nextStep}
-              prevStep={this.prevStep}
-              changeOrders={this.changeOrders}
-              changeOrderCost={this.changeOrderCost}
+              prevStep = {this.prevStep}
+              changeOrders = {this.changeOrders}
+              changeOrderCost = {this.changeOrderCost}
               setOrders = {this.setOrders}
               setOrderCost = {this.setOrderCost}
               DetailedSplit = {DetailedSplit}
@@ -234,8 +250,8 @@ export default class Test extends React.Component {
           <div className = "container">
             <Step5Detailed
               nextStep = {this.nextStep}
-              prevStep={this.prevStep}
-              changeAssociation={this.changeAssociation}
+              prevStep = {this.prevStep}
+              changeAssociation = {this.changeAssociation}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -245,8 +261,9 @@ export default class Test extends React.Component {
           <div className = "container">
             <Step6Detailed
               nextStep = {this.nextStep}
-              prevStep={this.prevStep}
-              resetAssociation={this.resetAssociation}
+              prevStep = {this.prevStep}
+              resetAssociation = {this.resetAssociation}
+              setNameCost = {this.setNameCost}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -255,7 +272,8 @@ export default class Test extends React.Component {
         return(
           <div className = "container">
             <Step7Detailed
-              prevStep={this.prevStep}
+              prevStep = {this.prevStep}
+              resetNameCost = {this.resetNameCost}
               DetailedSplit = {DetailedSplit}
             />
           </div>

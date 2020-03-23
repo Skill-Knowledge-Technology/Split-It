@@ -3,12 +3,20 @@ import React from 'react';
 export default class Step7Detailed extends React.Component {
   back = e => {
     e.preventDefault();
+    this.props.resetNameCost();
     this.props.prevStep();
   };
 
   save = e => {
     e.preventDefault();
     alert("Saved");
+  }
+
+  show = input => e =>{
+    e.preventDefault();
+    input.names.map((list) => (
+      console.log(list)
+      ))
   }
 
   render(){ 
@@ -30,6 +38,12 @@ export default class Step7Detailed extends React.Component {
                 type="submit" name="action" onClick = {this.save}>
                 Save
                 <i className="material-icons right">save</i>
+              </button>
+              <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                Show
+                <i className="material-icons right">navigate_next</i>
               </button>
             </div>
           </div>
