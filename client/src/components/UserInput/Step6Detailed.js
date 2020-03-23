@@ -58,7 +58,7 @@ export default class Step6Detailed extends React.Component {
                         {list.order}
                       </td>
                       <td>
-                        $ {list.cost}
+                        ${list.cost}
                       </td>
                       <td>
                         <table>
@@ -66,7 +66,7 @@ export default class Step6Detailed extends React.Component {
                             {list.association.map((list2, index2) => (
                               <tr key = {index2}>
                                 <td>
-                                  {list2} Pays $ {this.total(list.association.length,list.cost)} For This Order
+                                  {list2} Pays ${this.total(list.association.length,list.cost)} For This Order
                                 </td>
                               </tr>
                             ))}

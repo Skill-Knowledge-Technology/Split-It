@@ -1,20 +1,31 @@
 import React from 'react';
+import M from 'materialize-css'
 
-export default class Step7Detailed extends React.Component {
+export default class Step5Detailed extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
+  
+  next = e => {
+    e.preventDefault();
+    this.props.nextStep();
+  };
+
   back = e => {
     e.preventDefault();
-    this.props.resetNameCost();
     this.props.prevStep();
   };
 
-  save = e => {
-    e.preventDefault();
-    alert("Saved");
+  call = index => e => {
+    var elems = document.querySelector('select[name="' + index + '"]');
+    var instances = M.FormSelect.init(elems);
+    var selectedOne = instances.getSelectedValues();
+    this.props.changeAssociation(index,selectedOne)
   }
 
   show = input => e =>{
     e.preventDefault();
-    input.names.map((list) => (
+    input.orders.map((list) => (
       console.log(list)
       ))
   }
@@ -36,35 +47,45 @@ export default class Step7Detailed extends React.Component {
               <table className="highlight centered">
                 <thead>
                   <tr>
-                    <th>Names</th>
-                    <th>Payment</th>
+                    <th>Order Number</th>
+                    <th>Order Names</th>
+                    <th>Choose Names That Are Associated To Orders</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.names.map((list, index) => (
+                  {DetailedSplit.orders.map((list, index) => (
                     <tr key = {index}>
                       <td>
-                        {list.name}
+                        {list.number}
                       </td>
                       <td>
-                        $ {list.cost}
+                        {list.order}
                       </td>
+                      <td>
+                        <select multiple name={index} onChange={this.call(index)}>
+                          {DetailedSplit.names.map((list2, index2) => (
+                            <option key = {index2} value = {list2.name}>
+                              {list2.name}
+                            </option>
+                          ))}
+                        </select>
+                      </td> 
                     </tr>
                   ))}
                 </tbody>
               </table>
               <br/>
               <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick = {this.save}>
-                Save
-                <i className="material-icons right">save</i>
+                type="submit" name="action" onClick={this.next}>
+                Next
+                <i className="material-icons right">navigate_next</i>
               </button>
-              <hr/>
+              {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(DetailedSplit)}>
                 Show
                 <i className="material-icons right">navigate_next</i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

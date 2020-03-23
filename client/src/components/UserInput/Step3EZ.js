@@ -35,12 +35,12 @@ export default class Step3EZ extends React.Component {
                 </div>
                 <div className = "row">
                   <p className = "flow-text">
-                    Total Cost: {EZcost}
+                    Total Cost: ${EZcost}
                   </p>
                 </div>
                 <div className = "row">
                   <p className = "flow-text">
-                    Total Cost Per Person: {EZtotal}
+                    Total Cost Per Person: ${EZtotal}
                   </p>
                 </div>
               </div>
