@@ -10,15 +10,17 @@ const getTransId = (req, res, next) => {
 
 }
 const createTransaction = async (req, res, next) => {
-    let balance = req.body.balance;
+    let total = req.body.total;
     let ownerId = req.body.userID;
+    const transaction = {total,ownerId};
     try {
         const createTransaction = TransactionServices.createTransaction(transaction)
         res.json(createTransaction)
         console.log('transaction created')
     }
     catch (err) {
-        next(error)
+        //      next(error)
+        console.log('controller error')
     }
 }
 

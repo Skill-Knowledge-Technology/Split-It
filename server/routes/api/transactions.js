@@ -9,6 +9,6 @@ const validatorErrors = require('../../middleware/validatorErrors');
 //should match with '/api/transactions'
 router.get('/:transactionId', [validatorErrors],transactionController.getTransId);
 
-// './api/createTransaction'
-router.post('./createTransaction',[validatorErrors],transactionController.createTransaction);
+// './api/transactions'
+router.post('/createTransaction',[validatorErrors],transactionController.createTransaction);
 module.exports = router;

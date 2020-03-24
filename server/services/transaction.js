@@ -7,10 +7,11 @@ const findTransaction = async (id) => {
 }
 const createTransaction = async (data)=> {
     const newTransaction = await db.Transaction.create({
-        balance: data.balance,
-        ownerId: data.ownerId
+        total: data.total,
+        userID: data.ownerId,
+        date: Date.now()
     });
-    console.log("service has creaetd a transaction owned by user " + newTransaction.ownerId);
+    console.log("service has creaetd a transaction owned by user " + newTransaction.userID);
     return newTransaction;
 
 }
