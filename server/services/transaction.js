@@ -5,3 +5,7 @@ const findTransaction = async (id) => {
     console.log(Transaction + 'found');
     return Transaction;
 }
+
+module.exports ={
+    findTransaction
+}
