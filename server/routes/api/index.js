@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const users = require('./users');
-const transactions = require('./tranactions');
+const transactions = require('./transactions');
 
   router.use('/users', users);
 
