@@ -33,13 +33,13 @@ export default class Register extends Component {
     e.preventDefault();
     const { name, email, password, password2 } = this.state;
     if (name === '') {
-      alert("Please Enter a Username");
+      alert("Please Enter a Name (Can Be Anything)");
     }
     else if (email === '') {
       alert("Please Enter a Correct Email");
     }
-    else if (password === '') {
-      alert("Please Enter a Password");
+    else if (password === '' || password.length < 6) {
+      alert("Please Enter a Password With a Length of At Least 6");
     }
     else if (password !== password2) {
       alert("Your Password and Confirmation Password Do Not Match.");
@@ -61,7 +61,7 @@ export default class Register extends Component {
             <div className="input-field col s12">
               <i className="material-icons prefix">account_circle</i>
               <input placeholder="Enter Name" id="first_name" type="text" onChange={this.handleChange('name')} />
-              <label>Username</label>
+              <label>Name</label>
             </div>
           </div>
           <div className="row">
@@ -69,7 +69,7 @@ export default class Register extends Component {
               <i className="material-icons prefix">email</i>
               <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange('email')} />
               <label>Email</label>
-              <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange('error')}>Please Enter a Valid Email</span>
+              <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span>
             </div>
           </div>
           <div className="row">

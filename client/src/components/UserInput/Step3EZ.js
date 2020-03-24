@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Step7Detailed extends React.Component {
+export default class Step3EZ extends React.Component {
   back = e => {
     e.preventDefault();
     this.props.prevStep();
@@ -12,7 +12,9 @@ export default class Step7Detailed extends React.Component {
   }
 
   render(){ 
-    const { DetailedSplit} = this.props;
+    const { 
+      EZSplit: { totalPeople, EZcost, EZtotal}
+    } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -25,7 +27,23 @@ export default class Step7Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <h1>Detailed: Step 7</h1>
+              <div className = "col s12">
+                <div className = "row">
+                  <p className = "flow-text">
+                    Total People: {totalPeople}
+                  </p>
+                </div>
+                <div className = "row">
+                  <p className = "flow-text">
+                    Total Cost: ${EZcost}
+                  </p>
+                </div>
+                <div className = "row">
+                  <p className = "flow-text">
+                    Total Cost Per Person: ${EZtotal}
+                  </p>
+                </div>
+              </div>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick = {this.save}>
                 Save
@@ -37,5 +55,4 @@ export default class Step7Detailed extends React.Component {
       </div>
     );
   }
-
 }

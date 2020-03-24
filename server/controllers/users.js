@@ -3,21 +3,39 @@
 // in this case, this is the controller for users
 
 const UserServices = require("../services/user")
+const bcrypt = require('bcrypt')
 
 const getUserById = (req, res, next) => {
     return UserServices.findUser(req.params.userId)
         .then((user) => {
             res.json(user)
         })
-        .catch(error => res.status(422).json(error))
+        .catch(error => next(error))
 }
 
-/*
-Login
-Register
-*/
 
-const register = async (req, res) => {
+const login = async (req,res,next) => {
+    // we are able to get the userID and name because 
+    // we passed emailShouldExist middleware and that contains
+    // the req.user information
+    const payload = {
+        id: req.user.userID,
+        name: req.user.name
+    }
+    console.log(payload)
+    console.log("reached the terminal")
+    return UserServices.getJwtToken(payload)
+    .then((token) => {
+        res.json({
+            success: true,
+            token: 'Bearer ' + token
+        })
+    })
+    .catch(error => next(error))
+}
+
+
+const register = async (req, res, next) => {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
@@ -27,11 +45,12 @@ const register = async (req, res) => {
         const createUser = UserServices.createUser(user)
         res.json(createUser)
     } catch(err) {
-        return res.status(422).json(err)
+        next(error)
     }
 }
 
 module.exports = {
     getUserById,
-    register
+    register,
+    login
 }

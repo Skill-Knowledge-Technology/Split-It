@@ -1,8 +1,10 @@
 import React from 'react';
 
-export default class Step3Detailed extends React.Component {
+export default class Step4Detailed extends React.Component {
   next = e => {
     e.preventDefault();
+    this.props.setOrders();
+    this.props.setOrderCost();
     this.props.nextStep();
   };
 
@@ -13,13 +15,13 @@ export default class Step3Detailed extends React.Component {
 
   show = input => e =>{
     e.preventDefault();
-    input.names.map((list) => (
+    input.orders.map((list) => (
       console.log(list)
       ))
   }
 
   render(){ 
-    const { DetailedSplit, changeNames } = this.props;
+    const { DetailedSplit, changeOrders, changeOrderCost } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -32,23 +34,30 @@ export default class Step3Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <table className="highlight centered">
+            <table className="highlight centered">
                 <thead>
                   <tr>
-                    <th>Number of People</th>
-                    <th>Names</th>
+                    <th>Order Number</th>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.names.map((list, index) => (
+                  {DetailedSplit.orders.map((list, index) => (
                     <tr key = {index}>
                       <td>
                         {list.number}
                       </td>
                       <td>
                         <form>
-                          <input type="text" placeholder="Insert Name"
-                            defaultValue={list.name} onChange={changeNames(index)}/>
+                          <input type="text" placeholder="Insert Order"
+                            defaultValue={list.order} onChange={changeOrders(index)}/>
+                        </form>
+                      </td> 
+                      <td>
+                        <form>
+                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
+                            defaultValue={list.cost} onChange={changeOrderCost(index)}/>
                         </form>
                       </td> 
                     </tr>
@@ -61,12 +70,12 @@ export default class Step3Detailed extends React.Component {
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
-              <hr/>
+              {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(DetailedSplit)}>
                 Show
                 <i className="material-icons right">navigate_next</i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
