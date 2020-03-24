@@ -23,5 +23,6 @@ const createTransaction = async (req, res, next) => {
 }
 
 module.exports = {
-    getTransId
+    getTransId,
+    createTransaction
 }
