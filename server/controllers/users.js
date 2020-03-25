@@ -12,6 +12,13 @@ const getUserById = (req, res, next) => {
         })
         .catch(error => next(error))
 }
+const getUserByName = (req,res,next) => {
+    return UserServices.findUserByName(req.params.name)
+    .then((user) => {
+        res.json(user)
+    })
+    .catch(error=> next(error))
+}
 
 
 const login = async (req,res,next) => {
@@ -51,6 +58,7 @@ const register = async (req, res, next) => {
 
 module.exports = {
     getUserById,
+    getUserByName,
     register,
     login
 }

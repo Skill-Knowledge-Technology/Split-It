@@ -10,6 +10,8 @@ const userMiddleware = require('../../middleware/users')
 // should match with "/api/users"
 router.get('/:userId', [validatorErrors], userController.getUserById);
 
+router.get('/findByName/:name',[validatorErrors], userController.getUserByName);
+
 // should match with "/api/users/login"
 router.post('/login', [
     check('email')
