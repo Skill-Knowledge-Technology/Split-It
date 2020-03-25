@@ -45,6 +45,13 @@ const findUser = async (id) => {
     return User;
 }
 
+const findUserByName =async (name) => {
+    const User = await db.User.findOne({where:{ name:name }})
+    console.log(User + 'has been found by name in service');
+    return User;
+
+}
+
 
 const createUser = async (data) => {
     const newUser = await db.User.create({
@@ -72,5 +79,6 @@ module.exports = {
     createUser,
     generateHash,
     getJwtToken,
-    verifyJwtToken
+    verifyJwtToken,
+    findUserByName
 }
