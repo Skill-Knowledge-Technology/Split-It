@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_OPTIONS = {
     expiresIn: 31556926,
-  };
+};
 const secretOrPrivateKey = 'secret';
 
 
@@ -25,8 +25,8 @@ const getJwtToken = (payload) => {
 
 // function that verify and decode a JWT token back to its original object
 const verifyJwtToken = (token) => {
-    return new Promise((resolve,reject)=> {
-        jwt.verify(token ,secretOrPrivateKey, (err, decoded) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, secretOrPrivateKey, (err, decoded) => {
             return err ? reject(err) : resolve(decoded);
         });
     });
@@ -45,8 +45,35 @@ const findUser = async (id) => {
     return User;
 }
 
-const findUserByName =async (name) => {
-    const User = await db.User.findOne({where:{ name:name }})
+const findUserBalance = async (userId) => {
+    const User = await db.User.findByPk(userId);
+    console.log('found user' + User);
+    return User.balance;
+}
+
+const addBalance = async (userId, balanceToAdd) => {
+    balanceToAdd = parseFloat(balanceToAdd);
+    console.log('balance to add is ' + balanceToAdd)
+    let currentBalance = await findUserBalance(userId);
+    currentBalance = parseFloat(currentBalance);
+    console.log('current balance is ' + currentBalance);
+    let newBalance = currentBalance + balanceToAdd;
+    console.log('new balance is ' + newBalance);
+    db.User.update(
+        { balance: newBalance },
+        { where: { userID: userId } }
+    )
+        .then(result =>
+            console.log(' result is ' + result)
+        )
+        .catch(err =>
+            console.log(err)
+        )
+    console.log('try to add balance');
+}
+
+const findUserByName = async (name) => {
+    const User = await db.User.findOne({ where: { name: name } })
     console.log(User + 'has been found by name in service');
     return User;
 
@@ -75,6 +102,8 @@ const generateHash = async (password) => {
 
 module.exports = {
     findUserByEmail,
+    findUserBalance,
+    addBalance,
     findUser,
     createUser,
     generateHash,
