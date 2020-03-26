@@ -20,6 +20,14 @@ const getUserByName = (req,res,next) => {
     .catch(error=> next(error))
 }
 
+const getUserBalance = (req, res, next) => {
+    return UserServices.findUserBalance(req.params.userId)
+    .then((balance) => {
+        res.json(balance)
+    })
+    .catch(error=> next(error))
+}
+
 
 const login = async (req,res,next) => {
     // we are able to get the userID and name because 
@@ -59,6 +67,8 @@ const register = async (req, res, next) => {
 module.exports = {
     getUserById,
     getUserByName,
+    getUserBalance,
     register,
     login
+    
 }

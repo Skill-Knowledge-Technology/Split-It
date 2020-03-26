@@ -12,6 +12,8 @@ router.get('/:userId', [validatorErrors], userController.getUserById);
 
 router.get('/findByName/:name',[validatorErrors], userController.getUserByName);
 
+router.get('/getBalance/:userId', [validatorErrors], userController.getUserBalance);
+
 // should match with "/api/users/login"
 router.post('/login', [
     check('email')

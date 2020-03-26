@@ -45,6 +45,12 @@ const findUser = async (id) => {
     return User;
 }
 
+const findUserBalance = async (userId) => {
+    const User = await db.User.findByPk(userId);
+    console.log('found user' + User);
+    return User.balance;
+}
+
 const findUserByName =async (name) => {
     const User = await db.User.findOne({where:{ name:name }})
     console.log(User + 'has been found by name in service');
@@ -75,6 +81,7 @@ const generateHash = async (password) => {
 
 module.exports = {
     findUserByEmail,
+    findUserBalance,
     findUser,
     createUser,
     generateHash,
