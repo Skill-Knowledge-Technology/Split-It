@@ -28,6 +28,14 @@ const getUserBalance = (req, res, next) => {
     .catch(error=> next(error))
 }
 
+const addToUserBalance = (req, res, next) => {
+    return UserServices.addBalance(req.params.userId, req.body.balanceToAdd)
+    .then((balance) => {
+        res.json(balance)
+    })
+    .catch(error=> next(error))
+}
+
 
 const login = async (req,res,next) => {
     // we are able to get the userID and name because 
@@ -68,6 +76,7 @@ module.exports = {
     getUserById,
     getUserByName,
     getUserBalance,
+    addToUserBalance,
     register,
     login
     
