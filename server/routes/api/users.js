@@ -38,3 +38,6 @@ router.post('/register', [
 ], userController.register);
 
 module.exports = router;
+
+
+// .custom(userMiddleware.expressValidator.matches),

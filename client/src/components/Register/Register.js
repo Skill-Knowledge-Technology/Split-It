@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './Register.css';
 import API from "../../utils/api";
+import {	withRouter } from 'react-router-dom';
+
+
 
 export default class Register extends Component {
   constructor(props) {
@@ -19,8 +22,12 @@ export default class Register extends Component {
     API.saveUser({
       name: this.state.name,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.password2
     }).then(console.log("user data sent to register route"))
+    .catch((error)=> {
+      console.log(error)
+    })
   }
 
   // Handle field change
@@ -82,7 +89,7 @@ export default class Register extends Component {
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
-              <input type="password" placeholder="Reenter Password" onChange={this.handleChange('password2')} />
+              <input id="password2" type="password" placeholder="Reenter Password" onChange={this.handleChange('password2')} />
               <label>Confirm Password</label>
             </div>
           </div>

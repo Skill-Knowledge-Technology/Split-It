@@ -4,7 +4,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.addColumn('Users', 'balance', Sequelize.DECIMAL(9, 2));
+    queryInterface.addColumn('Users', 'balance', Sequelize.DataTypes.DECIMAL(9, 2));
   },
 
   down: (queryInterface, Sequelize) => {

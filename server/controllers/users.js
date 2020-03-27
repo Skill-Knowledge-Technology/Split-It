@@ -45,8 +45,6 @@ const login = async (req,res,next) => {
         id: req.user.userID,
         name: req.user.name
     }
-    console.log(payload)
-    console.log("reached the terminal")
     return UserServices.getJwtToken(payload)
     .then((token) => {
         res.json({
