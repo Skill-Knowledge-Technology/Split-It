@@ -10,7 +10,8 @@
     "react-images-upload": "^1.2.8",
     "react-materialize": "^3.5.9",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "tesseract.js": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
