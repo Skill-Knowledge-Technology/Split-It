@@ -1,19 +1,3 @@
-.TestBox{
-  width: 90%;
-  opacity: 0.95;
-  filter: alpha(opacity=95); /* For IE8 and earlier */
-  background-color: white;
-  padding: 1px 20px;
-  box-sizing: border-box;
-}
-
-.app {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  justify-content: space-between;	
-  justify-items: center;
-}
-  
 .header {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -40,45 +24,4 @@
   border-bottom: 1px solid grey;
   padding-bottom: 8px;
   margin-bottom: 8px;
-}
-
-.button {
-  width: 100%;
-  background: #61dafb;
-  border-radius: 4px;
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 12px;
-  color: white;
-  font-weight: bold;
-}
-
-.button:hover, .button:active {
-  background: #54bedb
-}
-
-.fileUploaderContainer {
-  overflow: hidden;
-  display: block;
-  position: relative;
-  color: #777777;
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 3px dashed #777777;
-  border-radius: 8px;
-}
-
-.fileUploaderContainer [type=file] {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-height: 100%;
-  min-width: 100%;
-  font-size: 999px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  cursor: pointer;
 }
