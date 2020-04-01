@@ -72,25 +72,30 @@ const addBalance = async (userId, balanceToAdd) => {
     console.log('try to add balance');
 }
 
-const findUserByName = async (name) => {
-    const User = await db.User.findOne({ where: { name: name } })
-    console.log(User + 'has been found by name in service');
+const findUserByUsername = async (username) => {
+    const User = await db.User.findOne({ where: { username: username } })
+    console.log(User + 'has been found by username in service');
     return User;
 
 }
 
 
 const createUser = async (data) => {
-    const newUser = await db.User.create({
-        name: data.name,
-        email: data.email,
-        password: data.password
-    });
-    console.log("service has created a User " + newUser.name);
-    return newUser;
-    // console.log(data.name + " " + data.email + " " + data.password + " - read from createUser function");
-    // console.log("createUser function invoked");
+    try {
+        const newUser = await db.User.create({
+            username: data.username,
+            email: data.email,
+            password: data.password
+        });
+        console.log("service has created a User " + newUser.username);
+        return newUser;
+    } catch {
+        console.log("Error: user not saved");
+    }
+
 }
+// console.log(data.username + " " + data.email + " " + data.password + " - read from createUser function");
+// console.log("createUser function invoked");
 
 
 // function to generate a hash of the password asynchronously with 8 rounds
@@ -109,5 +114,5 @@ module.exports = {
     generateHash,
     getJwtToken,
     verifyJwtToken,
-    findUserByName
+    findUserByUsername
 }

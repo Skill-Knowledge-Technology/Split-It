@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(10,2),
             allowNull: false
         },
+        participants: {
+            type: DataTypes.ARRAY(DataTypes.INTEGER)
+        }
     });
 
     Transaction.associate = function(models) {
