@@ -37,7 +37,8 @@ const addToUserBalance = (req, res, next) => {
 }
 
 const getUserFriends = (req, res, next) => {
-    return UserServices.getUserFriends(req.params.userId)
+    console.log('hit getUserFriend worked');
+    return UserServices.findUserFriends(req.params.userId)
         .then((friends) => {
             res.json('friends found ' + friends)
         })

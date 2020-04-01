@@ -78,6 +78,11 @@ const findUserByUsername = async (username) => {
     return User;
 
 }
+const findUserFriends = async(userID) => {
+    const User = await db.User.findByPk(userID);
+    console.log('user found in services');
+    return User.friends;
+}
 
 
 const createUser = async (data) => {
@@ -110,6 +115,7 @@ module.exports = {
     findUserBalance,
     addBalance,
     findUser,
+    findUserFriends,
     createUser,
     generateHash,
     getJwtToken,
