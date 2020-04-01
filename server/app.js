@@ -36,10 +36,6 @@ if(process.env.NODE_ENV==='production') {
   });
 }
 
-// // required for passport
-// app.use(session({ secret: 'sessionsecret' })); // session secret
-// app.use(passport.initialize());
-// app.use(passport.session()); // persistent login sessions
 
 
 
