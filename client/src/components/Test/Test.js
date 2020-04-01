@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Test.css'
 
 var Tesseract = window.Tesseract;
@@ -7,29 +7,32 @@ export default class Test extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      uploads: [],
-      patterns: [],
-      documents: []
+      uploads: '',
+      patterns: '',
+      pattern: [],
+      text: '',
+      confidence: '',
+      found: false
     };
   }
 
-  handleChange = (event) => {
-    if (event.target.files[0]) {
-      var uploads = []
-      for (var key in event.target.files) {
-        if (!event.target.files.hasOwnProperty(key)) continue;
-        let upload = event.target.files[key]
-        uploads.push(URL.createObjectURL(upload))
-      }
-      this.setState({
-        uploads: uploads
-      })
-    } 
-    else {
-      this.setState({
-        uploads: []
-      })
+  handleChange = (e) => {
+    e.preventDefault();
+
+    let file = e.target.files[0];
+    let reader = new FileReader();
+
+    if (e.target.files.length === 0) {
+      return;
     }
+
+    reader.onloadend = (e) => {
+      this.setState({
+        uploads: [reader.result]
+      });
+    }
+
+    reader.readAsDataURL(file);
   }
 
   generateText = () => {
@@ -55,15 +58,15 @@ export default class Test extends React.Component {
   
         // Update state
         this.setState({ 
-          patterns: this.state.patterns.concat(patterns),
-          documents: this.state.documents.concat({
+            patterns: this.state.patterns.concat(patterns),
             pattern: patterns,
             text: text,
-            confidence: confidence
-          })
+            confidence: confidence,
+            found: true
         })
       })
     }
+
   }
 
   render() {
@@ -77,42 +80,32 @@ export default class Test extends React.Component {
                   <div className="file-field input-field">
                     <div className="btn">
                       <input type="file" onChange={this.handleChange} accept="image/*"/>
-                      <span> Upload File</span>
+                      <span>Upload File</span>
                     </div>
                     <div className="file-path-wrapper">
                       <input className="file-path validate" type="text"/>
                     </div>
                   </div>
-                  <div>
-                    {this.state.uploads.map((value, index) => {
-                      return <img key={index} src={value} width="100px" />
-                    })}
+                  <div className="card-image">
+                    <img src = {this.state.uploads} alt = "" />
                   </div>
-                  <button className="btn waves-effect waves-light" type="submit" onClick={this.generateText}>Submit
-                    <i className="material-icons right">send</i>
-                  </button>
-                  {this.state.documents.map((value, index) => {
-                    return (
-                      <div className="container">
-                        <div key={index} className="results__result">
-                          <div className="results__result__image">
-                            <img src={this.state.uploads[index]} width="250px" />
-                          </div>
-                          <div className="results__result__info">
-                            <div className="results__result__info__codes">
-                              <small><strong>Confidence Score:</strong> {value.confidence}</small>
-                            </div>
-                            <div className="results__result__info__codes">
-                              <small><strong>Pattern Output:</strong> {value.pattern.map((pattern) => { return pattern + ', ' })}</small>
-                            </div>
-                            <div className="results__result__info__text">
-                              <small><strong>Full Output:</strong> {value.text}</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
+                  <br/>
+                  <div className = "center-align">
+                    <button className="btn-large waves-effect waves-light" type="submit" onClick={this.generateText}>Submit
+                      <i className="material-icons right">send</i>
+                    </button>
+                  </div>
+                  <br/>
+                  {this.state.found &&
+                  (
+                    <div className="container">
+                      <p><strong>Confidence Score:</strong> {this.state.confidence}</p>
+                      <br/>
+                      <p><strong>Pattern Output:</strong> {this.state.pattern.map((pattern) => { return pattern + ', ' })}</p>
+                      <br/>
+                      <p><strong>Full Output:</strong> {this.state.text}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
