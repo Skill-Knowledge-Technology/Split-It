@@ -32,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(9,2),
             allowNull: false,
             defaultValue: 0
+        }, 
+        friends : {
+            type: DataTypes.ARRAY(DataTypes.INTEGER)
         }
     })
 
