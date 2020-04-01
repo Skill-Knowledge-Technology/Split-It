@@ -9,9 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        name : {
+        username : {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 isAlphanumeric: true
             }
@@ -19,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         email : {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 isEmail: true
             }
