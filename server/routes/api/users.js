@@ -10,7 +10,7 @@ const userMiddleware = require('../../middleware/users')
 // should match with "/api/users"
 router.get('/:userId', [validatorErrors], userController.getUserById);
 
-router.get('/findByName/:name',[validatorErrors], userController.getUserByName);
+router.get('/findByUsername/:username',[validatorErrors], userController.getUserByUsername);
 
 router.get('/getBalance/:userId', [validatorErrors], userController.getUserBalance);
 
@@ -29,7 +29,7 @@ router.post('/login', [
     ], userController.login)
 
 router.post('/register', [
-    check('name').isLength({min:1}).withMessage('Name must be at least 1 or more character long'),
+    check('username').isLength({min:1}).withMessage('Username must be at least 1 or more character long'),
     check('email').isEmail().withMessage('Email must be valid')
     .bail()
     .custom(userMiddleware.expressValidator.emailShouldExist(false)),

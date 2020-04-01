@@ -9,7 +9,7 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      username: "",
       email: "",
       password: "",
       password2: "",
@@ -20,7 +20,7 @@ export default class Register extends Component {
   handleUserSave = id => {
     console.log("handleUserSave function invoked");
     API.saveUser({
-      name: this.state.name,
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
@@ -38,8 +38,8 @@ export default class Register extends Component {
   // eventually api call to call the backend 
   handleSubmit = e => {
     e.preventDefault();
-    const { name, email, password, password2 } = this.state;
-    if (name === '') {
+    const { username, email, password, password2 } = this.state;
+    if (username === '') {
       alert("Please Enter a Name (Can Be Anything)");
     }
     else if (email === '') {
@@ -67,8 +67,8 @@ export default class Register extends Component {
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">account_circle</i>
-              <input placeholder="Enter Name" id="first_name" type="text" onChange={this.handleChange('name')} />
-              <label>Name</label>
+              <input placeholder="Enter Username" id="username" type="text" onChange={this.handleChange('username')} />
+              <label>Username</label>
             </div>
           </div>
           <div className="row">

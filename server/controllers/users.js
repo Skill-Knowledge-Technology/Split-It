@@ -12,8 +12,8 @@ const getUserById = (req, res, next) => {
         })
         .catch(error => next(error))
 }
-const getUserByName = (req,res,next) => {
-    return UserServices.findUserByName(req.params.name)
+const getUserByUsername = (req,res,next) => {
+    return UserServices.findUserByUsername(req.params.username)
     .then((user) => {
         res.json(user)
     })
@@ -38,12 +38,12 @@ const addToUserBalance = (req, res, next) => {
 
 
 const login = async (req,res,next) => {
-    // we are able to get the userID and name because 
+    // we are able to get the userID and username because 
     // we passed emailShouldExist middleware and that contains
     // the req.user information
     const payload = {
         id: req.user.userID,
-        name: req.user.name
+        username: req.user.username
     }
     return UserServices.getJwtToken(payload)
     .then((token) => {
@@ -57,12 +57,12 @@ const login = async (req,res,next) => {
 
 
 const register = async (req, res, next) => {
-    let name = req.body.name;
+    let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
     try {
         const hashedPassword = await UserServices.generateHash(password)
-        const user = {name, email, password: hashedPassword}
+        const user = {username, email, password: hashedPassword}
         const createUser = UserServices.createUser(user)
         res.json(createUser)
     } catch(err) {
@@ -72,7 +72,7 @@ const register = async (req, res, next) => {
 
 module.exports = {
     getUserById,
-    getUserByName,
+    getUserByUsername,
     getUserBalance,
     addToUserBalance,
     register,
