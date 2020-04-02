@@ -46,6 +46,14 @@ const getUserFriends = (req, res, next) => {
 
 }
 
+const addToUserFriends = (req,res,next) =>{
+    console.log('friend add controller hit');
+    return UserServices.addFriends(req.params.userId, req.body.friendsId)
+        .then((friends) => {
+            res.json(friends) 
+        })
+        .catch(error => next(error))
+}
 
 const login = async (req, res, next) => {
     // we are able to get the userID and username because 
@@ -85,6 +93,7 @@ module.exports = {
     getUserByUsername,
     getUserBalance,
     addToUserBalance,
+    addToUserFriends,
     getUserFriends,
     register,
     login
