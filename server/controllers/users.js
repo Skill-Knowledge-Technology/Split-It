@@ -12,32 +12,50 @@ const getUserById = (req, res, next) => {
         })
         .catch(error => next(error))
 }
-const getUserByUsername = (req,res,next) => {
+const getUserByUsername = (req, res, next) => {
     return UserServices.findUserByUsername(req.params.username)
-    .then((user) => {
-        res.json(user)
-    })
-    .catch(error=> next(error))
+        .then((user) => {
+            res.json(user)
+        })
+        .catch(error => next(error))
 }
 
 const getUserBalance = (req, res, next) => {
     return UserServices.findUserBalance(req.params.userId)
-    .then((balance) => {
-        res.json(balance)
-    })
-    .catch(error=> next(error))
+        .then((balance) => {
+            res.json(balance)
+        })
+        .catch(error => next(error))
 }
 
 const addToUserBalance = (req, res, next) => {
     return UserServices.addBalance(req.params.userId, req.body.balanceToAdd)
-    .then((balance) => {
-        res.json(balance)
-    })
-    .catch(error=> next(error))
+        .then((balance) => {
+            res.json(balance)
+        })
+        .catch(error => next(error))
 }
 
+const getUserFriends = (req, res, next) => {
+    console.log('hit getUserFriend worked');
+    return UserServices.findUserFriends(req.params.userId)
+        .then((friends) => {
+            res.json('friends found ' + friends)
+        })
+        .catch(error => next(error))
 
-const login = async (req,res,next) => {
+}
+
+const addToUserFriends = (req,res,next) =>{
+    console.log('friend add controller hit');
+    return UserServices.addFriends(req.params.userId, req.body.friendsId)
+        .then((friends) => {
+            res.json(friends) 
+        })
+        .catch(error => next(error))
+}
+
+const login = async (req, res, next) => {
     // we are able to get the userID and username because 
     // we passed emailShouldExist middleware and that contains
     // the req.user information
@@ -46,13 +64,13 @@ const login = async (req,res,next) => {
         username: req.user.username
     }
     return UserServices.getJwtToken(payload)
-    .then((token) => {
-        res.json({
-            success: true,
-            token: 'Bearer ' + token
+        .then((token) => {
+            res.json({
+                success: true,
+                token: 'Bearer ' + token
+            })
         })
-    })
-    .catch(error => next(error))
+        .catch(error => next(error))
 }
 
 
@@ -62,10 +80,10 @@ const register = async (req, res, next) => {
     let password = req.body.password;
     try {
         const hashedPassword = await UserServices.generateHash(password)
-        const user = {username, email, password: hashedPassword}
+        const user = { username, email, password: hashedPassword }
         const createUser = UserServices.createUser(user)
         res.json(createUser)
-    } catch(err) {
+    } catch (err) {
         next(error)
     }
 }
@@ -75,7 +93,9 @@ module.exports = {
     getUserByUsername,
     getUserBalance,
     addToUserBalance,
+    addToUserFriends,
+    getUserFriends,
     register,
     login
-    
+
 }
