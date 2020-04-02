@@ -6,6 +6,8 @@ import {
   Switch, 
   Route, 
 } from 'react-router-dom';
+import API from "./utils/api";
+import jwt_decode from "jwt-decode";
 import Home from './components/Home/Home';
 import AboutUs from './components/AboutUs/AboutUs';
 import Camera from './components/Camera/Camera';
@@ -17,6 +19,42 @@ import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password:"",
+      error: "",
+      isAuthenticated: false,
+      loading: false,
+    };
+  }
+    // save user
+    handleUserLogin = (email, password ) => {
+      console.log("handleUserLogin function invoked");
+      API.loginUser({
+        email: email,
+        password: password,
+      }).then((res) => {
+        const { token } = res.data
+        localStorage.setItem("jwtToken",token)
+        API.setAuthToken(token)
+        const decoded = jwt_decode(token)
+        this.setState({
+          email : res.email,
+          password: res.password,
+          isAuthenticated: true
+        })
+        console.log(decoded)
+      })
+      .catch((error) => {
+        this.setState({error})
+        console.log(this.setState)
+      })
+    }
+    
+
+
   render() {
     return (
         <Router>
@@ -25,7 +63,7 @@ class App extends React.Component {
             <div className="row justify-content-center">
               <Switch>
                 <Route path="/Register" component={Register} />
-                <Route path="/Login" component={Login} />
+                <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} handleUserLogin={this.handleUserLogin}  /> } />
                 <Route path="/Camera" component={Camera} />
                 <Route path="/UserInput" component={UserInput} />
                 <Route path="/AboutUs" component={AboutUs} />
