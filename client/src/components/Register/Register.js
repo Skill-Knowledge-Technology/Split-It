@@ -5,7 +5,7 @@ import {	withRouter } from 'react-router-dom';
 
 
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -99,3 +99,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default withRouter(Register);

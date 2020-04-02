@@ -5,37 +5,22 @@ import {	withRouter } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 
 
-export default class Login extends React.Component {
+ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password:"",
-      error: "",
-      isAuthenticated: false,
-      loading: false,
     };
   }
 
-  
-  // save user
-  handleUserLogin = () => {
-    console.log("handleUserLogin function invoked");
-    API.loginUser({
-      email: this.state.email,
-      password: this.state.password,
-    }).then((res)=> {
-      const { token } = res.data
-      localStorage.setItem("jwtToken",token)
-      API.setAuthToken(token)
-      const decoded = jwt_decode(token)
-      console.log(decoded)
-    })
-    .catch((error) => {
-      this.setState({error})
-      console.log(this.setState)
-    })
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
+      this.handleRedirect()
+    }
   }
+
 
   // Handle field change
   handleChange = input => e => {
@@ -47,10 +32,17 @@ export default class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const {email, password} = this.state;
-    console.log(this.state);
-    this.handleUserLogin();
+    this.props.handleUserLogin(email,password)
   }
 
+  
+
+
+  handleRedirect = () => {
+    if (this.props.isAuthenticated == true ) {
+      return this.props.history.push('/');
+      }
+    }
 
   render() {
     return (
@@ -60,7 +52,7 @@ export default class Login extends React.Component {
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">email</i>
-              <input id="email" type="email" placeholder="Enter Email" onChange={this.handleChange('name')} className="validate"/>
+              <input id="email" type="email" placeholder="Enter Email" onChange={this.handleChange('email')} className="validate"/>
               <label>Email</label>
               <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange('error')} >Please Enter a Valid Email</span>
             </div>
@@ -78,3 +70,5 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default withRouter(Login);
