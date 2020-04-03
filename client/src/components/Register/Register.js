@@ -24,7 +24,10 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
-    }).then(console.log("user data sent to register route"))
+    }).then(() => {
+      console.log("user data sent to register route");
+      return this.props.history.push('/login');
+    })
     .catch((error)=> {
       console.log(error)
     })
