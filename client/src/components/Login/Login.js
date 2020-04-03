@@ -42,6 +42,9 @@ import jwt_decode from "jwt-decode";
     if (this.props.isAuthenticated == true ) {
       return this.props.history.push('/');
       }
+      else {
+        return this.props.history.push('/login');
+      }
     }
 
   render() {

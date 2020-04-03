@@ -3,6 +3,22 @@ const bcrypt = require('bcrypt');
 
 
 const expressValidator = {
+  
+  // we want to make sure that some routes has the required Authorization to do a CRUD request
+  attachDecodedToken: async(value, {req}) => {
+    const splitToken = value.split(' ');
+    if (splitToken.length !== 2) {
+      throw new Error('Malfunctioned Authorization Header')
+    }
+    if (splitToken[0].toLowerCase() !== 'bearer') {
+      throw new Error('Authorization must have Bearer')
+    }
+    // This returns the same payload that userServices.getJwtToken accepts
+    const decodedToken = await userServices.verifyJwtToken(splitToken[1])
+    req.JwtDecoded = decodedToken
+    return true 
+  },
+
   // this function asserts if the email should exist or not
   // NOTE we also have access to the current user information  
   // based on the email. Thus req.user contains the user information.
