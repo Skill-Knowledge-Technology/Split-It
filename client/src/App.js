@@ -26,7 +26,6 @@ class App extends React.Component {
       password:"",
       error: "",
       isAuthenticated: false,
-      loading: false,
     };
   }
     // save user
@@ -52,7 +51,18 @@ class App extends React.Component {
         console.log(this.setState)
       })
     }
-    
+
+
+  // havent tested yet lol 
+  handleUserLogOut = () => {
+    API.logoutUser()
+    this.setState({
+      email: "",
+      password: "",
+      error: "",
+      isAuthenticated: false,
+    })
+  }
 
 
   render() {
