@@ -87,24 +87,27 @@ export default class Camera extends React.Component {
                     <img src = {this.state.uploads} alt = "" />
                   </div>
                   <br/>
-                  <div className = "center-align">
-                    <button className="btn waves-effect waves-light" type="submit" onClick={this.generateText}>Submit
-                      <i className="material-icons right">send</i>
-                    </button>
-                  </div>
-                  <br/>
+                  {!this.state.found && 
+                  (
+                    <div className = "center-align">
+                      <button className="btn waves-effect waves-light" type="submit" onClick={this.generateText}>Submit
+                        <i className="material-icons right">send</i>
+                      </button>
+                    </div>
+                  )}
                   {this.state.found &&
                   (
-                    <div className="container">
-                      <p><strong>Text:</strong></p>
+                    <div>
+                      <p><strong><u>Text:</u></strong></p>
                       {this.state.text.split('\n').map((item, i) => {
                         return <p key = {i}>
                           {item}
                         </p>
                       })}
-                    <button className="btn waves-effect waves-light" type="submit" onClick={this.next}>Proceed
-                      <i className="material-icons right">send</i>
-                    </button>
+                      <br/>
+                      <button className="btn waves-effect waves-light" type="submit" onClick={this.next}>Proceed
+                        <i className="material-icons right">send</i>
+                      </button>
                     </div>
                   )}
                 </div>
