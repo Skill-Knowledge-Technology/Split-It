@@ -68,14 +68,12 @@ class Register extends Component {
             <div className="input-field col s12">
               <i className="material-icons prefix">account_circle</i>
               <input placeholder="Enter Username" id="username" type="text" onChange={this.handleChange('username')} />
-              <label>Username</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">email</i>
               <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange('email')} />
-              <label>Email</label>
               <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span>
             </div>
           </div>
@@ -83,14 +81,12 @@ class Register extends Component {
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
               <input id="password" type="password" placeholder="Enter Password" onChange={this.handleChange('password')} />
-              <label>Password</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
               <input id="password2" type="password" placeholder="Reenter Password" onChange={this.handleChange('password2')} />
-              <label>Confirm Password</label>
             </div>
           </div>
         </form>

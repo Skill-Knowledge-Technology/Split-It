@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 import "./Sidebar.css";
+import { Link } from 'react-router-dom';
+import LoginRegisterRedirect from './LoginRegisterRedirect';
+import ProfileLogOutRedirect from './ProfileLogOutRedirect';
+
 
 class Sidebar extends Component {
   componentDidMount() {
@@ -12,6 +16,7 @@ class Sidebar extends Component {
     });
   }
   render() {
+    const {isAuthenticated, name, handleUserLogOut } = this.props
     return (
       <div className = "navbar-fixed">
       <nav>
@@ -28,7 +33,10 @@ class Sidebar extends Component {
             <li>
               <div className="divider" />
             </li>
-            <li>
+            {
+             isAuthenticated === false ? <LoginRegisterRedirect /> : <ProfileLogOutRedirect handleUserLogOut={handleUserLogOut} name={name} /> 
+            }
+            {/* <li>
               <a className="waves-effect" href="Login">
                 Login
               </a>
@@ -37,7 +45,7 @@ class Sidebar extends Component {
               <a className="waves-effect" href="Register">
                 Register
               </a>
-            </li>
+            </li> */}
             <li>
               <div className="divider" />
             </li>
