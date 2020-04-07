@@ -56,7 +56,6 @@ import jwt_decode from "jwt-decode";
             <div className="input-field col s12">
               <i className="material-icons prefix">email</i>
               <input id="email" type="email" placeholder="Enter Email" onChange={this.handleChange('email')} className="validate"/>
-              <label>Email</label>
               <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange('error')} >Please Enter a Valid Email</span>
             </div>
           </div>
@@ -64,7 +63,6 @@ import jwt_decode from "jwt-decode";
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
               <input id="password" type="password" placeholder="Enter Password" onChange={this.handleChange('password')} className="validate"/>
-              <label>Password</label>
             </div>
           </div>
         </form>

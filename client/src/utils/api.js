@@ -22,7 +22,5 @@ export default {
     // user has logged out.
     logoutUser: function() {
         localStorage.removeItem("jwtToken")
-        this.setAuthToken(false);
-        
     }
 };

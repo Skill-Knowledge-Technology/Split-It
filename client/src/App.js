@@ -17,11 +17,13 @@ import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
 import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
+import axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: "",
       email: "",
       password:"",
       error: "",
@@ -37,14 +39,16 @@ class App extends React.Component {
       }).then((res) => {
         const { token } = res.data
         localStorage.setItem("jwtToken",token)
-        API.setAuthToken(token)
+        this.setAuthToken(token)
+        console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
         const decoded = jwt_decode(token)
         this.setState({
-          email : res.email,
-          password: res.password,
+          name: decoded.username,
+          email : email,
+          password: password,
           isAuthenticated: true
         })
-        console.log(decoded)
+        console.log(this.state)
       })
       .catch((error) => {
         this.setState({error})
@@ -52,23 +56,34 @@ class App extends React.Component {
       })
     }
 
+    setAuthToken = (token) => {
+      if (token) {
+          return axios.defaults.headers.common['Authorization'] = token
+      }
+      else {
+        return delete axios.defaults.headers.common['Authorization']
+      }
+    }
 
   // havent tested yet lol 
   handleUserLogOut = () => {
-    API.logoutUser()
+    API.logoutUser();
+    this.setAuthToken(false);
     this.setState({
+      name: "",
       email: "",
       password: "",
       error: "",
       isAuthenticated: false,
     })
+    window.location.href = '/'
   }
 
 
   render() {
     return (
         <Router>
-          <Sidebar/>
+          <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut}/>
           <div className="container-fluid text-center">
             <div className="row justify-content-center">
               <Switch>
