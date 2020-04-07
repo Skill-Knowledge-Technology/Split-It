@@ -1,22 +1,19 @@
 import React from 'react';
 import './Camera.css'
-
-var Tesseract = window.Tesseract;
+import Tesseract from 'tesseract.js';
 
 export default class Camera extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       uploads: '',
-      patterns: '',
-      pattern: [],
       text: '',
-      confidence: '',
+      failAttempts: 0,
       found: false
     };
   }
 
-  handleChange = (e) => {
+  handleImageChange = (e) => {
     e.preventDefault();
 
     let file = e.target.files[0];
@@ -28,42 +25,42 @@ export default class Camera extends React.Component {
 
     reader.onloadend = (e) => {
       this.setState({
-        uploads: [reader.result]
+        uploads: [reader.result],
+        text: '',
+        failAttempts: 0,
+        found: false
       });
     }
-
     reader.readAsDataURL(file);
   }
 
   generateText = () => {
     let uploads = this.state.uploads
-  
     for(var i = 0; i < uploads.length; i++) {
-      Tesseract.recognize(uploads[i], {
-        lang: 'eng'
+      Tesseract.recognize(
+        uploads[i], 
+        'eng',
+      { logger: m => console.log(m) }
+      )
+      .then(({ data: { text } }) => {
+        console.log(text);
+        this.setState({ 
+          text: text,
+          found: true
+        })
       })
       .catch(err => {
-        console.error(err)
-      })
-      .then(result => {
-        // Get Confidence score
-        let confidence = result.confidence
-  
-        // Get full output
-        let text = result.text
-  
-        // Get codes
-        let pattern = /\b\w{10,10}\b/g
-        let patterns = result.text.match(pattern);
-  
-        // Update state
-        this.setState({ 
-            patterns: this.state.patterns.concat(patterns),
-            pattern: patterns,
-            text: text,
-            confidence: confidence,
-            found: true
-        })
+        console.error(err);
+        this.setState({
+          failAttempts: this.state.failAttempts + 1
+        });
+        if (this.state.failAttempts >= 3){
+          alert('Failed To Read Photo!\n' + this.state.failAttempts + '/3\nRedirecting to User Input Page');
+          window.location.href = '/UserInput';
+        }
+        else{
+          alert('Failed To Read Photo!\n' + this.state.failAttempts + '/3\nTry Again!');
+        }
       })
     }
 
@@ -79,7 +76,7 @@ export default class Camera extends React.Component {
                 <div className = "container">
                   <div className="file-field input-field">
                     <div className="btn">
-                      <input type="file" onChange={this.handleChange} accept="image/*"/>
+                      <input type="file" onChange={this.handleImageChange} accept="image/*"/>
                       <span>Upload File</span>
                     </div>
                     <div className="file-path-wrapper">
@@ -99,11 +96,15 @@ export default class Camera extends React.Component {
                   {this.state.found &&
                   (
                     <div className="container">
-                      <p><strong>Confidence Score:</strong> {this.state.confidence}</p>
-                      <br/>
-                      <p><strong>Pattern Output:</strong> {this.state.pattern.map((pattern) => { return pattern + ', ' })}</p>
-                      <br/>
-                      <p><strong>Full Output:</strong> {this.state.text}</p>
+                      <p><strong>Text:</strong></p>
+                      {this.state.text.split('\n').map((item, i) => {
+                        return <p key = {i}>
+                          {item}
+                        </p>
+                      })}
+                    <button className="btn waves-effect waves-light" type="submit" onClick={this.next}>Proceed
+                      <i className="material-icons right">send</i>
+                    </button>
                     </div>
                   )}
                 </div>
