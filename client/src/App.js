@@ -1,10 +1,10 @@
 import React from 'react';
 import Sidebar from './components/Sidebar/Sidebar'
 import './App.css';
-import { 
-  BrowserRouter as Router, 
-  Switch, 
-  Route, 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
 } from 'react-router-dom';
 import API from "./utils/api";
 import jwt_decode from "jwt-decode";
@@ -17,6 +17,7 @@ import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
 import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
+import Transaction from './components/Transaction/Transaction';
 import axios from "axios";
 
 class App extends React.Component {
@@ -25,45 +26,45 @@ class App extends React.Component {
     this.state = {
       name: "",
       email: "",
-      password:"",
+      password: "",
       error: "",
       isAuthenticated: false,
     };
   }
-    // save user
-    handleUserLogin = (email, password ) => {
-      console.log("handleUserLogin function invoked");
-      API.loginUser({
+  // save user
+  handleUserLogin = (email, password) => {
+    console.log("handleUserLogin function invoked");
+    API.loginUser({
+      email: email,
+      password: password,
+    }).then((res) => {
+      const { token } = res.data
+      localStorage.setItem("jwtToken", token)
+      this.setAuthToken(token)
+      console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
+      const decoded = jwt_decode(token)
+      this.setState({
+        name: decoded.username,
         email: email,
         password: password,
-      }).then((res) => {
-        const { token } = res.data
-        localStorage.setItem("jwtToken",token)
-        this.setAuthToken(token)
-        console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
-        const decoded = jwt_decode(token)
-        this.setState({
-          name: decoded.username,
-          email : email,
-          password: password,
-          isAuthenticated: true
-        })
-        console.log(this.state)
+        isAuthenticated: true
       })
+      console.log(this.state)
+    })
       .catch((error) => {
-        this.setState({error})
+        this.setState({ error })
         console.log(this.setState)
       })
-    }
+  }
 
-    setAuthToken = (token) => {
-      if (token) {
-          return axios.defaults.headers.common['Authorization'] = token
-      }
-      else {
-        return delete axios.defaults.headers.common['Authorization']
-      }
+  setAuthToken = (token) => {
+    if (token) {
+      return axios.defaults.headers.common['Authorization'] = token
     }
+    else {
+      return delete axios.defaults.headers.common['Authorization']
+    }
+  }
 
   // havent tested yet lol 
   handleUserLogOut = () => {
@@ -82,24 +83,26 @@ class App extends React.Component {
 
   render() {
     return (
-        <Router>
-          <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut}/>
-          <div className="container-fluid text-center">
-            <div className="row justify-content-center">
-              <Switch>
-                <Route path="/Register" component={Register} />
-                <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} handleUserLogin={this.handleUserLogin}  /> } />
-                <Route path="/Camera" component={Camera} />
-                <Route path="/UserInput" component={UserInput} />
-                <Route path="/AboutUs" component={AboutUs} />
-                <Route path="/Maps" component={Maps} />
-                <Route path="/Test" component={Test} />
-                <Route path="/Profile" component={Profile} />
-                <Route path="/" component={Home} />
-              </Switch>
-            </div>
+      <Router>
+        <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut} />
+        <div className="container-fluid text-center">
+          <div className="row justify-content-center">
+            <Switch>
+              <Route path="/Register" component={Register} />
+              <Route path="/Login" render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} handleUserLogin={this.handleUserLogin} />} />
+              <Route path="/Camera" component={Camera} />
+              <Route path="/UserInput" component={UserInput} />
+              <Route path="/AboutUs" component={AboutUs} />
+              <Route path="/Maps" component={Maps} />
+              <Route path="/Test" component={Test} />
+              <Route path="/Profile" component={Profile} />
+              <Route path="/Transaction" component={Transaction} />
+              {/* Put all routes BEFORE '/'  */}
+              <Route path="/" component={Home} />
+            </Switch>
           </div>
-        </Router>
+        </div>
+      </Router>
     );
   }
 }
