@@ -1,24 +1,43 @@
 import React from 'react';
+import Tesseract from 'tesseract.js';
 import './Camera.css'
-
-var Tesseract = window.Tesseract;
+import Step1 from './Step1'
+import Step2 from './Step2'
+import WrongPage from './WrongPage'
 
 export default class Camera extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentStep: 1,
       uploads: '',
-      patterns: '',
-      pattern: [],
       text: '',
-      confidence: '',
-      found: false
+      failAttempts: 0,
+      found: false,
     };
   }
 
-  handleChange = (e) => {
-    e.preventDefault();
+  wrongStep = () => {
+    this.setState({
+      currentStep: 1
+    });
+  };
 
+  nextStep = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep + 1
+    });
+  };
+
+  prevStep = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep - 1
+    });
+  };
+
+  handleImageChange = (e) => {
     let file = e.target.files[0];
     let reader = new FileReader();
 
@@ -28,90 +47,79 @@ export default class Camera extends React.Component {
 
     reader.onloadend = (e) => {
       this.setState({
-        uploads: [reader.result]
+        uploads: [reader.result],
+        text: '',
+        failAttempts: 0,
+        found: false,
       });
     }
-
     reader.readAsDataURL(file);
   }
 
   generateText = () => {
     let uploads = this.state.uploads
-  
     for(var i = 0; i < uploads.length; i++) {
-      Tesseract.recognize(uploads[i], {
-        lang: 'eng'
-      })
-      .catch(err => {
-        console.error(err)
-      })
-      .then(result => {
-        // Get Confidence score
-        let confidence = result.confidence
-  
-        // Get full output
-        let text = result.text
-  
-        // Get codes
-        let pattern = /\b\w{10,10}\b/g
-        let patterns = result.text.match(pattern);
-  
-        // Update state
+      Tesseract.recognize(
+        uploads[i], 
+        'eng',
+      { logger: m => console.log(m) }
+      )
+      .then(({ data: { text } }) => {
+        console.log(text);
         this.setState({ 
-            patterns: this.state.patterns.concat(patterns),
-            pattern: patterns,
-            text: text,
-            confidence: confidence,
-            found: true
+          text: text,
+          found: true,
         })
       })
+      .catch(err => {
+        console.error(err);
+        this.setState({
+          failAttempts: this.state.failAttempts + 1
+        });
+        if (this.state.failAttempts >= 3){
+          alert('Failed To Read Photo!\n' + this.state.failAttempts + '/3\nRedirecting to User Input Page');
+          window.location.href = '/UserInput';
+        }
+        else{
+          alert('Failed To Read Photo!\n' + this.state.failAttempts + '/3\nTry Again!');
+        }
+      })
     }
-
   }
 
   render() {
-    return (
-      <div className = "container">
-        <div className="row">
-          <div className="col s12 m12 l12">
-            <div className="card blue-grey darken-1">
-              <div className="card-content white-text">
-                <div className = "container">
-                  <div className="file-field input-field">
-                    <div className="btn">
-                      <input type="file" onChange={this.handleChange} accept="image/*"/>
-                      <span>Upload File</span>
-                    </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text"/>
-                    </div>
-                  </div>
-                  <div className="card-image">
-                    <img src = {this.state.uploads} alt = "" />
-                  </div>
-                  <br/>
-                  <div className = "center-align">
-                    <button className="btn waves-effect waves-light" type="submit" onClick={this.generateText}>Submit
-                      <i className="material-icons right">send</i>
-                    </button>
-                  </div>
-                  <br/>
-                  {this.state.found &&
-                  (
-                    <div className="container">
-                      <p><strong>Confidence Score:</strong> {this.state.confidence}</p>
-                      <br/>
-                      <p><strong>Pattern Output:</strong> {this.state.pattern.map((pattern) => { return pattern + ', ' })}</p>
-                      <br/>
-                      <p><strong>Full Output:</strong> {this.state.text}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+    const { currentStep, uploads, text, failAttempts, found } = this.state;
+    const Camera = { uploads, text, failAttempts, found };
+
+    switch (currentStep){
+      case 1:
+        return(
+          <div className = "container">
+            <Step1
+              nextStep = {this.nextStep}
+              handleImageChange = {this.handleImageChange}
+              generateText = {this.generateText}
+              Camera = {Camera}
+            />
           </div>
-        </div>
-      </div>
-    )
-  }
-}
+        );
+      case 2:
+        return(
+          <div className = "container">
+            <Step2
+              prevStep = {this.prevStep}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      default:
+          return(
+            <div className = "container">
+              <WrongPage
+                wrongStep = {this.wrongStep}
+              />
+            </div>
+          );
+        }
+      }
+    }
