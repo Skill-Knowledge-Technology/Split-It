@@ -1,21 +1,43 @@
 import React from 'react';
-import './Camera.css'
 import Tesseract from 'tesseract.js';
+import './Camera.css'
+import Step1 from './Step1'
+import Step2 from './Step2'
+import WrongPage from './WrongPage'
 
 export default class Camera extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentStep: 1,
       uploads: '',
       text: '',
       failAttempts: 0,
-      found: false
+      found: false,
     };
   }
 
-  handleImageChange = (e) => {
-    e.preventDefault();
+  wrongStep = () => {
+    this.setState({
+      currentStep: 1
+    });
+  };
 
+  nextStep = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep + 1
+    });
+  };
+
+  prevStep = () => {
+    const { currentStep } = this.state;
+    this.setState({
+      currentStep: currentStep - 1
+    });
+  };
+
+  handleImageChange = (e) => {
     let file = e.target.files[0];
     let reader = new FileReader();
 
@@ -28,7 +50,7 @@ export default class Camera extends React.Component {
         uploads: [reader.result],
         text: '',
         failAttempts: 0,
-        found: false
+        found: false,
       });
     }
     reader.readAsDataURL(file);
@@ -46,7 +68,7 @@ export default class Camera extends React.Component {
         console.log(text);
         this.setState({ 
           text: text,
-          found: true
+          found: true,
         })
       })
       .catch(err => {
@@ -63,59 +85,41 @@ export default class Camera extends React.Component {
         }
       })
     }
-
   }
 
   render() {
-    return (
-      <div className = "container">
-        <div className="row">
-          <div className="col s12 m12 l12">
-            <div className="card blue-grey darken-1">
-              <div className="card-content white-text">
-                <div className = "container">
-                  <div className="file-field input-field">
-                    <div className="btn">
-                      <input type="file" onChange={this.handleImageChange} accept="image/*"/>
-                      <span>Upload File</span>
-                    </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text"/>
-                    </div>
-                  </div>
-                  <div className="card-image">
-                    <img src = {this.state.uploads} alt = "" />
-                  </div>
-                  <br/>
-                  {!this.state.found && 
-                  (
-                    <div className = "center-align">
-                      <button className="btn waves-effect waves-light" type="submit" onClick={this.generateText}>Submit
-                        <i className="material-icons right">send</i>
-                      </button>
-                    </div>
-                  )}
-                  {this.state.found &&
-                  (
-                    <div>
-                      <p><strong><u>Text:</u></strong></p>
-                      {this.state.text.split('\n').map((item, i) => {
-                        return <p key = {i}>
-                          {item}
-                        </p>
-                      })}
-                      <br/>
-                      <button className="btn waves-effect waves-light" type="submit" onClick={this.next}>Proceed
-                        <i className="material-icons right">send</i>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+    const { currentStep, uploads, text, failAttempts, found } = this.state;
+    const Camera = { uploads, text, failAttempts, found };
+
+    switch (currentStep){
+      case 1:
+        return(
+          <div className = "container">
+            <Step1
+              nextStep = {this.nextStep}
+              handleImageChange = {this.handleImageChange}
+              generateText = {this.generateText}
+              Camera = {Camera}
+            />
           </div>
-        </div>
-      </div>
-    )
-  }
-}
+        );
+      case 2:
+        return(
+          <div className = "container">
+            <Step2
+              prevStep = {this.prevStep}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      default:
+          return(
+            <div className = "container">
+              <WrongPage
+                wrongStep = {this.wrongStep}
+              />
+            </div>
+          );
+        }
+      }
+    }
