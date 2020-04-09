@@ -13,6 +13,7 @@ const getUserById = (req, res, next) => {
         .catch(error => next(error))
 }
 const getUserByUsername = (req, res, next) => {
+    console.log("CONTROLLER: user you are trying to search is " + req.params.username);
     return UserServices.findUserByUsername(req.params.username)
         .then((user) => {
             res.json(user)

@@ -118,8 +118,9 @@ const addFriends = async (userId, friendsId) => {
 
 
 const findUserByUsername = async (username) => {
+    console.log("Service: user you are trying to find is " + username);
     const User = await db.User.findOne({ where: { username: username } })
-    console.log(User + 'has been found by username in service');
+    console.log(User.username + ' has been found by username in service');
     return User;
 
 }

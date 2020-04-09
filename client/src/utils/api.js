@@ -22,5 +22,18 @@ export default {
     // user has logged out.
     logoutUser: function() {
         localStorage.removeItem("jwtToken")
+    }, 
+
+    searchByUsername: function(username) {
+        console.log("axios search called");
+        // return axios.get("/api/users/findByUsername/:username", {
+        //     params: {
+        //         username: username
+        //     }
+        // })
+        return axios.get(`/api/users/findByUsername/${username}`);
+        // .then(function(res) {
+        //     console.log("hit findByUsername route with response: " + res)
+        // })
     }
 };
