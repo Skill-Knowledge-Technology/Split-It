@@ -81,7 +81,6 @@ const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) =
     receiverCurrentBalance = parseFloat(receiverCurrentBalance);
     let senderNewBalance = senderCurrentBalance - balanceTransfered;
     let receiverNewBalance = receiverCurrentBalance + balanceTransfered;
-    //console.log('sender new balance is ' + senderNewBalance, 'receiver new balance is ' + receiverNewBalance);
     if (balanceTransfered > senderCurrentBalance) {
         return console.log('Not enough funds')
     }
