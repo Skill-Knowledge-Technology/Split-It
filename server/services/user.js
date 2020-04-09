@@ -82,27 +82,32 @@ const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) =
     let senderNewBalance = senderCurrentBalance - balanceTransfered;
     let receiverNewBalance = receiverCurrentBalance + balanceTransfered;
     //console.log('sender new balance is ' + senderNewBalance, 'receiver new balance is ' + receiverNewBalance);
-    db.User.update(
-        { balance: senderNewBalance },
-        { where: { userID: senderId } }
-    )
-        .then(result =>
-            console.log(' result is ' + result)
+    if (balanceTransfered > senderCurrentBalance) {
+        return console.log('Not enough funds')
+    }
+    else {
+        db.User.update(
+            { balance: senderNewBalance },
+            { where: { userID: senderId } }
         )
-        .catch(err =>
-            console.log(err)
-        )
+            .then(result =>
+                console.log(' result is ' + result)
+            )
+            .catch(err =>
+                console.log(err)
+            )
 
-    db.User.update(
-        { balance: receiverNewBalance },
-        { where: { userID: receiverId } }
-    )
-        .then(result =>
-            console.log(' result is ' + result)
+        db.User.update(
+            { balance: receiverNewBalance },
+            { where: { userID: receiverId } }
         )
-        .catch(err =>
-            console.log(err)
-        )
+            .then(result =>
+                console.log(' result is ' + result)
+            )
+            .catch(err =>
+                console.log(err)
+            )
+    }
 }
 
 
