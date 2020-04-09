@@ -72,12 +72,45 @@ const addBalance = async (userId, balanceToAdd) => {
     console.log('try to add balance');
 }
 
+const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) => {
+    balanceTransfered = parseFloat(balanceTransfered);
+    console.log('balance transfered is ' + balanceTransfered)
+    let senderCurrentBalance = await findUserBalance(senderId);
+    senderCurrentBalance = parseFloat(senderCurrentBalance);
+    let receiverCurrentBalance = await findUserBalance(receiverId);
+    receiverCurrentBalance = parseFloat(receiverCurrentBalance);
+    let senderNewBalance = senderCurrentBalance - balanceTransfered;
+    let receiverNewBalance = receiverCurrentBalance + balanceTransfered;
+    //console.log('sender new balance is ' + senderNewBalance, 'receiver new balance is ' + receiverNewBalance);
+    db.User.update(
+        { balance: senderNewBalance },
+        { where: { userID: senderId } }
+    )
+        .then(result =>
+            console.log(' result is ' + result)
+        )
+        .catch(err =>
+            console.log(err)
+        )
+
+    db.User.update(
+        { balance: receiverNewBalance },
+        { where: { userID: receiverId } }
+    )
+        .then(result =>
+            console.log(' result is ' + result)
+        )
+        .catch(err =>
+            console.log(err)
+        )
+}
+
 
 
 const addFriends = async (userId, friendsId) => {
     friendsId = parseInt(friendsId);
     console.log('friend to add ' + friendsId);
-    if(friendsId == userId){
+    if (friendsId == userId) {
         return console.log('can not add yourself')
     }
     let currentFriendList = await findUserFriends(userId);
@@ -159,6 +192,7 @@ module.exports = {
     findUserByEmail,
     findUserBalance,
     addBalance,
+    transferBalancetoUsers,
     findUser,
     findUserFriends,
     addFriends,

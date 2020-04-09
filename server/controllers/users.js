@@ -36,6 +36,14 @@ const addToUserBalance = (req, res, next) => {
         .catch(error => next(error))
 }
 
+const transferUserBalance = (req, res, next) => {
+    return UserServices.transferBalancetoUsers(req.params.senderId, req.body.receiverId, req.body.balanceToTransfer)
+    .then((balance) => {
+        res.json(balance)
+    })
+    .catch(error => next(error))
+}
+
 const getUserFriends = (req, res, next) => {
     console.log('hit getUserFriend worked');
     return UserServices.findUserFriends(req.params.userId)
@@ -93,6 +101,7 @@ module.exports = {
     getUserByUsername,
     getUserBalance,
     addToUserBalance,
+    transferUserBalance,
     addToUserFriends,
     getUserFriends,
     register,
