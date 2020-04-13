@@ -6,10 +6,10 @@ const LoginRegisterRedirect = () => {
     return (
         <div>
             <li>  
-                <Link to="/register" className="waves-effect"> Register </Link>
+                <Link to="/Register" className="waves-effect"> Register </Link>
             </li>
             <li>
-                <Link to='/login' className="waves-effect"> Login </Link>
+                <Link to="/Login" className="waves-effect"> Login </Link>
             </li>
         </div>
     )

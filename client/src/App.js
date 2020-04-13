@@ -95,7 +95,7 @@ class App extends React.Component {
                 <Route path="/Maps" component={Maps} />
                 <Route path="/Test" component={Test} />
                 <Route path="/Profile" component={Profile} />
-                <Route path="/" component={Home} />
+                <Route exact path="/" component={Home} />
               </Switch>
             </div>
           </div>

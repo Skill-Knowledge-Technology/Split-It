@@ -24,6 +24,7 @@ class Sidebar extends Component {
       {/* https://materializecss.com/color.html */}
         <div className="col-s12">
           <ul id="slide-out" className="sidenav">
+            
             <li>
               <a href="/">
                 <i className="material-icons">home</i>
