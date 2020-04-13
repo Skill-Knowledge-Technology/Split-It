@@ -6,10 +6,10 @@ const ProfileLogOutRedirect = ({ name, handleUserLogOut }) => {
     return (
         <div>
             <li>  
-                <Link to="/profile" className="waves-effect"> {name} </Link>
+                <Link to="/Profile" className="waves-effect"> {name} </Link>
             </li>
             <li>
-                <Link to='/' onClick={handleUserLogOut} className="waves-effect">Logout</Link>
+                <Link to="/" onClick={handleUserLogOut} className="waves-effect">Logout</Link>
             </li>
         </div>
     )
