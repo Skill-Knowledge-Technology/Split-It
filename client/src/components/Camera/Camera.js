@@ -12,6 +12,9 @@ export default class Camera extends React.Component {
       currentStep: 1,
       uploads: '',
       text: '',
+      total: 0,
+      tax: 0,
+      orders: [],
       failAttempts: 0,
       found: false,
     };
@@ -88,8 +91,8 @@ export default class Camera extends React.Component {
   }
 
   render() {
-    const { currentStep, uploads, text, failAttempts, found } = this.state;
-    const Camera = { uploads, text, failAttempts, found };
+    const { currentStep, uploads, text, total, tax, orders, failAttempts, found } = this.state;
+    const Camera = { uploads, text, total, tax, orders, failAttempts, found };
 
     switch (currentStep){
       case 1:

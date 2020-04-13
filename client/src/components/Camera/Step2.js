@@ -10,6 +10,14 @@ export default class Step2 extends React.Component {
     e.preventDefault();
     alert("Saved");
   }
+  
+  parse = () => {
+    let text = this.props.Camera.text;
+    {text.split('\n').map((item, i) => {
+      let array = item.split(' ');
+      console.log(array);
+    })}
+  }
 
   render(){ 
     const { 
@@ -29,15 +37,7 @@ export default class Step2 extends React.Component {
             <div className="card-content white-text">
               <div className = "col s12">
                 <div className = "row">
-                  <img src = {uploads} alt = "" />
-                </div>
-                <div className = "row">
-                  <p><strong><u>Text:</u></strong></p>
-                      {text.split('\n').map((item, i) => {
-                        return <p key = {i}>
-                          {item}
-                    </p>
-                  })}
+                  {this.parse()}
                 </div>
               </div>
               <button className="btn waves-effect waves-light float-right"
