@@ -12,8 +12,9 @@ export default class Camera extends React.Component {
       currentStep: 1,
       uploads: '',
       text: '',
-      total: 0,
+      subtotal: 0,
       tax: 0,
+      total: 0,
       orders: [],
       failAttempts: 0,
       found: false,
@@ -39,6 +40,18 @@ export default class Camera extends React.Component {
       currentStep: currentStep - 1
     });
   };
+
+  changeSubtotal = (newValue) => {
+    this.setState({subtotal: newValue});
+  }
+
+  changeTax = (newValue) => {
+    this.setState({tax: newValue});
+  }
+
+  changeTotal = (newValue) => {
+    this.setState({total: newValue});
+  }
 
   handleImageChange = (e) => {
     let file = e.target.files[0];
@@ -90,9 +103,26 @@ export default class Camera extends React.Component {
     }
   }
 
+  parse = () => {
+    let text = this.state.text;
+    {text.split('\n').map((item, i) => {
+      let array = item.split(' ');
+      console.log(array);
+      if(array.findIndex(word => 'subtotal' === word.toLowerCase()) > -1){
+        this.changeSubtotal(array[array.findIndex(word => 'subtotal' === word.toLowerCase()) + 1]);
+      }
+      else if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
+        this.changeTax(array[array.findIndex(word => 'tax' === word.toLowerCase()) + 1]);
+      }
+      else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
+        this.changeTotal(array[array.findIndex(word => 'total' === word.toLowerCase()) + 1]);
+      }
+    })}
+  }
+
   render() {
-    const { currentStep, uploads, text, total, tax, orders, failAttempts, found } = this.state;
-    const Camera = { uploads, text, total, tax, orders, failAttempts, found };
+    const { currentStep, uploads, text, subtotal, tax, total, orders, failAttempts, found } = this.state;
+    const Camera = { uploads, text, subtotal, tax, total, orders, failAttempts, found };
 
     switch (currentStep){
       case 1:
@@ -102,6 +132,7 @@ export default class Camera extends React.Component {
               nextStep = {this.nextStep}
               handleImageChange = {this.handleImageChange}
               generateText = {this.generateText}
+              parse = {this.parse}
               Camera = {Camera}
             />
           </div>

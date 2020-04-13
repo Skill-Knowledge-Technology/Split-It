@@ -4,6 +4,7 @@ import './Camera.css'
 export default class Step1 extends React.Component {
   next = e => {
     e.preventDefault();
+    this.props.parse();
     this.props.nextStep();
   };
 

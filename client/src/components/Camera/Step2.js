@@ -10,18 +10,10 @@ export default class Step2 extends React.Component {
     e.preventDefault();
     alert("Saved");
   }
-  
-  parse = () => {
-    let text = this.props.Camera.text;
-    {text.split('\n').map((item, i) => {
-      let array = item.split(' ');
-      console.log(array);
-    })}
-  }
 
   render(){ 
     const { 
-      Camera: { uploads, text }
+      Camera: { subtotal, tax, total }
     } = this.props;
     return(
       <div className="row">
@@ -37,7 +29,13 @@ export default class Step2 extends React.Component {
             <div className="card-content white-text">
               <div className = "col s12">
                 <div className = "row">
-                  {this.parse()}
+                  <p>Subtotal: {subtotal}</p>
+                </div>
+                <div className = "row">
+                  <p>Tax: {tax}</p>
+                </div>
+                <div className = "row">
+                  <p>Total: {total}</p>
                 </div>
               </div>
               <button className="btn waves-effect waves-light float-right"
