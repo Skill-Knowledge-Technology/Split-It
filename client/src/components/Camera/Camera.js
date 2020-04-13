@@ -117,6 +117,15 @@ export default class Camera extends React.Component {
       else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
         this.changeTotal(array[array.findIndex(word => 'total' === word.toLowerCase()) + 1]);
       }
+      else if(!isNaN(array[0]) && !isNaN(array[array.length-1])){
+        let size = array.length;
+        let quanity = array[0];
+        let cost = array[size-1];
+        let order = array.slice(1,size-1).join(" ");
+        console.log(quanity);
+        console.log(order);
+        console.log(cost);
+      }
     })}
   }
 
