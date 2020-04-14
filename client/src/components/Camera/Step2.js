@@ -1,20 +1,28 @@
 import React from 'react';
 
 export default class Step2 extends React.Component {
+  next = e => {
+    e.preventDefault();
+    this.props.setOrderQuantity();
+    this.props.setOrders();
+    this.props.setOrderCost();
+    this.props.nextStep();
+  };
+
   back = e => {
     e.preventDefault();
     this.props.prevStep();
   };
 
-  save = e => {
+  show = input => e =>{
     e.preventDefault();
-    alert("Saved");
+    input.orders.map((list) => (
+      console.log(list)
+      ))
   }
 
   render(){ 
-    const { 
-      Camera: { subtotal, tax, total }
-    } = this.props;
+    const { Camera, changeOrderQuantity,changeOrders, changeOrderCost} = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -27,21 +35,54 @@ export default class Step2 extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <div className = "col s12">
-                <div className = "row">
-                  <p>Subtotal: {subtotal}</p>
-                </div>
-                <div className = "row">
-                  <p>Tax: {tax}</p>
-                </div>
-                <div className = "row">
-                  <p>Total: {total}</p>
-                </div>
-              </div>
+            <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Order Quantity</th>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Camera.orders.map((list, index) => (
+                    <tr key = {index}>
+                      <td>
+                        {list.number}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Quantity"
+                            defaultValue={list.quantity} onChange={changeOrderQuantity(index)}/>
+                        </form>
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Order"
+                            defaultValue={list.order} onChange={changeOrders(index)}/>
+                        </form>
+                      </td> 
+                      <td>
+                        <form>
+                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
+                            defaultValue={list.cost} onChange={changeOrderCost(index)}/>
+                        </form>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick = {this.save}>
-                Save
-                <i className="material-icons right">save</i>
+                type="submit" name="action" onClick={this.next}>
+                Next
+                <i className="material-icons right">navigate_next</i>
+              </button>
+              <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(Camera)}>
+                Show
+                <i className="material-icons right">navigate_next</i>
               </button>
             </div>
           </div>
@@ -49,4 +90,5 @@ export default class Step2 extends React.Component {
       </div>
     );
   }
+
 }

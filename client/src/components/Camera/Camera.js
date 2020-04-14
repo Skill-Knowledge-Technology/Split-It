@@ -3,6 +3,7 @@ import Tesseract from 'tesseract.js';
 import './Camera.css'
 import Step1 from './Step1'
 import Step2 from './Step2'
+import Step3 from './Step3'
 import WrongPage from './WrongPage'
 
 export default class Camera extends React.Component {
@@ -106,6 +107,8 @@ export default class Camera extends React.Component {
   parse = () => {
     let text = this.state.text;
     let number = 1;
+    this.setState({ orders: [] });
+    let temp = [];
     {text.split('\n').map((item, i) => {
       let array = item.split(' ');
       console.log(array);
@@ -123,10 +126,62 @@ export default class Camera extends React.Component {
         let quantity = array[0];
         let cost = array[size-1];
         let order = array.slice(1,size-1).join(" ");
-        this.state.orders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
+        temp.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
         number++;
       }
     })}
+    this.setState({ orders: temp })
+  }
+
+  changeOrderQuantity = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].quantity = e.target.value;
+    this.setState(newState);
+  }
+
+  setOrderQuantity = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].quantity === ''){
+        newState.orders[i].quantity = 1;
+        this.setState(newState);
+      }
+    }
+  }
+
+  changeOrders = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].order = e.target.value;
+    this.setState(newState);
+  }
+
+  setOrders = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].order === ''){
+        newState.orders[i].order = newState.orders[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
+  changeOrderCost = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].cost = e.target.value;
+    this.setState(newState);
+  }
+
+  setOrderCost = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].cost === ''){
+        newState.orders[i].cost = 0;
+        this.setState(newState);
+      }
+    }
   }
 
   render() {
@@ -150,6 +205,22 @@ export default class Camera extends React.Component {
         return(
           <div className = "container">
             <Step2
+              prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              changeOrderQuantity = {this.changeOrderQuantity}
+              changeOrders = {this.changeOrders}
+              changeOrderCost = {this.changeOrderCost}
+              setOrderQuantity = {this.setOrderQuantity}
+              setOrders = {this.setOrders}
+              setOrderCost = {this.setOrderCost}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      case 3:
+        return(
+          <div className = "container">
+            <Step3
               prevStep = {this.prevStep}
               Camera = {Camera}
             />
