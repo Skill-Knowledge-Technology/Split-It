@@ -107,19 +107,22 @@ export default class Camera extends React.Component {
   parse = () => {
     let text = this.state.text;
     let number = 1;
+    this.setState({ subtotal: 0 });
+    this.setState({ tax: 0 });
+    this.setState({ total: 0 });
     this.setState({ orders: [] });
     let temp = [];
     {text.split('\n').map((item, i) => {
       let array = item.split(' ');
       console.log(array);
       if(array.findIndex(word => 'subtotal' === word.toLowerCase()) > -1){
-        this.changeSubtotal(array[array.findIndex(word => 'subtotal' === word.toLowerCase()) + 1]);
+        this.changeSubtotal(array[array.length-1]);
       }
       else if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
-        this.changeTax(array[array.findIndex(word => 'tax' === word.toLowerCase()) + 1]);
+        this.changeTax(array[array.length-1]);
       }
       else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
-        this.changeTotal(array[array.findIndex(word => 'total' === word.toLowerCase()) + 1]);
+        this.changeTotal(array[array.length-1]);
       }
       else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
         let size = array.length;
