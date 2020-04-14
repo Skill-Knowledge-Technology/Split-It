@@ -105,6 +105,7 @@ export default class Camera extends React.Component {
 
   parse = () => {
     let text = this.state.text;
+    let number = 1;
     {text.split('\n').map((item, i) => {
       let array = item.split(' ');
       console.log(array);
@@ -117,14 +118,13 @@ export default class Camera extends React.Component {
       else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
         this.changeTotal(array[array.findIndex(word => 'total' === word.toLowerCase()) + 1]);
       }
-      else if(!isNaN(array[0]) && !isNaN(array[array.length-1])){
+      else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
         let size = array.length;
-        let quanity = array[0];
+        let quantity = array[0];
         let cost = array[size-1];
         let order = array.slice(1,size-1).join(" ");
-        console.log(quanity);
-        console.log(order);
-        console.log(cost);
+        this.state.orders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
+        number++;
       }
     })}
   }
