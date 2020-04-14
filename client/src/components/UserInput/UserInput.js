@@ -68,8 +68,6 @@ export default class UserInput extends React.Component {
   }
 
   changePeopleOrder = (totalPeople,totalOrders) => {
-    this.setState({ names: [] });
-    this.setState({ orderNumbers: [] });
     var i;
     var temp = [];
     for(i = 0; i < totalPeople; i++){
