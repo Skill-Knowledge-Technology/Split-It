@@ -6,7 +6,6 @@ export default class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userToSearch: "",
       inputs: [{}]
     };
   }
@@ -15,19 +14,30 @@ export default class Test extends React.Component {
     const { username, value } = e.target;
     const inputs = [...this.state.inputs];
     inputs[idx] = {
-      [username]: value
+      username: value
     };
-    this.setState({
-      inputs
+    this.setState({inputs}, function () {
+      this.handleUserSearch(String([this.state.inputs[idx].username]));
     });
   };
+
+  handleAddInput = () => {
+    const input = {
+      username: ""
+    };
+    this.setState({
+      inputs: [...this.state.inputs, input]
+    });
+  };
+
+
 
 
   handleUserSearch = username => {
     console.log("handleUserSearch function invoked");
     API.searchByUsername(username)
       .then((res) => {
-        console.log("tried to search for user");
+        console.log("tried to search for user " + username);
         console.log(res);
       })
       .catch((err) => {
@@ -35,28 +45,27 @@ export default class Test extends React.Component {
       })
   }
 
-  appendInput = () => {
-    console.log("Add User button clicked");
-    var newInput = `input-${this.state.inputs.length}`;
-    this.setState(prevState => ({ inputs: prevState.inputs.concat([newInput]) }));
-  }
 
   render() {
     return (
       <div>
         <div class="row">
-          <form class="col s12">
+          <form class="col s4">
             <div class="row" id="dynamicInputs">
-              <div class="input-field col s6">
-                <input placeholder="Username" id="userToSearch" type="text" class="validate" onChange={this.handleChange('userToSearch')} />
-                {this.state.inputs.map(input => <form key={input} />)}
-                {/* <label for="userToSearch">Search for Users</label> */}
-              </div>
+              {this.state.inputs.map((input, idx) => (
+                <input
+                  placeholder="Username"
+                  id={`input`+ idx}
+                  type="text"
+                  class="validate"
+                  value={this.state.inputs[idx].username}
+                  onChange={this.handleChange(idx)} />
+              ))};
             </div>
           </form>
         </div>
         <div class="row">
-          <a class="waves-effect waves-light btn" onClick={() => this.appendInput()}>Add User</a>
+          <a class="waves-effect waves-light btn" onClick={() => this.handleAddInput()}>Add User</a>
         </div>
       </div>
     );
