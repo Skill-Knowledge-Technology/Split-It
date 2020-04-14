@@ -16,7 +16,7 @@ export default class Test extends React.Component {
     inputs[idx] = {
       username: value
     };
-    this.setState({inputs}, function () {
+    this.setState({ inputs }, function () {
       this.handleUserSearch(String([this.state.inputs[idx].username]));
     });
   };
@@ -29,6 +29,12 @@ export default class Test extends React.Component {
       inputs: [...this.state.inputs, input]
     });
   };
+
+  handleRemoveInput = (idx) => () => {
+    const inputs = [...this.state.inputs];
+    inputs.splice(idx, 1);
+    this.setState({ inputs });
+  }
 
 
 
@@ -50,22 +56,32 @@ export default class Test extends React.Component {
     return (
       <div>
         <div class="row">
-          <form class="col s4">
+          <form class="col s4 offset-s4">
             <div class="row" id="dynamicInputs">
               {this.state.inputs.map((input, idx) => (
-                <input
-                  placeholder="Username"
-                  id={`input`+ idx}
-                  type="text"
-                  class="validate"
-                  value={this.state.inputs[idx].username}
-                  onChange={this.handleChange(idx)} />
-              ))};
+                <div>
+                  <input
+                    placeholder="Username"
+                    id={`input` + idx}
+                    type="text"
+                    class="validate"
+                    value={this.state.inputs[idx].username}
+                    onChange={this.handleChange(idx)} />
+                  <div>
+                    <a
+                      class="btn-floating btn-large waves-effect waves-light red"
+                      onClick={this.handleRemoveInput(idx)}>
+                      <i class="material-icons">delete</i></a>
+                  </div>
+                </div>
+              ))}
             </div>
           </form>
         </div>
         <div class="row">
-          <a class="waves-effect waves-light btn" onClick={() => this.handleAddInput()}>Add User</a>
+          <div class="col s4 offset-s4">
+            <a class="waves-effect waves-light btn" onClick={() => this.handleAddInput()}>Add User</a>
+          </div>
         </div>
       </div>
     );
