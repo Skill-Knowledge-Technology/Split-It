@@ -14,16 +14,18 @@ export default class Test extends React.Component {
     const { username, value } = e.target;
     const inputs = [...this.state.inputs];
     inputs[idx] = {
-      username: value
+      username: value,
+      isFound: false
     };
     this.setState({ inputs }, function () {
-      this.handleUserSearch(String([this.state.inputs[idx].username]));
+      this.handleUserSearch(String([this.state.inputs[idx].username]), idx);
     });
   };
 
   handleAddInput = () => {
     const input = {
-      username: ""
+      username: "",
+      isFound: false
     };
     this.setState({
       inputs: [...this.state.inputs, input]
@@ -39,12 +41,29 @@ export default class Test extends React.Component {
 
 
 
-  handleUserSearch = username => {
+  handleUserSearch = function (username, idx) {
     console.log("handleUserSearch function invoked");
     API.searchByUsername(username)
       .then((res) => {
         console.log("tried to search for user " + username);
         console.log(res);
+        // execute this if a user is found - update this idx's isFound value to true
+        if (res.data != null) {
+          console.log("found a user");
+          console.log("original isFound: " + this.state.inputs[idx].isFound);
+          const username = this.state.inputs[idx].username;
+          const inputs = [...this.state.inputs];
+          inputs[idx] = {
+            username: username,
+            isFound: true
+          };
+          this.setState({ inputs }, function () {
+            console.log("new isFound: " + this.state.inputs[idx].isFound);
+          });
+        }
+        else {
+          console.log("isFound should be false: is actually " + this.state.inputs[idx].isFound)
+        };
       })
       .catch((err) => {
         console.log("error:" + err)
