@@ -43,21 +43,7 @@ export default class Test extends React.Component {
   handleRemoveInput = (idx) => () => {
     const inputs = [...this.state.inputs];
     inputs.splice(idx, 1);
-
-    let tmp = true;
-
-    for (let index = 0; index < this.state.inputs.length; index++) {
-      if (this.state.inputs[index].isFound == false) {
-        console.log([index] + ": not found");
-        tmp = false;
-      }
-    }
-    this.setState({
-      inputs: inputs,
-      isFound: tmp
-    }, function () {
-      console.log("State: " + this.state);
-    })
+    this.setState({ inputs });
   }
 
 
@@ -145,13 +131,13 @@ export default class Test extends React.Component {
         </div>
         <div class="row">
           <div class="col s4 offset-s4">
-            <a
-              class="waves-effect waves-light btn"
-              onClick={() => this.handleAddInput()}>Add User</a>
-            <a
-              class="waves-effect waves-light btn"
-              onClick={() => console.log("You hit Next")}
-              disabled={this.state.allUsersFound == false}>Next</a>
+            <a 
+            class="waves-effect waves-light btn"
+             onClick={() => this.handleAddInput()}>Add User</a>
+            <a 
+            class="waves-effect waves-light btn" 
+            onClick={() => console.log("You hit Next")} 
+            disabled={this.state.allUsersFound == false}>Next</a>
           </div>
         </div>
       </div>
