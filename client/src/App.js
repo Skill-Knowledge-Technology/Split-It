@@ -1,10 +1,10 @@
 import React from 'react';
 import Sidebar from './components/Sidebar/Sidebar'
 import './App.css';
-import { 
-  BrowserRouter as Router, 
-  Switch, 
-  Route, 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
 } from 'react-router-dom';
 import API from "./utils/api";
 import jwt_decode from "jwt-decode";
@@ -17,6 +17,7 @@ import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
 import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
+import Transaction from './components/Transaction/Transaction';
 import axios from "axios";
 
 class App extends React.Component {
@@ -25,45 +26,45 @@ class App extends React.Component {
     this.state = {
       name: "",
       email: "",
-      password:"",
+      password: "",
       error: "",
       isAuthenticated: false,
     };
   }
-    // save user
-    handleUserLogin = (email, password ) => {
-      console.log("handleUserLogin function invoked");
-      API.loginUser({
+  // save user
+  handleUserLogin = (email, password) => {
+    console.log("handleUserLogin function invoked");
+    API.loginUser({
+      email: email,
+      password: password,
+    }).then((res) => {
+      const { token } = res.data
+      localStorage.setItem("jwtToken", token)
+      this.setAuthToken(token)
+      console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
+      const decoded = jwt_decode(token)
+      this.setState({
+        name: decoded.username,
         email: email,
         password: password,
-      }).then((res) => {
-        const { token } = res.data
-        localStorage.setItem("jwtToken",token)
-        this.setAuthToken(token)
-        console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
-        const decoded = jwt_decode(token)
-        this.setState({
-          name: decoded.username,
-          email : email,
-          password: password,
-          isAuthenticated: true
-        })
-        console.log(this.state)
+        isAuthenticated: true
       })
+      console.log(this.state)
+    })
       .catch((error) => {
-        this.setState({error})
+        this.setState({ error })
         console.log(this.setState)
       })
-    }
+  }
 
-    setAuthToken = (token) => {
-      if (token) {
-          return axios.defaults.headers.common['Authorization'] = token
-      }
-      else {
-        return delete axios.defaults.headers.common['Authorization']
-      }
+  setAuthToken = (token) => {
+    if (token) {
+      return axios.defaults.headers.common['Authorization'] = token
     }
+    else {
+      return delete axios.defaults.headers.common['Authorization']
+    }
+  }
 
   // havent tested yet lol 
   handleUserLogOut = () => {
@@ -99,7 +100,7 @@ class App extends React.Component {
               </Switch>
             </div>
           </div>
-        </Router>
+      </Router>
     );
   }
 }
