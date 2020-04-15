@@ -6,7 +6,8 @@ export default class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputs: [{}]
+      inputs: [{}],
+      allUsersFound: false
     };
   }
 
@@ -18,9 +19,15 @@ export default class Test extends React.Component {
       isFound: false
     };
     this.setState({ inputs }, function () {
-      this.handleUserSearch(String([this.state.inputs[idx].username]), idx);
+      if (inputs[idx].username) {
+        this.handleUserSearch(String([this.state.inputs[idx].username]), idx)
+      }
+      else {
+        console.log("no blanks pls");
+      }
     });
   };
+
 
   handleAddInput = () => {
     const input = {
@@ -28,29 +35,44 @@ export default class Test extends React.Component {
       isFound: false
     };
     this.setState({
-      inputs: [...this.state.inputs, input]
+      inputs: [...this.state.inputs, input],
+      allUsersFound: false
     });
   };
 
   handleRemoveInput = (idx) => () => {
     const inputs = [...this.state.inputs];
     inputs.splice(idx, 1);
-    this.setState({ inputs });
+
+    let tmp = true;
+
+    for (let index = 0; index < this.state.inputs.length; index++) {
+      if (this.state.inputs[index].isFound == false) {
+        console.log([index] + ": not found");
+        tmp = false;
+      }
+    }
+    this.setState({
+      inputs: inputs,
+      isFound: tmp
+    }, function () {
+      console.log("State: " + this.state);
+    })
   }
 
 
 
 
   handleUserSearch = function (username, idx) {
-    console.log("handleUserSearch function invoked");
+    // console.log("handleUserSearch function invoked");
     API.searchByUsername(username)
       .then((res) => {
         console.log("tried to search for user " + username);
         console.log(res);
         // execute this if a user is found - update this idx's isFound value to true
         if (res.data != null) {
-          console.log("found a user");
-          console.log("original isFound: " + this.state.inputs[idx].isFound);
+          // console.log("found a user");
+          // console.log("original isFound: " + this.state.inputs[idx].isFound);
           const username = this.state.inputs[idx].username;
           const inputs = [...this.state.inputs];
           inputs[idx] = {
@@ -58,12 +80,35 @@ export default class Test extends React.Component {
             isFound: true
           };
           this.setState({ inputs }, function () {
-            console.log("new isFound: " + this.state.inputs[idx].isFound);
+            // console.log("new isFound: " + this.state.inputs[idx].isFound);
           });
         }
         else {
-          console.log("isFound should be false: is actually " + this.state.inputs[idx].isFound)
+          // console.log("isFound should be false: is actually " + this.state.inputs[idx].isFound)
+          return;
         };
+      })
+      .then(() => {
+        let tmp = true;
+        for (let index = 0; index < this.state.inputs.length; index++) {
+          if (this.state.inputs[index].isFound == false) {
+            console.log([index] + ": not found");
+            tmp = false;
+          }
+        }
+        if (tmp) {
+          console.log("all users found");
+          this.setState({
+            allUsersFound: true
+          });
+        }
+        else {
+          console.log("not all users found");
+          this.setState({
+            allUsersFound: false
+          })
+        }
+        console.log("allUserFound is " + this.state.allUsersFound);
       })
       .catch((err) => {
         console.log("error:" + err)
@@ -86,6 +131,7 @@ export default class Test extends React.Component {
                     class="validate"
                     value={this.state.inputs[idx].username}
                     onChange={this.handleChange(idx)} />
+                  <label for={'input' + idx}>Please enter a registered user</label>
                   <div>
                     <a
                       class="btn-floating btn-large waves-effect waves-light red"
@@ -99,7 +145,13 @@ export default class Test extends React.Component {
         </div>
         <div class="row">
           <div class="col s4 offset-s4">
-            <a class="waves-effect waves-light btn" onClick={() => this.handleAddInput()}>Add User</a>
+            <a
+              class="waves-effect waves-light btn"
+              onClick={() => this.handleAddInput()}>Add User</a>
+            <a
+              class="waves-effect waves-light btn"
+              onClick={() => console.log("You hit Next")}
+              disabled={this.state.allUsersFound == false}>Next</a>
           </div>
         </div>
       </div>
