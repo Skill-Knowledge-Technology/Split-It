@@ -83,25 +83,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut} />
-        <div className="container-fluid text-center">
-          <div className="row justify-content-center">
-            <Switch>
-              <Route path="/Register" component={Register} />
-              <Route path="/Login" render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} handleUserLogin={this.handleUserLogin} />} />
-              <Route path="/Camera" component={Camera} />
-              <Route path="/UserInput" component={UserInput} />
-              <Route path="/AboutUs" component={AboutUs} />
-              <Route path="/Maps" component={Maps} />
-              <Route path="/Test" component={Test} />
-              <Route path="/Profile" component={Profile} />
-              <Route path="/Transaction" component={Transaction} />
-              {/* Put all routes BEFORE '/'  */}
-              <Route path="/" component={Home} />
-            </Switch>
+        <Router>
+          <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut}/>
+          <div className="container-fluid text-center">
+            <div className="row justify-content-center">
+              <Switch>
+                <Route path="/Register" component={Register} />
+                <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} handleUserLogin={this.handleUserLogin}  /> } />
+                <Route path="/Camera" component={Camera} />
+                <Route path="/UserInput" component={UserInput} />
+                <Route path="/AboutUs" component={AboutUs} />
+                <Route path="/Maps" component={Maps} />
+                <Route path="/Test" component={Test} />
+                <Route path="/Profile" component={Profile} />
+                <Route exact path="/" component={Home} />
+              </Switch>
+            </div>
           </div>
-        </div>
       </Router>
     );
   }
