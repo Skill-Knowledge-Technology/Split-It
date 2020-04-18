@@ -9,6 +9,9 @@ export default {
     loginUser: function(userData) {
         return axios.post("api/users/login", userData);
     },
+    findUserBalance: function(userData) {
+        return axios.get(`/api/users/getBalance/${userData}`)
+    },
     setAuthToken: function(token) {
         if (token) {
             axios.defaults.headers.common['Authorization'] = token
