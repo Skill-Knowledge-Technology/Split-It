@@ -35,6 +35,13 @@ const expressValidator = {
     }
     return true 
   },
+  usernameIsUnique: async(value, {req}) => {
+    const username = await userServices.findUserByUsername(value);
+    if (username) {
+      throw new Error("Username is not unique")
+    }
+    return true 
+  },
   passwordMatchesHash: async(value, {req}) => {
     // req.user is attched in emailShouldExist middleware
     const match = await bcrypt.compare(value, req.user.password)

@@ -23,6 +23,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       name: "",
       email: "",
       password:"",
@@ -42,13 +43,14 @@ class App extends React.Component {
         this.setAuthToken(token)
         console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
         const decoded = jwt_decode(token)
+        console.log(decoded)
         this.setState({
+          id: decoded.id,
           name: decoded.username,
           email : email,
           password: password,
           isAuthenticated: true
         })
-        console.log(this.state)
       })
       .catch((error) => {
         this.setState({error})
@@ -65,7 +67,6 @@ class App extends React.Component {
       }
     }
 
-  // havent tested yet lol 
   handleUserLogOut = () => {
     API.logoutUser();
     this.setAuthToken(false);
