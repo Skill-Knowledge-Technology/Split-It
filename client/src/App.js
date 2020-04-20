@@ -24,6 +24,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       name: "",
       email: "",
       password: "",
@@ -31,8 +32,8 @@ class App extends React.Component {
       isAuthenticated: false,
     };
   }
-  // save user
-  handleUserLogin = (email, password) => {
+   // save user
+   handleUserLogin = (email, password) => {
     console.log("handleUserLogin function invoked");
     API.loginUser({
       email: email,
@@ -57,6 +58,7 @@ class App extends React.Component {
       })
   }
 
+
   setAuthToken = (token) => {
     if (token) {
       return axios.defaults.headers.common['Authorization'] = token
@@ -66,7 +68,6 @@ class App extends React.Component {
     }
   }
 
-  // havent tested yet lol 
   handleUserLogOut = () => {
     API.logoutUser();
     this.setAuthToken(false);
