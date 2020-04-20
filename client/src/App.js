@@ -32,8 +32,8 @@ class App extends React.Component {
       isAuthenticated: false,
     };
   }
-  // save user
-  handleUserLogin = (email, password) => {
+   // save user
+   handleUserLogin = (email, password) => {
     console.log("handleUserLogin function invoked");
     API.loginUser({
       email: email,
@@ -48,20 +48,7 @@ class App extends React.Component {
         name: decoded.username,
         email: email,
         password: password,
-      }).then((res) => {
-        const { token } = res.data
-        localStorage.setItem("jwtToken",token)
-        this.setAuthToken(token)
-        console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
-        const decoded = jwt_decode(token)
-        console.log(decoded)
-        this.setState({
-          id: decoded.id,
-          name: decoded.username,
-          email : email,
-          password: password,
-          isAuthenticated: true
-        })
+        isAuthenticated: true
       })
       console.log(this.state)
     })
@@ -70,6 +57,7 @@ class App extends React.Component {
         console.log(this.setState)
       })
   }
+
 
   setAuthToken = (token) => {
     if (token) {
