@@ -31,15 +31,19 @@ class Register extends Component {
       .catch((error) => {
         if (error.response) {
            console.log(error.response.data);
-           const errors = error.response.data
-           console.log(typeof(errors))
-           const errorsArray = []
-           errors.forEach( data => {
-             errorsArray.append(data.message)
-           });
+           let errorObject = error.response.data
+          //  console.log(typeof(errors)) // object
+          let errorArray = []
+           errorObject.errors.forEach( data => {
+             errorArray.push(data.msg)         
+            });
+          
+          // we want to filter duplicate errors in the array in case the user spams 
+          let removeDuplicate = new Set(errorArray)
+          this.setState({
+            errors: Array.from(removeDuplicate)
+          })
         }
-        //console.log(JSON.stringify(error));
-        //this.setState({error: error.message});
       });
   };
 
@@ -137,7 +141,13 @@ class Register extends Component {
           Sign Up<i className="material-icons right">send</i>
         </button>
         <br></br>
-        <p> {this.state.error && this.state.error.message}</p>
+        <ul>
+        { this.state.errors.length > 0 ? this.state.errors.map((error,index) => {
+          return <li key={index}> {error} </li>
+        })
+        : <div></div>
+      } 
+        </ul>
       </div>
     );
   }
