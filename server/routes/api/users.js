@@ -36,7 +36,9 @@ router.post('/login', [
     ], userController.login)
 
 router.post('/register', [
-    check('username').isLength({min:1}).withMessage('Username must be at least 1 or more character long'),
+    check('username').isLength({min:1}).withMessage('Username must be at least 1 or more character long')
+    .bail()
+    .custom(userMiddleware.expressValidator.usernameIsUnique),
     check('email').isEmail().withMessage('Email must be valid')
     .bail()
     .custom(userMiddleware.expressValidator.emailShouldExist(false)),

@@ -9,17 +9,6 @@ export default {
     loginUser: function(userData) {
         return axios.post("api/users/login", userData);
     },
-    findUserBalance: function(userData) {
-        return axios.get(`/api/users/getBalance/${userData}`)
-    },
-    setAuthToken: function(token) {
-        if (token) {
-            axios.defaults.headers.common['Authorization'] = token
-        }
-        else {
-            delete axios.defaults.headers.common['Authorization']
-        }
-    },
     // function is work in progress. we want to delete the auth token header
     // and then set the state in react to the empty object to indicate
     // user has logged out.
