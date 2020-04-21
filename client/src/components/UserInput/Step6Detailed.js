@@ -8,7 +8,7 @@ export default class Step6Detailed extends React.Component {
       var associationSize = this.props.DetailedSplit.orders[i].association.length;
       for(var j = 0; j < associationSize; j++){
         var name = this.props.DetailedSplit.orders[i].association[j];
-        var cost = this.props.DetailedSplit.orders[i].cost;
+        var cost = this.props.DetailedSplit.orders[i].total;
         var total = this.total(associationSize,cost)
         this.props.setNameCost(name,total);
       }
@@ -46,6 +46,7 @@ export default class Step6Detailed extends React.Component {
             <table className="highlight centered">
                 <thead>
                   <tr>
+                    <th>Order Quantity</th>
                     <th>Order Names</th>
                     <th>Order Cost</th>
                     <th>Associations</th>
@@ -54,6 +55,9 @@ export default class Step6Detailed extends React.Component {
                 <tbody>
                   {DetailedSplit.orders.map((list, index) => (
                     <tr key = {index}>
+                      <td>
+                        {list.quantity}
+                      </td>
                       <td>
                         {list.order}
                       </td>
@@ -66,7 +70,7 @@ export default class Step6Detailed extends React.Component {
                             {list.association.map((list2, index2) => (
                               <tr key = {index2}>
                                 <td>
-                                  {list2} Pays ${this.total(list.association.length,list.cost)} For This Order
+                                  {list2} Pays ${this.total(list.association.length,list.total)} For This Order
                                 </td>
                               </tr>
                             ))}
