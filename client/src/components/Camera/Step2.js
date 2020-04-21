@@ -22,7 +22,7 @@ export default class Step2 extends React.Component {
   }
 
   render(){ 
-    const { Camera, changeOrderQuantity,changeOrders, changeOrderCost} = this.props;
+    const { Camera, changeOrderQuantity,changeOrders, changeOrderCost, removeOrderSpecificRow} = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -42,6 +42,7 @@ export default class Step2 extends React.Component {
                     <th>Order Quantity</th>
                     <th>Order Names</th>
                     <th>Order Cost</th>
+                    <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,6 +68,12 @@ export default class Step2 extends React.Component {
                           <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
                             defaultValue={list.cost} onChange={changeOrderCost(index)}/>
                         </form>
+                      </td>
+                      <td>
+                        <button className="btn-floating btn-large waves-effect waves-light red"
+                          type="submit" name="action" onClick={removeOrderSpecificRow(index)}>
+                          <i className="material-icons">remove</i>
+                        </button>
                       </td> 
                     </tr>
                   ))}
