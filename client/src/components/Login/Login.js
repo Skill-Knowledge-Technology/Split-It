@@ -10,12 +10,18 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
+      errors: [],
     };
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
       this.handleRedirect();
+    }
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({
+        errors: [...this.props.errors]
+      })
     }
   }
 
@@ -87,6 +93,12 @@ class Login extends React.Component {
         >
           Login<i className="material-icons right">send</i>
         </button>
+        <br></br>
+        { this.state.errors.length > 0 ?  this.state.errors.map((error,index) => {
+          return <li key={index}> {error} </li>
+        })
+        : <div></div>
+      } 
       </div>
     );
   }
