@@ -110,7 +110,7 @@ class App extends React.Component {
           <div className="row justify-content-center">
             <Switch>
               <Route path="/Register" component={Register} />
-              <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
+              <Route path="/Login" render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
               <Route path="/Camera" component={Camera} />
               <Route path="/UserInput" component={UserInput} />
               <Route path="/AboutUs" component={AboutUs} />
