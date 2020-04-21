@@ -44,7 +44,7 @@ export default class Profile extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="left-align col">
+            <div className="left-align col 12">
               <i className="material-icons prefix">account_circle</i>
             </div>
             <div className="left-align">
@@ -52,7 +52,7 @@ export default class Profile extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="left-align col">
+            <div className="left-align col 12">
               <i className="material-icons prefix">email</i>
             </div>
             <div className="left-align">
@@ -61,10 +61,10 @@ export default class Profile extends React.Component {
             </div>
           </div>
           <div className="row">
-                <div className="left-align col">
+                <div className="left-align col 12">
                   <i className="material-icons prefix">attach_money</i>
                 </div>
-                <div className="left-align">
+                <div className="left-align col 12">
                   <p id="balance" className="validate">{balance}</p>
                 </div>
               </div>
