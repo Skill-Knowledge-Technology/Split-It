@@ -197,6 +197,13 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
+  addOrderRow = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    newState.orders.push({number: `Order #${size + 1}`, quantity: '', order: '', cost: '', association: []});
+    this.setState(newState);
+  }
+
   render() {
     const { currentStep, uploads, text, subtotal, tax, total, orders, failAttempts, found } = this.state;
     const Camera = { uploads, text, subtotal, tax, total, orders, failAttempts, found };
@@ -227,6 +234,7 @@ export default class Camera extends React.Component {
               setOrders = {this.setOrders}
               setOrderCost = {this.setOrderCost}
               removeOrderSpecificRow = {this.removeOrderSpecificRow}
+              addOrderRow = {this.addOrderRow}
               Camera = {Camera}
             />
           </div>

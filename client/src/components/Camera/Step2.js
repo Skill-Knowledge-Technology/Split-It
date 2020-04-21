@@ -22,7 +22,7 @@ export default class Step2 extends React.Component {
   }
 
   render(){ 
-    const { Camera, changeOrderQuantity,changeOrders, changeOrderCost, removeOrderSpecificRow} = this.props;
+    const { Camera, changeOrderQuantity,changeOrders, changeOrderCost, removeOrderSpecificRow, addOrderRow} = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -70,7 +70,7 @@ export default class Step2 extends React.Component {
                         </form>
                       </td>
                       <td>
-                        <button className="btn-floating btn-large waves-effect waves-light red"
+                        <button className="btn-floating btn-small red"
                           type="submit" name="action" onClick={removeOrderSpecificRow(index)}>
                           <i className="material-icons">remove</i>
                         </button>
@@ -80,6 +80,11 @@ export default class Step2 extends React.Component {
                 </tbody>
               </table>
               <br/>
+              <button className="btn-floating btn-large blue"
+                type="submit" name="action" onClick={addOrderRow}>
+                <i className="material-icons">add</i>
+              </button>
+              <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
