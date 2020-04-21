@@ -29,7 +29,7 @@ class App extends React.Component {
       email: "",
       password: "",
       balance: "",
-      error: "",
+      errors: [],
       isAuthenticated: false,
     };
   }
@@ -61,8 +61,21 @@ class App extends React.Component {
       console.log(this.state)
     })
       .catch((error) => {
-        this.setState({ error })
-        console.log(this.setState)
+        if (error.response) {
+          console.log(error.response.data);
+          let errorObject = error.response.data
+         //  console.log(typeof(errors)) // object
+         let errorArray = []
+          errorObject.errors.forEach( data => {
+            errorArray.push(data.msg)         
+           });
+         
+         // we want to filter duplicate errors in the array in case the user spams 
+         let removeDuplicate = new Set(errorArray)
+         this.setState({
+           errors: Array.from(removeDuplicate)
+         })
+       }
       })
   }
 
@@ -92,12 +105,12 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut} />
+        <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut}/>
         <div className="container-fluid text-center">
           <div className="row justify-content-center">
             <Switch>
               <Route path="/Register" component={Register} />
-              <Route path="/Login" render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} handleUserLogin={this.handleUserLogin} />} />
+              <Route path="/Login" render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
               <Route path="/Camera" component={Camera} />
               <Route path="/UserInput" component={UserInput} />
               <Route path="/AboutUs" component={AboutUs} />
