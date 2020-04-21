@@ -52,7 +52,7 @@ export default class Step2 extends React.Component {
                       </td>
                       <td>
                         <form>
-                          <input type="text" placeholder="Insert Quantity"
+                          <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
                             defaultValue={list.quantity} onChange={changeOrderQuantity(index)}/>
                         </form>
                       </td>

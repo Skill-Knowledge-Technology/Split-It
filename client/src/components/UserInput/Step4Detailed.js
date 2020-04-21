@@ -3,8 +3,10 @@ import React from 'react';
 export default class Step4Detailed extends React.Component {
   next = e => {
     e.preventDefault();
+    this.props.setOrderQuantity();
     this.props.setOrders();
     this.props.setOrderCost();
+    this.props.setOrderTotal();
     this.props.nextStep();
   };
 
@@ -21,7 +23,7 @@ export default class Step4Detailed extends React.Component {
   }
 
   render(){ 
-    const { DetailedSplit, changeOrders, changeOrderCost } = this.props;
+    const { DetailedSplit, changeOrderQuantity, changeOrders, changeOrderCost } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -38,6 +40,7 @@ export default class Step4Detailed extends React.Component {
                 <thead>
                   <tr>
                     <th>Order Number</th>
+                    <th>Order Quantity</th>
                     <th>Order Names</th>
                     <th>Order Cost</th>
                   </tr>
@@ -47,6 +50,12 @@ export default class Step4Detailed extends React.Component {
                     <tr key = {index}>
                       <td>
                         {list.number}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
+                            defaultValue={list.quantity} onChange={changeOrderQuantity(index)}/>
+                        </form>
                       </td>
                       <td>
                         <form>
