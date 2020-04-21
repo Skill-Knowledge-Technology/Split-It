@@ -76,7 +76,7 @@ export default class UserInput extends React.Component {
     this.setState({names: temp});
     temp = [];
     for(i = 0; i < totalOrders; i++){
-      temp.push({number: `Order #${i+1}`, order: '', cost: '', association: []});
+      temp.push({number: `Order #${i+1}`, quantity: '', order: '', cost: '', total: '', association: []});
     }
     this.setState({orders: temp});
   }
@@ -93,6 +93,23 @@ export default class UserInput extends React.Component {
     for (var i = 0; i < size; i++){
       if(newState.names[i].name === ''){
         newState.names[i].name = newState.names[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
+  changeOrderQuantity = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].quantity = e.target.value;
+    this.setState(newState);
+  }
+
+  setOrderQuantity = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      if(newState.orders[i].quantity === ''){
+        newState.orders[i].quantity = 1;
         this.setState(newState);
       }
     }
@@ -129,6 +146,17 @@ export default class UserInput extends React.Component {
         newState.orders[i].cost = 0;
         this.setState(newState);
       }
+    }
+  }
+
+  setOrderTotal = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      var quantity = newState.orders[i].quantity;
+      var cost = newState.orders[i].cost;
+      newState.orders[i].total = cost * quantity;
+      this.setState(newState);
     }
   }
 
@@ -235,10 +263,13 @@ export default class UserInput extends React.Component {
             <Step4Detailed
               nextStep = {this.nextStep}
               prevStep = {this.prevStep}
+              changeOrderQuantity = {this.changeOrderQuantity}
               changeOrders = {this.changeOrders}
               changeOrderCost = {this.changeOrderCost}
+              setOrderQuantity = {this.setOrderQuantity}
               setOrders = {this.setOrders}
               setOrderCost = {this.setOrderCost}
+              setOrderTotal = {this.setOrderTotal}
               DetailedSplit = {DetailedSplit}
             />
           </div>

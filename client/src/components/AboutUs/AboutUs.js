@@ -97,7 +97,7 @@ export default class AboutUs extends React.Component {
                 <div className = "col s12 md4 l4">
                     <img src={ require('../../public/People/dummy.jpg')}  alt = "Alex" className = "responsive-img"/>
                     <br/>
-                    <h4 className = "center">Jia Peng Zhen</h4>
+                    <h4 className = "center">Jia Peng Zhen (Alex)</h4>
                 </div>
                 <div className = "col s12 md8 l8">
                     <h4><u>LinkedIn:</u></h4>

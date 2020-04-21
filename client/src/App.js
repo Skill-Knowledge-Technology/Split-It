@@ -28,6 +28,7 @@ class App extends React.Component {
       name: "",
       email: "",
       password: "",
+      balance: "",
       errors: [],
       isAuthenticated: false,
     };
@@ -45,11 +46,18 @@ class App extends React.Component {
       console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
       const decoded = jwt_decode(token)
       this.setState({
+        id: decoded.id,
         name: decoded.username,
         email: email,
         password: password,
         isAuthenticated: true
       })
+      API.findUserBalance(decoded.id)
+        .then((res) => {
+          this.setState({
+            balance: res.data
+          })
+        })
       console.log(this.state)
     })
       .catch((error) => {
@@ -94,26 +102,25 @@ class App extends React.Component {
     window.location.href = '/'
   }
 
-
   render() {
     return (
-        <Router>
-          <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut}/>
-          <div className="container-fluid text-center">
-            <div className="row justify-content-center">
-              <Switch>
-                <Route path="/Register" component={Register} />
-                <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
-                <Route path="/Camera" component={Camera} />
-                <Route path="/UserInput" component={UserInput} />
-                <Route path="/AboutUs" component={AboutUs} />
-                <Route path="/Maps" component={Maps} />
-                <Route path="/Test" component={Test} />
-                <Route path="/Profile" component={Profile} />
-                <Route exact path="/" component={Home} />
-              </Switch>
-            </div>
+      <Router>
+        <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut}/>
+        <div className="container-fluid text-center">
+          <div className="row justify-content-center">
+            <Switch>
+              <Route path="/Register" component={Register} />
+              <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
+              <Route path="/Camera" component={Camera} />
+              <Route path="/UserInput" component={UserInput} />
+              <Route path="/AboutUs" component={AboutUs} />
+              <Route path="/Maps" component={Maps} />
+              <Route path="/Test" component={Test} />
+              <Route path="/Profile" render={(props) => <Profile {...props} isAuthenticated={this.state.isAuthenticated} name={this.state.name} email={this.state.email} balance={this.state.balance} />} />
+              <Route exact path="/" component={Home} />
+            </Switch>
           </div>
+        </div>
       </Router>
     );
   }
