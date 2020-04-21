@@ -15,21 +15,21 @@ module.exports = {
         allowNull: false
       },
 
-      // Primary key of this table
-      friendshipID: {
-        type: (this.requesterID, this.addresseeID),
-        primaryKey: true
-      },
-
       // 0 = blocked, 1 = pending, 2 = friends
       friendshipStatus: {
-        type: Sequelize.Datatypes.INTEGER,
+        type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
         validate: {
           equals: 0 || 1 || 2
         }
       }
-    });
+    })
+      .then(() => {
+        return queryInterface.addConstraint('Friendship', ['requesterID', 'addresseeID'], {
+          type: 'primary key',
+          name: 'friendshipPK'
+        });
+      });
   },
 
   down: (queryInterface, Sequelize) => {
