@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import './Register.css';
+import React, { Component } from "react";
+import "./Register.css";
 import API from "../../utils/api";
-import {	withRouter } from 'react-router-dom';
-
-
+import { withRouter } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -13,87 +11,143 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
+      errors: [],
     };
   }
 
   // save user
-  handleUserSave = id => {
+  handleUserSave = (id) => {
     console.log("handleUserSave function invoked");
     API.saveUser({
       username: this.state.username,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
-    }).then(() => {
-      console.log("user data sent to register route");
-      return this.props.history.push('/login');
+      password2: this.state.password2,
     })
-    .catch((error)=> {
-      console.log(error)
-    })
-  }
+      .then(() => {
+        console.log("user data sent to register route");
+        return this.props.history.push("/login");
+      })
+      .catch((error) => {
+        if (error.response) {
+           console.log(error.response.data);
+           let errorObject = error.response.data
+          //  console.log(typeof(errors)) // object
+          let errorArray = []
+           errorObject.errors.forEach( data => {
+             errorArray.push(data.msg)         
+            });
+          
+          // we want to filter duplicate errors in the array in case the user spams 
+          let removeDuplicate = new Set(errorArray)
+          this.setState({
+            errors: Array.from(removeDuplicate)
+          })
+        }
+      });
+  };
 
   // Handle field change
-  handleChange = input => e => {
+  handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
 
-  // eventually api call to call the backend 
-  handleSubmit = e => {
+  // eventually api call to call the backend
+  handleSubmit = (e) => {
     e.preventDefault();
     const { username, email, password, password2 } = this.state;
-    if (username === '') {
+    if (username === "") {
       alert("Please Enter a Name (Can Be Anything)");
-    }
-    else if (email === '') {
+    } else if (email === "") {
       alert("Please Enter a Correct Email");
-    }
-    else if (password === '' || password.length < 6) {
+    } else if (password === "" || password.length < 6) {
       alert("Please Enter a Password With a Length of At Least 6");
-    }
-    else if (password !== password2) {
+    } else if (password !== password2) {
       alert("Your Password and Confirmation Password Do Not Match.");
-    }
-    else {
+    } else {
       // Insert Backend Here.
       console.log(this.state);
 
       this.handleUserSave();
     }
-  }
+  };
 
   render() {
     return (
       <div className="registerbox">
-        <h4><u>Register</u></h4>
+        <h4>
+          <u>Register</u>
+        </h4>
         <form className="col s12">
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">account_circle</i>
-              <input placeholder="Enter Username" id="username" type="text" onChange={this.handleChange('username')} />
+              <input
+                placeholder="Enter Username"
+                id="username"
+                type="text"
+                onChange={this.handleChange("username")}
+              />
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">email</i>
-              <input id="email" type="email" placeholder="Enter Email" className="validate" onChange={this.handleChange('email')} />
-              <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter Email"
+                className="validate"
+                onChange={this.handleChange("email")}
+              />
+              <span
+                className="helper-text"
+                data-error="Invalid Email"
+                data-success="Valid"
+              >
+                Please Enter a Valid Email
+              </span>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
-              <input id="password" type="password" placeholder="Enter Password" onChange={this.handleChange('password')} />
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter Password"
+                onChange={this.handleChange("password")}
+              />
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
               <i className="material-icons prefix">lock</i>
-              <input id="password2" type="password" placeholder="Reenter Password" onChange={this.handleChange('password2')} />
+              <input
+                id="password2"
+                type="password"
+                placeholder="Reenter Password"
+                onChange={this.handleChange("password2")}
+              />
             </div>
           </div>
         </form>
-        <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleSubmit}>Sign Up<i className="material-icons right">send</i></button>
+        <button
+          className="btn waves-effect waves-light"
+          type="submit"
+          name="action"
+          onClick={this.handleSubmit}
+        >
+          Sign Up<i className="material-icons right">send</i>
+        </button>
+        <br></br>
+        <ul>
+        { this.state.errors.length > 0 ? this.state.errors.map((error,index) => {
+          return <li key={index}> {error} </li>
+        })
+        : <div></div>
+      } 
+        </ul>
       </div>
     );
   }

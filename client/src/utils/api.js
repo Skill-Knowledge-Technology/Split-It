@@ -20,6 +20,7 @@ export default {
             delete axios.defaults.headers.common['Authorization']
         }
     },
+
     // function is work in progress. we want to delete the auth token header
     // and then set the state in react to the empty object to indicate
     // user has logged out.
