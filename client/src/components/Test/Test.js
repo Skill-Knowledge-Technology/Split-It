@@ -105,37 +105,37 @@ export default class Test extends React.Component {
   render() {
     return (
       <div>
-        <div class="row">
-          <form class="col s4 offset-s4">
-            <div class="row" id="dynamicInputs">
+        <div className="row">
+          <form className="col s4 offset-s4">
+            <div className="row" id="dynamicInputs">
               {this.state.inputs.map((input, idx) => (
                 <div>
                   <input
                     placeholder="Username"
                     id={`input` + idx}
                     type="text"
-                    class="validate"
+                    className="validate"
                     value={this.state.inputs[idx].username}
                     onChange={this.handleChange(idx)} />
                   <label for={'input' + idx}>Please enter a registered user</label>
                   <div>
                     <a
-                      class="btn-floating btn-large waves-effect waves-light red"
+                      className="btn-floating btn-large waves-effect waves-light red"
                       onClick={this.handleRemoveInput(idx)}>
-                      <i class="material-icons">delete</i></a>
+                      <i className="material-icons">delete</i></a>
                   </div>
                 </div>
               ))}
             </div>
           </form>
         </div>
-        <div class="row">
-          <div class="col s4 offset-s4">
+        <div className="row">
+          <div className="col s4 offset-s4">
             <a 
-            class="waves-effect waves-light btn"
+            className="waves-effect waves-light btn"
              onClick={() => this.handleAddInput()}>Add User</a>
             <a 
-            class="waves-effect waves-light btn" 
+            className="waves-effect waves-light btn" 
             onClick={() => console.log("You hit Next")} 
             disabled={this.state.allUsersFound == false}>Next</a>
           </div>
