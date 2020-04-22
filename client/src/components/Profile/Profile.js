@@ -1,7 +1,9 @@
-import React from 'react';
-import './Profile.css'
+import React from "react";
+import "./Profile.css";
+import { withRouter } from "react-router-dom";
 
-export default class Profile extends React.Component {
+
+class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,40 +13,49 @@ export default class Profile extends React.Component {
     };
   }
 
+
+  
+
   // Handle field change
-  handleChange = input => e => {
+  handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
 
-  // eventually api call to call the backend 
-  handleSubmit = e => {
+  // eventually api call to call the backend
+  handleSubmit = (e) => {
     e.preventDefault();
     // Insert Backend Here.
     console.log(this.state);
-  }
+  };
 
-  handleEdit = e => {
+  handleEdit = (e) => {
     e.preventDefault();
 
-    console.log(this.state)
-  }
-
+    console.log(this.state);
+  };
+  
   render() {
-    const { isAuthenticated, name, email, balance } = this.props
+    const {name, email, balance } = this.props;
     return (
       <div className="profilebox">
-        <h4><u>Profile</u></h4>
+        <h4>
+          <u>Profile</u>
+        </h4>
         <form className="col s12">
           <div className="row">
             <div>
-              <img src={require('../../public/People/dummy.jpg')} class="circle responsive-img" alt="Empty"/>
+              <img
+                src={require("../../public/People/dummy.jpg")}
+                class="circle responsive-img"
+                alt="Empty"
+              />
             </div>
             <div>
               <input className="file-upload" type="file" accept="image/*" />
             </div>
           </div>
           <div className="row">
-            <div className="left-align col">
+            <div className="left-align col 12">
               <i className="material-icons prefix">account_circle</i>
             </div>
             <div className="left-align">
@@ -52,25 +63,38 @@ export default class Profile extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="left-align col">
+            <div className="left-align col 12">
               <i className="material-icons prefix">email</i>
             </div>
             <div className="left-align">
-              <p id="email" className="validate">{email}</p>
+              <p id="email" className="validate">
+                {email}
+              </p>
               {/* <span className="helper-text" data-error="Invalid Email" data-success="Valid">Please Enter a Valid Email</span> */}
             </div>
           </div>
           <div className="row">
-                <div className="left-align col">
-                  <i className="material-icons prefix">attach_money</i>
-                </div>
-                <div className="left-align">
-                  <p id="balance" className="validate">{balance}</p>
-                </div>
-              </div>
+            <div className="left-align col 12">
+              <i className="material-icons prefix">attach_money</i>
+            </div>
+            <div className="left-align">
+              <p id="balance" className="validate">
+                {balance}
+              </p>
+            </div>
+          </div>
         </form>
-        <button className="btn waves-effect waves-light" type="edit" name="action" onClick={this.handleEdit}>Edit<i className="material-icons right">edit</i></button>
+        <button
+          className="btn waves-effect waves-light"
+          type="edit"
+          name="action"
+          onClick={this.handleEdit}
+        >
+          Edit<i className="material-icons right">edit</i>
+        </button>
       </div>
     );
   }
 }
+
+export default withRouter(Profile);

@@ -20,6 +20,7 @@ export default class Step1 extends React.Component {
 
   render() {
     const { Camera } = this.props;
+    const { loading } = this.props;
     return (
       <div className = "container">
         <div className="row">
@@ -43,9 +44,71 @@ export default class Step1 extends React.Component {
                   {!Camera.found && 
                   (
                     <div className = "center-align">
-                      <button className="btn waves-effect waves-light" type="submit" onClick={this.generateText}>Generate
-                        <i className="material-icons right">camera</i>
-                      </button>
+                      <a className="btn-large" type="submit" onClick={this.generateText} disabled={loading}>
+                        { loading && 
+                        <span> Generating
+                          <div className="preloader-wrapper small active">
+                            <div className="spinner-layer spinner-blue">
+                              <div className="circle-clipper left">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="gap-patch">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="circle-clipper right">
+                                <div className="circle">
+                                </div>
+                              </div>
+                            </div>
+                            <div className="spinner-layer spinner-red">
+                              <div className="circle-clipper left">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="gap-patch">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="circle-clipper right">
+                                <div className="circle">
+                                </div>
+                              </div>
+                            </div>
+                            <div className="spinner-layer spinner-yellow">
+                              <div className="circle-clipper left">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="gap-patch">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="circle-clipper right">
+                                <div className="circle">
+                                </div>
+                              </div>
+                            </div>
+                            <div className="spinner-layer spinner-green">
+                              <div className="circle-clipper left">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="gap-patch">
+                                <div className="circle">
+                                </div>
+                              </div>
+                              <div className="circle-clipper right">
+                                <div className="circle">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </span> 
+                        }
+                        { !loading && <span> Generate <i className="material-icons right">camera</i> </span> }
+                      </a>
                     </div>
                   )}
                   {Camera.found &&

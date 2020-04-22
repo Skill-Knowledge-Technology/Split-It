@@ -16,7 +16,7 @@ class Sidebar extends Component {
     });
   }
   render() {
-    const {isAuthenticated, name, handleUserLogOut } = this.props
+    const {isAuthenticated, name, handleUserLogOut , userID } = this.props
     return (
       <div className = "navbar-fixed">
       <nav>
@@ -35,7 +35,7 @@ class Sidebar extends Component {
               <div className="divider" />
             </li>
             {
-             isAuthenticated === false ? <LoginRegisterRedirect /> : <ProfileLogOutRedirect handleUserLogOut={handleUserLogOut} name={name} /> 
+             isAuthenticated === false ? <LoginRegisterRedirect /> : <ProfileLogOutRedirect handleUserLogOut={handleUserLogOut} name={name} userID={userID}/> 
             }
             {/* <li>
               <a className="waves-effect" href="Login">
