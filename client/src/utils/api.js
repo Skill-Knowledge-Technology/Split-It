@@ -9,11 +9,6 @@ export default {
     loginUser: function(userData) {
         return axios.post("api/users/login", userData);
     },
-<<<<<<< HEAD
-    // function is work in progress. we want to delete the auth token header
-    // and then set the state in react to the empty object to indicate
-    // user has logged out.
-=======
     findUserBalance: function(userData) {
         return axios.get(`/api/users/getBalance/${userData}`)
     },
@@ -26,7 +21,6 @@ export default {
         }
     },
 
->>>>>>> master
     logoutUser: function() {
         localStorage.removeItem("jwtToken")
     }, 
