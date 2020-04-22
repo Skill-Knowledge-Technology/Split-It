@@ -19,6 +19,7 @@ export default class Camera extends React.Component {
       orders: [],
       failAttempts: 0,
       found: false,
+      loading: false,
     };
   }
 
@@ -74,24 +75,26 @@ export default class Camera extends React.Component {
   }
 
   generateText = () => {
-    let uploads = this.state.uploads
+    this.setState({ loading: true });
+    let uploads = this.state.uploads;
     for(var i = 0; i < uploads.length; i++) {
       Tesseract.recognize(
         uploads[i], 
         'eng',
-      { logger: m => console.log(m) }
       )
       .then(({ data: { text } }) => {
         console.log(text);
         this.setState({ 
           text: text,
           found: true,
+          loading: false,
         })
       })
       .catch(err => {
         console.error(err);
         this.setState({
-          failAttempts: this.state.failAttempts + 1
+          failAttempts: this.state.failAttempts + 1,
+          loading: false,
         });
         if (this.state.failAttempts >= 3){
           alert('Failed To Read Photo!\n' + this.state.failAttempts + '/3\nRedirecting to User Input Page');
@@ -205,7 +208,7 @@ export default class Camera extends React.Component {
   }
 
   render() {
-    const { currentStep, uploads, text, subtotal, tax, total, orders, failAttempts, found } = this.state;
+    const { currentStep, uploads, text, subtotal, tax, total, orders, failAttempts, found, loading } = this.state;
     const Camera = { uploads, text, subtotal, tax, total, orders, failAttempts, found };
 
     switch (currentStep){
@@ -218,6 +221,7 @@ export default class Camera extends React.Component {
               generateText = {this.generateText}
               parse = {this.parse}
               Camera = {Camera}
+              loading = {loading}
             />
           </div>
         );
