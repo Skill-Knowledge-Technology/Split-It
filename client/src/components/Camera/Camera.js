@@ -122,15 +122,19 @@ export default class Camera extends React.Component {
     {text.split('\n').map((item, i) => {
       let array = item.split(' ');
       console.log(array);
+      // This searches for subtotal
       if(array.findIndex(word => 'subtotal' === word.toLowerCase()) > -1){
         this.changeSubtotal(array[array.length-1]);
       }
+      // This searches for tax
       else if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
         this.changeTax(array[array.length-1]);
       }
+      // This searches for total
       else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
         this.changeTotal(array[array.length-1]);
       }
+      // This is for finding orders and saving into the state orders.
       else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
         let size = array.length;
         let quantity = array[0];
