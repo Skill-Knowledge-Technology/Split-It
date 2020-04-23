@@ -1,23 +1,27 @@
 import React from 'react';
+import M from 'materialize-css'
 
 export default class Step4 extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
+
   next = e => {
     e.preventDefault();
-    if (this.props.Camera.orders.length === 0){
-      alert("Orders Cannot Be Empty!");
-    }
-    else{
-      this.props.setOrderQuantity();
-      this.props.setOrders();
-      this.props.setOrderCost();
-      this.props.nextStep();
-    }
+    this.props.nextStep();
   };
 
   back = e => {
     e.preventDefault();
     this.props.prevStep();
   };
+
+  call = index => e => {
+    var elems = document.querySelector('select[name="' + index + '"]');
+    var instances = M.FormSelect.init(elems);
+    var selectedOne = instances.getSelectedValues();
+    this.props.changeAssociation(index,selectedOne)
+  }
 
   show = input => e =>{
     e.preventDefault();
@@ -27,7 +31,7 @@ export default class Step4 extends React.Component {
   }
 
   render(){ 
-    const { Camera, changeOrderQuantity,changeOrders, changeOrderCost, removeOrderSpecificRow, addOrderRow} = this.props;
+    const { Camera } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -40,14 +44,12 @@ export default class Step4 extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-            <table className="highlight centered">
+              <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Order Number</th>
-                    <th>Order Quantity</th>
                     <th>Order Names</th>
-                    <th>Order Cost</th>
-                    <th>Remove</th>
+                    <th>Choose Names That Are Associated To Orders</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,39 +59,22 @@ export default class Step4 extends React.Component {
                         {list.number}
                       </td>
                       <td>
-                        <form>
-                          <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
-                            value={list.quantity} onChange={changeOrderQuantity(index)}/>
-                        </form>
+                        {list.order}
                       </td>
                       <td>
-                        <form>
-                          <input type="text" placeholder="Insert Order"
-                            value={list.order} onChange={changeOrders(index)}/>
-                        </form>
-                      </td> 
-                      <td>
-                        <form>
-                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
-                            value={list.cost} onChange={changeOrderCost(index)}/>
-                        </form>
-                      </td>
-                      <td>
-                        <button className="btn-floating btn-small red"
-                          type="submit" name="action" onClick={removeOrderSpecificRow(index)}>
-                          <i className="material-icons">remove</i>
-                        </button>
+                        <select multiple name={index} onChange={this.call(index)}>
+                          {Camera.names.map((list2, index2) => (
+                            <option key = {index2} value = {list2.name}>
+                              {list2.name}
+                            </option>
+                          ))}
+                        </select>
                       </td> 
                     </tr>
                   ))}
                 </tbody>
               </table>
               <br/>
-              <button className="btn-floating btn-large blue"
-                type="submit" name="action" onClick={addOrderRow}>
-                <i className="material-icons">add</i>
-              </button>
-              <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next

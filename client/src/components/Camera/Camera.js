@@ -244,6 +244,21 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
+  changeAssociation = (index,value) => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].association = value;
+    this.setState(newState);
+  }
+
+  resetAssociation = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      newState.orders[i].association = [];
+      this.setState(newState);
+    }
+  }
+
   render() {
     const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
     const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
@@ -300,14 +315,7 @@ export default class Camera extends React.Component {
             <Step4
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
-              changeOrderQuantity = {this.changeOrderQuantity}
-              changeOrders = {this.changeOrders}
-              changeOrderCost = {this.changeOrderCost}
-              setOrderQuantity = {this.setOrderQuantity}
-              setOrders = {this.setOrders}
-              setOrderCost = {this.setOrderCost}
-              removeOrderSpecificRow = {this.removeOrderSpecificRow}
-              addOrderRow = {this.addOrderRow}
+              changeAssociation = {this.changeAssociation}
               Camera = {Camera}
             />
           </div>
