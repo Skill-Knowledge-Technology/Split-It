@@ -103,12 +103,14 @@ export default class Camera extends React.Component {
         'eng',
       )
       .then(({ data: { text } }) => {
-        console.log(text);
+        // console.log(text);
         this.setState({ 
           text: text,
           found: true,
           loading: false,
         })
+        // this.parse();
+        // this.nextStep();
       })
       .catch(err => {
         console.error(err);
@@ -133,7 +135,7 @@ export default class Camera extends React.Component {
     var tempOrders = [];
     {text.split('\n').map((item, i) => {
       var array = item.split(' ');
-      console.log(array);
+      // console.log(array);
       // This searches for tax
       if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
         this.changeTax(array[array.length-1]);

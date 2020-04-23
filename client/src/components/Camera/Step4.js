@@ -80,12 +80,12 @@ export default class Step4 extends React.Component {
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
-              <hr/>
+              {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(Camera)}>
                 Show
                 <i className="material-icons right">navigate_next</i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
