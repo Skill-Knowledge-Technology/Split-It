@@ -6,6 +6,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import Step4 from './Step4'
 import Step5 from './Step5'
+import Step6 from './Step6'
 import WrongPage from './WrongPage'
 
 export default class Camera extends React.Component {
@@ -259,6 +260,26 @@ export default class Camera extends React.Component {
     }
   }
 
+  setNameCost = (name, total) => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === name){
+        newState.names[i].cost += total;
+        this.setState(newState);
+      }
+    }
+  }
+
+  resetNameCost = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].cost = 0;
+      this.setState(newState);
+    }
+  }
+
   render() {
     const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
     const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
@@ -319,11 +340,23 @@ export default class Camera extends React.Component {
               Camera = {Camera}
             />
           </div>
-        );      
+        );
       case 5:
         return(
           <div className = "container">
             <Step5
+              prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              resetAssociation = {this.resetAssociation}
+              setNameCost = {this.setNameCost}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      case 6:
+        return(
+          <div className = "container">
+            <Step6
               prevStep = {this.prevStep}
               Camera = {Camera}
             />

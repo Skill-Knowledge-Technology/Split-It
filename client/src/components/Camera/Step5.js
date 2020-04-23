@@ -1,20 +1,36 @@
 import React from 'react';
 
 export default class Step5 extends React.Component {
-  back = e => {
+  next = e => {
     e.preventDefault();
-    this.props.prevStep();
+    var ordersSize = this.props.Camera.orders.length;
+    for(var i = 0; i < ordersSize; i++){
+      var associationSize = this.props.Camera.orders[i].association.length;
+      for(var j = 0; j < associationSize; j++){
+        var name = this.props.Camera.orders[i].association[j];
+        var cost = this.props.Camera.orders[i].cost;
+        var total = this.total(associationSize,cost)
+        this.props.setNameCost(name,total);
+      }
+    }
+    this.props.nextStep();
   };
 
-  save = e => {
+  back = e => {
     e.preventDefault();
-    alert("Saved");
+    this.props.resetAssociation();
+    this.props.prevStep();
+    alert("Associations Has Been Resetted");
+  };
+
+  total(totalPeople,cost){
+    var total = cost/totalPeople; // Total
+    total = Math.ceil(total * 100) / 100; // Round Up
+    return(total);
   }
 
   render(){ 
-    const { 
-      Camera: { subtotal, tax, total }
-    } = this.props;
+    const { Camera } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -27,21 +43,49 @@ export default class Step5 extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <div className = "col s12">
-                <div className = "row">
-                  <p>Subtotal: {subtotal}</p>
-                </div>
-                <div className = "row">
-                  <p>Tax: {tax}</p>
-                </div>
-                <div className = "row">
-                  <p>Total: {total}</p>
-                </div>
-              </div>
+            <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Order Quantity</th>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
+                    <th>Associations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Camera.orders.map((list, index) => (
+                    <tr key = {index}>
+                      <td>
+                        {list.quantity}
+                      </td>
+                      <td>
+                        {list.order}
+                      </td>
+                      <td>
+                        ${list.cost}
+                      </td>
+                      <td>
+                        <table>
+                          <tbody>
+                            {list.association.map((list2, index2) => (
+                              <tr key = {index2}>
+                                <td>
+                                  {list2} Pays ${this.total(list.association.length,list.cost)} For This Order
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick = {this.save}>
-                Save
-                <i className="material-icons right">save</i>
+                type="submit" name="action" onClick={this.next}>
+                Next
+                <i className="material-icons right">navigate_next</i>
               </button>
             </div>
           </div>
@@ -49,4 +93,5 @@ export default class Step5 extends React.Component {
       </div>
     );
   }
+
 }
