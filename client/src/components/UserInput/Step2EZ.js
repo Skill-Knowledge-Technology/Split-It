@@ -45,7 +45,7 @@ export default class Step2EZ extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">people</i>
                     <input type="number" min="1" placeholder="Total Number of People" className="validate"
-                      defaultValue={EZSplit.totalPeople} onChange={handleChange('totalPeople')}/>
+                      value={EZSplit.totalPeople} onChange={handleChange('totalPeople')}/>
                     <label className="active">Total Number of People</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
@@ -54,7 +54,7 @@ export default class Step2EZ extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">payment</i>
                     <input type="number" min="0" step="0.01" placeholder="Total Cost" className="validate"
-                    defaultValue={EZSplit.EZcost} onChange={handleChange('EZcost')}/>
+                    value={EZSplit.EZcost} onChange={handleChange('EZcost')}/>
                     <label className="active">Total Cost</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>

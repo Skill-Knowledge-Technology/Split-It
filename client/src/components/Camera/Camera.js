@@ -193,6 +193,7 @@ export default class Camera extends React.Component {
   removeOrderSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
     newState.orders.splice(index,1);
+    console.log(newState);
     var size = newState.orders.length;
     for (var i = 0; i < size; i++){
       newState.orders[i].number = `Order #${i + 1}`;

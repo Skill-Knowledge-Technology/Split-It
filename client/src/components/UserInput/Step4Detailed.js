@@ -54,19 +54,19 @@ export default class Step4Detailed extends React.Component {
                       <td>
                         <form>
                           <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
-                            defaultValue={list.quantity} onChange={changeOrderQuantity(index)}/>
+                            value={list.quantity} onChange={changeOrderQuantity(index)}/>
                         </form>
                       </td>
                       <td>
                         <form>
                           <input type="text" placeholder="Insert Order"
-                            defaultValue={list.order} onChange={changeOrders(index)}/>
+                            value={list.order} onChange={changeOrders(index)}/>
                         </form>
                       </td> 
                       <td>
                         <form>
                           <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
-                            defaultValue={list.cost} onChange={changeOrderCost(index)}/>
+                            value={list.cost} onChange={changeOrderCost(index)}/>
                         </form>
                       </td> 
                     </tr>

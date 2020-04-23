@@ -65,7 +65,7 @@ export default class Step3Detailed extends React.Component {
                       <td>
                         <form>
                           <input type="text" placeholder="Insert Name"
-                            defaultValue={list.name} onChange={changeNames(index)}/>
+                            value={list.name} onChange={changeNames(index)}/>
                         </form>
                       </td> 
                     </tr>

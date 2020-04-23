@@ -3,10 +3,15 @@ import React from 'react';
 export default class Step2 extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.setOrderQuantity();
-    this.props.setOrders();
-    this.props.setOrderCost();
-    this.props.nextStep();
+    if (this.props.Camera.orders.length === 0){
+      alert("Orders Cannot Be Empty!");
+    }
+    else{
+      this.props.setOrderQuantity();
+      this.props.setOrders();
+      this.props.setOrderCost();
+      this.props.nextStep();
+    }
   };
 
   back = e => {
@@ -54,19 +59,19 @@ export default class Step2 extends React.Component {
                       <td>
                         <form>
                           <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
-                            defaultValue={list.quantity} onChange={changeOrderQuantity(index)}/>
+                            value={list.quantity} onChange={changeOrderQuantity(index)}/>
                         </form>
                       </td>
                       <td>
                         <form>
                           <input type="text" placeholder="Insert Order"
-                            defaultValue={list.order} onChange={changeOrders(index)}/>
+                            value={list.order} onChange={changeOrders(index)}/>
                         </form>
                       </td> 
                       <td>
                         <form>
                           <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
-                            defaultValue={list.cost} onChange={changeOrderCost(index)}/>
+                            value={list.cost} onChange={changeOrderCost(index)}/>
                         </form>
                       </td>
                       <td>

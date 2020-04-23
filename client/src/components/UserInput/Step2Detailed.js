@@ -36,7 +36,7 @@ export default class Step2Detailed extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">people</i>
                     <input type="number" min="1" placeholder="Total Number of People" className="validate"
-                    defaultValue={DetailedSplit.totalPeople} onChange={handleChange('totalPeople')} />
+                    value={DetailedSplit.totalPeople} onChange={handleChange('totalPeople')} />
                     <label className="active">Total Number of People</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
@@ -45,7 +45,7 @@ export default class Step2Detailed extends React.Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">restaurant_menu</i>
                     <input type="number" min="1" placeholder="Total Orders" className="validate"
-                    defaultValue={DetailedSplit.totalOrders} onChange={handleChange('totalOrders')}/>
+                    value={DetailedSplit.totalOrders} onChange={handleChange('totalOrders')}/>
                     <label className="active">Total Orders</label>
                     <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
                   </div>
