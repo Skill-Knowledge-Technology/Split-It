@@ -47,12 +47,22 @@ export default class Camera extends React.Component {
     });
   };
 
+  handleChange = input => e => {
+    this.setState({ [input]: e.target.value });
+  };
+
   changeSubtotal = (newValue) => {
     this.setState({subtotal: newValue});
   }
 
   changeTax = (newValue) => {
     this.setState({tax: newValue});
+  }
+
+  setTax = () => {
+    if(this.state.tax === ''){
+      this.setState({tax: 0});
+    }
   }
 
   changeTotal = (newValue) => {
@@ -80,7 +90,7 @@ export default class Camera extends React.Component {
 
   generateText = () => {
     this.setState({ loading: true });
-    let uploads = this.state.uploads;
+    var uploads = this.state.uploads;
     for(var i = 0; i < uploads.length; i++) {
       Tesseract.recognize(
         uploads[i], 
@@ -112,39 +122,34 @@ export default class Camera extends React.Component {
   }
 
   parse = () => {
-    let text = this.state.text;
-    let number = 1;
+    var text = this.state.text;
+    var number = 1;
+    var tempOrders = [];
+    {text.split('\n').map((item, i) => {
+      var array = item.split(' ');
+      console.log(array);
+      // This searches for tax
+      if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
+        this.changeTax(array[array.length-1]);
+      }
+      // This is for finding orders and saving into the state orders.
+      else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
+        var size = array.length;
+        var quantity = array[0];
+        var cost = array[size-1];
+        var order = array.slice(1,size-1).join(" ");
+        tempOrders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
+        number++;
+      }
+    })}
+    this.setState({ orders: tempOrders })
+  }
+
+  resetParse = () =>{
     this.setState({ subtotal: 0 });
     this.setState({ tax: 0 });
     this.setState({ total: 0 });
     this.setState({ orders: [] });
-    let temp = [];
-    {text.split('\n').map((item, i) => {
-      let array = item.split(' ');
-      console.log(array);
-      // This searches for subtotal
-      if(array.findIndex(word => 'subtotal' === word.toLowerCase()) > -1){
-        this.changeSubtotal(array[array.length-1]);
-      }
-      // This searches for tax
-      else if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
-        this.changeTax(array[array.length-1]);
-      }
-      // This searches for total
-      else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
-        this.changeTotal(array[array.length-1]);
-      }
-      // This is for finding orders and saving into the state orders.
-      else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
-        let size = array.length;
-        let quantity = array[0];
-        let cost = array[size-1];
-        let order = array.slice(1,size-1).join(" ");
-        temp.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
-        number++;
-      }
-    })}
-    this.setState({ orders: temp })
   }
 
   changeOrderQuantity = (index) => e => {
@@ -308,6 +313,11 @@ export default class Camera extends React.Component {
             <Step2
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
+              resetParse = {this.resetParse}
+              handleChange = {this.handleChange}
+              changeSubtotal = {this.changeSubtotal}
+              changeTotal = {this.changeTotal}
+              setTax = {this.setTax}
               changeOrderQuantity = {this.changeOrderQuantity}
               changeOrders = {this.changeOrders}
               changeOrderCost = {this.changeOrderCost}
