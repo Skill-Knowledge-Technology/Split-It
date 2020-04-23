@@ -4,6 +4,8 @@ import './Camera.css'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
+import Step4 from './Step4'
+import Step5 from './Step5'
 import WrongPage from './WrongPage'
 
 export default class Camera extends React.Component {
@@ -17,6 +19,7 @@ export default class Camera extends React.Component {
       tax: 0,
       total: 0,
       orders: [],
+      names: [{number: `Person 1`, name: '', cost: 0}],
       failAttempts: 0,
       found: false,
       loading: false,
@@ -193,7 +196,6 @@ export default class Camera extends React.Component {
   removeOrderSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
     newState.orders.splice(index,1);
-    console.log(newState);
     var size = newState.orders.length;
     for (var i = 0; i < size; i++){
       newState.orders[i].number = `Order #${i + 1}`;
@@ -208,9 +210,43 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
+  changeNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+  }
+
+  setNames = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === ''){
+        newState.names[i].name = newState.names[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
+  removeNameSpecificRow = (index) => () => {
+    var newState = Object.assign({}, this.state);
+    newState.names.splice(index,1);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].number = `Person ${i + 1}`;
+    }
+    this.setState(newState);
+  }
+
+  addNameRow = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    newState.names.push({number: `Person ${size + 1}`, name: '', cost: 0});
+    this.setState(newState);
+  }
+
   render() {
-    const { currentStep, uploads, text, subtotal, tax, total, orders, failAttempts, found, loading } = this.state;
-    const Camera = { uploads, text, subtotal, tax, total, orders, failAttempts, found };
+    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
+    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
 
     switch (currentStep){
       case 1:
@@ -248,6 +284,38 @@ export default class Camera extends React.Component {
         return(
           <div className = "container">
             <Step3
+              prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              changeNames = {this.changeNames}
+              removeNameSpecificRow = {this.removeNameSpecificRow}
+              addNameRow = {this.addNameRow}
+              setNames = {this.setNames}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      case 4:
+        return(
+          <div className = "container">
+            <Step4
+              prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              changeOrderQuantity = {this.changeOrderQuantity}
+              changeOrders = {this.changeOrders}
+              changeOrderCost = {this.changeOrderCost}
+              setOrderQuantity = {this.setOrderQuantity}
+              setOrders = {this.setOrders}
+              setOrderCost = {this.setOrderCost}
+              removeOrderSpecificRow = {this.removeOrderSpecificRow}
+              addOrderRow = {this.addOrderRow}
+              Camera = {Camera}
+            />
+          </div>
+        );      
+      case 5:
+        return(
+          <div className = "container">
+            <Step5
               prevStep = {this.prevStep}
               Camera = {Camera}
             />
