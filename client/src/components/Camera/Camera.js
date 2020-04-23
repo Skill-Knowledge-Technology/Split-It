@@ -295,7 +295,7 @@ export default class Camera extends React.Component {
     for (var i = 0; i < size; i++){
       var subtotal = newState.names[i].subtotal;
       var tax = Math.ceil(subtotal * this.state.taxPercent * 100) / 100;
-      var total = subtotal + tax;
+      var total = (Math.round((+subtotal + +tax) *1e12)/1e12);
       newState.names[i].tax = tax;
       newState.names[i].total = total;
       this.setState(newState);
