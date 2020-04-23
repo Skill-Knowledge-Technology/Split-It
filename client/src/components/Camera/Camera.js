@@ -18,9 +18,10 @@ export default class Camera extends React.Component {
       text: '',
       subtotal: 0,
       tax: 0,
+      taxPercent: 0,
       total: 0,
       orders: [],
-      names: [{number: `Person 1`, name: '', cost: 0}],
+      names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
       failAttempts: 0,
       found: false,
       loading: false,
@@ -63,6 +64,11 @@ export default class Camera extends React.Component {
     if(this.state.tax === ''){
       this.setState({tax: 0});
     }
+  }
+
+  changeTaxPercent = (subtotal,tax) => {
+    var taxPercent = tax/subtotal;
+    this.setState({taxPercent: taxPercent});
   }
 
   changeTotal = (newValue) => {
@@ -148,6 +154,7 @@ export default class Camera extends React.Component {
   resetParse = () =>{
     this.setState({ subtotal: 0 });
     this.setState({ tax: 0 });
+    this.setState({ taxPercent: 0 });
     this.setState({ total: 0 });
     this.setState({ orders: [] });
   }
@@ -250,7 +257,7 @@ export default class Camera extends React.Component {
   addNameRow = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
-    newState.names.push({number: `Person ${size + 1}`, name: '', cost: 0});
+    newState.names.push({number: `Person ${size + 1}`, name: '', subtotal: 0, tax: 0, total: 0});
     this.setState(newState);
   }
 
@@ -269,24 +276,60 @@ export default class Camera extends React.Component {
     }
   }
 
-  setNameCost = (name, total) => {
+  setNameSubtotal = (name, total) => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
     for (var i = 0; i < size; i++){
       if(newState.names[i].name === name){
-        newState.names[i].cost += total;
+        newState.names[i].subtotal += total;
         this.setState(newState);
       }
     }
   }
 
-  resetNameCost = () => {
+  setNamePayment = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
     for (var i = 0; i < size; i++){
-      newState.names[i].cost = 0;
+      var subtotal = newState.names[i].subtotal;
+      var tax = Math.ceil(subtotal * this.state.taxPercent * 100) / 100;
+      var total = subtotal + tax;
+      newState.names[i].tax = tax;
+      newState.names[i].total = total;
       this.setState(newState);
     }
+  }
+
+  resetNamePayment = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].subtotal = 0;
+      newState.names[i].tax = 0;
+      newState.names[i].total = 0;
+      this.setState(newState);
+    }
+  }
+
+  setNameTotal = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    var subtotal = 0;
+    var tax = 0;
+    var total = 0;
+    for(var i = 0; i < size; i++){
+      subtotal += newState.names[i].subtotal;
+      tax += newState.names[i].tax;
+      total += newState.names[i].total;
+    }
+    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    this.setState(newState);
+  }
+
+  resetNameTotal = () => {
+    var newState = Object.assign({}, this.state);
+    newState.names.pop();
+    this.setState(newState);
   }
 
   render() {
@@ -318,6 +361,7 @@ export default class Camera extends React.Component {
               changeSubtotal = {this.changeSubtotal}
               changeTotal = {this.changeTotal}
               setTax = {this.setTax}
+              changeTaxPercent = {this.changeTaxPercent}
               changeOrderQuantity = {this.changeOrderQuantity}
               changeOrders = {this.changeOrders}
               changeOrderCost = {this.changeOrderCost}
@@ -362,7 +406,9 @@ export default class Camera extends React.Component {
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
               resetAssociation = {this.resetAssociation}
-              setNameCost = {this.setNameCost}
+              setNameSubtotal = {this.setNameSubtotal}
+              setNamePayment = {this.setNamePayment}
+              setNameTotal = {this.setNameTotal}
               Camera = {Camera}
             />
           </div>
@@ -372,6 +418,8 @@ export default class Camera extends React.Component {
           <div className = "container">
             <Step6
               prevStep = {this.prevStep}
+              resetNameTotal = {this.resetNameTotal}
+              resetNamePayment = {this.resetNamePayment}
               Camera = {Camera}
             />
           </div>

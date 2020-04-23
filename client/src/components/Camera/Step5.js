@@ -10,9 +10,11 @@ export default class Step5 extends React.Component {
         var name = this.props.Camera.orders[i].association[j];
         var cost = this.props.Camera.orders[i].cost;
         var total = this.total(associationSize,cost)
-        this.props.setNameCost(name,total);
+        this.props.setNameSubtotal(name,total);
       }
     }
+    this.props.setNamePayment();
+    this.props.setNameTotal();
     this.props.nextStep();
   };
 

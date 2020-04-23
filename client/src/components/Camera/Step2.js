@@ -3,10 +3,11 @@ import React from 'react';
 export default class Step2 extends React.Component {
   next = e => {
     e.preventDefault();
+    var subtotal = this.subtotal(this.props.Camera.orders);
     if (this.props.Camera.orders.length === 0){
       alert("Orders Cannot Be Empty!");
     }
-    else if(this.subtotal(this.props.Camera.orders) < 0){
+    else if(subtotal < 0){
       alert("Subtotal Cannot Be Negative!");
     }
     else if(this.props.Camera.tax < 0){
@@ -17,8 +18,9 @@ export default class Step2 extends React.Component {
       this.props.setOrders();
       this.props.setOrderCost();
       this.props.setTax();
-      this.props.changeSubtotal(this.subtotal(this.props.Camera.orders));
-      this.props.changeTotal(this.total(this.subtotal(this.props.Camera.orders),this.props.Camera.tax))
+      this.props.changeSubtotal(subtotal);
+      this.props.changeTotal(this.total(subtotal,this.props.Camera.tax))
+      this.props.changeTaxPercent(subtotal,this.props.Camera.tax)
       this.props.nextStep();
     }
   };
