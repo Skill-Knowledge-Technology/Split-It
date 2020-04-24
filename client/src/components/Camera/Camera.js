@@ -265,6 +265,15 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
+  checkAssociation = () => {
+    var size = this.state.orders.length;
+    for (var i = 0; i < size; i++){
+      if(this.state.orders[i].association.length === 0){
+        return true;
+      }
+    }
+  }
+
   resetAssociation = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.orders.length;
@@ -393,6 +402,7 @@ export default class Camera extends React.Component {
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
               changeAssociation = {this.changeAssociation}
+              checkAssociation = {this.checkAssociation}
               Camera = {Camera}
             />
           </div>

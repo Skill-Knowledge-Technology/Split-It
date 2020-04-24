@@ -8,7 +8,12 @@ export default class Step4 extends React.Component {
 
   next = e => {
     e.preventDefault();
-    this.props.nextStep();
+    if(this.props.checkAssociation()){
+      alert("Check The Associations!\nEvery Order Has To Be Satisfied");
+    }
+    else{
+      this.props.nextStep();
+    }
   };
 
   back = e => {
