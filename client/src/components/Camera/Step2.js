@@ -1,6 +1,11 @@
 import React from 'react';
+import M from 'materialize-css';
 
 export default class Step2 extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
+
   next = e => {
     e.preventDefault();
     var subtotal = this.subtotal(this.props.Camera.orders);
@@ -110,10 +115,17 @@ export default class Step2 extends React.Component {
                 </tbody>
               </table>
               <br/>
-              <button className="btn-floating btn-large blue"
-                type="submit" name="action" onClick={addOrderRow}>
-                <i className="material-icons">add</i>
-              </button>
+              <div className = "row"> 
+                <div className = "col s6">
+                  <button className="btn-floating btn-large blue"
+                    type="submit" name="action" onClick={addOrderRow}>
+                    <i className="material-icons">add</i>
+                  </button>
+                </div>
+                <div className = "col s6">
+                  <img className="materialboxed" width="100" src={Camera.uploads} ></img>
+                </div>
+              </div>
               <hr/>
               <form className = "col s12">
                 <div className="row">

@@ -23,7 +23,7 @@ export default class Camera extends React.Component {
       orders: [],
       names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
       failAttempts: 0,
-      found: false,
+      // found: false,
       loading: false,
     };
   }
@@ -106,11 +106,11 @@ export default class Camera extends React.Component {
         // console.log(text);
         this.setState({ 
           text: text,
-          found: true,
+          // found: true,
           loading: false,
         })
-        // this.parse();
-        // this.nextStep();
+        this.parse();
+        this.nextStep();
       })
       .catch(err => {
         console.error(err);
@@ -335,8 +335,8 @@ export default class Camera extends React.Component {
   }
 
   render() {
-    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
-    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
+    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, loading } = this.state;
+    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts };
 
     switch (currentStep){
       case 1:
