@@ -18,10 +18,14 @@ export default class Step2 extends React.Component {
     else if(this.props.Camera.tax < 0){
       alert("Tax Cannot Be Negative!");
     }
+    else if(this.props.checkOrderQuantity()){
+      alert("Check The Order Quantity!");
+    }
+    else if(this.props.checkOrderCost()){
+      alert("Check The Order Cost!");
+    }
     else{
-      this.props.setOrderQuantity();
       this.props.setOrders();
-      this.props.setOrderCost();
       this.props.setTax();
       this.props.changeSubtotal(subtotal);
       this.props.changeTotal(this.total(subtotal,this.props.Camera.tax))

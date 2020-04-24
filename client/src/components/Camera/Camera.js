@@ -167,13 +167,11 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
-  setOrderQuantity = () => {
-    var newState = Object.assign({}, this.state);
-    var size = newState.orders.length;
+  checkOrderQuantity = () => {
+    var size = this.state.orders.length;
     for (var i = 0; i < size; i++){
-      if(newState.orders[i].quantity === ''){
-        newState.orders[i].quantity = 1;
-        this.setState(newState);
+      if(this.state.orders[i].quantity === '' || this.state.orders[i].quantity <= 0){
+        return true;
       }
     }
   }
@@ -201,13 +199,11 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
-  setOrderCost = () => {
-    var newState = Object.assign({}, this.state);
-    var size = newState.orders.length;
+  checkOrderCost = () => {
+    var size = this.state.orders.length;
     for (var i = 0; i < size; i++){
-      if(newState.orders[i].cost === ''){
-        newState.orders[i].cost = 0;
-        this.setState(newState);
+      if(this.state.orders[i].cost === '' || this.state.orders[i].cost < 0){
+        return true;
       }
     }
   }
@@ -367,9 +363,9 @@ export default class Camera extends React.Component {
               changeOrderQuantity = {this.changeOrderQuantity}
               changeOrders = {this.changeOrders}
               changeOrderCost = {this.changeOrderCost}
-              setOrderQuantity = {this.setOrderQuantity}
+              checkOrderQuantity = {this.checkOrderQuantity}
               setOrders = {this.setOrders}
-              setOrderCost = {this.setOrderCost}
+              checkOrderCost = {this.checkOrderCost}
               removeOrderSpecificRow = {this.removeOrderSpecificRow}
               addOrderRow = {this.addOrderRow}
               Camera = {Camera}
