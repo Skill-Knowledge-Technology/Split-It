@@ -19,7 +19,6 @@ import Maps from './components/Maps/Maps';
 import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
 import Payments from './components/Payments/Payments';
-import Transaction from './components/Transaction/Transaction';
 import axios from "axios";
 
 class App extends React.Component {
