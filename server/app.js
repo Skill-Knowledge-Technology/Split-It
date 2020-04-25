@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet')
+const sslRedirect = require('heroku-ssl-redirect');
 //const bodyParser = require('body-parser');
 //var cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -14,11 +15,7 @@ const apiRoutes = require('./routes/api/index');
 const PORT = process.env.PORT || 8080;
 
 app.use(helmet());
-app.use(function(request, response){
-  if(!request.secure){
-    response.redirect("https://" + request.headers.host + request.url);
-  }
-});
+app.use(sslRedirect());
 // this lets us parse 'application/json' content in http requests
 // app.use(bodyParser.json())
 // app.use(express.json());
