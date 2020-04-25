@@ -31,7 +31,7 @@ export default class Step2Detailed extends React.Component {
 
   back = e => {
     e.preventDefault();
-    this.props.prevStep();
+    this.props.prevJump();
   };
 
   subtotal(orders){

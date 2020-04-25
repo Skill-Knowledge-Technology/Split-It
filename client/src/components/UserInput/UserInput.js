@@ -314,7 +314,7 @@ export default class UserInput extends React.Component {
           <div className = "container">
             <Step2Detailed
               nextStep = {this.nextStep}
-              prevStep = {this.prevStep}
+              prevJump = {this.prevJump}
               handleChange = {this.handleChange}
               changeSubtotal = {this.changeSubtotal}
               changeTotal = {this.changeTotal}
