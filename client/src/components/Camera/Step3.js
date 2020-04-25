@@ -37,7 +37,7 @@ export default class Step3 extends React.Component {
     e.preventDefault();
     input.names.map((list) => (
       console.log(list)
-      ))
+    ))
   }
 
   render(){ 
@@ -107,5 +107,4 @@ export default class Step3 extends React.Component {
       </div>
     );
   }
-
 }
