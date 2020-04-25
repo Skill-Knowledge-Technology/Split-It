@@ -16,11 +16,13 @@ router.get('/getBalance/:userId', [validatorErrors], userController.getUserBalan
 
 router.post('/addToBalance/:userId', [validatorErrors], userController.addToUserBalance);
 
-router.get('/getFriends/:userId', [validatorErrors], userController.getUserFriends);
+//router.get('/getFriends/:userId', [validatorErrors], userController.getUserFriends);
 
 router.post('/transferBalance/:senderId', [validatorErrors], userController.transferUserBalance);
 
-router.post('/addFriends/:userId', [validatorErrors],userController.addToUserFriends);
+
+
+//router.post('/addFriends/:userId', [validatorErrors],userController.addToUserFriends);
 
 
 // should match with "/api/users/login"
