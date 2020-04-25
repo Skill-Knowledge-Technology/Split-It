@@ -31,15 +31,13 @@ class Payments extends React.Component {
                 <h4>
                     <u>Payments</u>
                 </h4>
-              
-                    <div className="row">
-                        <div class="col 12 12"><p>Chris</p></div>
-                        <div class="col 12 18"><p>10</p></div>
-                        <div class="col 12 12"><a class="waves-effect waves-light btn">Pay</a></div>
-                    </div>
-            
+                <div className="row">
+                    <div class="col 12 12"><p>Chris</p></div>
+                    <div class="col 12 18"><p>10</p></div>
+                    <div class="col 12 12"><a class="waves-effect waves-light btn">Pay</a></div>
+                </div>
             </div>
-        
+
         );
     }
 }
