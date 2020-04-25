@@ -18,6 +18,7 @@ import Login from './components/Login/Login';
 import Maps from './components/Maps/Maps';
 import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
+import Payments from './components/Payments/Payments';
 import Transaction from './components/Transaction/Transaction';
 import axios from "axios";
 
@@ -129,6 +130,8 @@ class App extends React.Component {
                 <Route path="/Test" component={Test} />
                 <Route path="/Profile/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance}/>)} />
+                <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
+                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance}/>)} />
                 <Route exact path="/" component={Home} />
               </Switch>
             </div>
