@@ -18,10 +18,10 @@ export default class UserInput extends React.Component {
         totalPeople: '',
         EZcost: '',
         EZtotal: '',
-        subtotal: '',
+        subtotal: 0,
         tax: '',
-        taxPercent: '',
-        total: '',
+        taxPercent: 0,
+        total: 0,
         names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
         orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
     };
