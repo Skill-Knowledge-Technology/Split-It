@@ -3,7 +3,8 @@ import React from 'react';
 export default class Step6Detailed extends React.Component {
   back = e => {
     e.preventDefault();
-    this.props.resetNameCost();
+    this.props.resetNameTotal();
+    this.props.resetNamePayment();
     this.props.prevStep();
   };
 
@@ -16,7 +17,7 @@ export default class Step6Detailed extends React.Component {
     e.preventDefault();
     input.names.map((list) => (
       console.log(list)
-      ))
+    ))
   }
 
   render(){ 
@@ -37,7 +38,9 @@ export default class Step6Detailed extends React.Component {
                 <thead>
                   <tr>
                     <th>Names</th>
-                    <th>Payment</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -47,7 +50,13 @@ export default class Step6Detailed extends React.Component {
                         {list.name}
                       </td>
                       <td>
-                        ${list.cost}
+                        ${list.subtotal}
+                      </td>
+                      <td>
+                        ${list.tax}
+                      </td>
+                      <td>
+                        ${list.total}
                       </td>
                     </tr>
                   ))}
@@ -71,5 +80,4 @@ export default class Step6Detailed extends React.Component {
       </div>
     );
   }
-
 }

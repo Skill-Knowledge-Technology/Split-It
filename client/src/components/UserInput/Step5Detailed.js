@@ -3,12 +3,12 @@ import React from 'react';
 export default class Step5Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    var ordersSize = this.props.Camera.orders.length;
+    var ordersSize = this.props.DetailedSplit.orders.length;
     for(var i = 0; i < ordersSize; i++){
-      var associationSize = this.props.Camera.orders[i].association.length;
+      var associationSize = this.props.DetailedSplit.orders[i].association.length;
       for(var j = 0; j < associationSize; j++){
-        var name = this.props.Camera.orders[i].association[j];
-        var cost = this.props.Camera.orders[i].cost;
+        var name = this.props.DetailedSplit.orders[i].association[j];
+        var cost = this.props.DetailedSplit.orders[i].cost;
         var total = this.total(associationSize,cost)
         this.props.setNameSubtotal(name,total);
       }
@@ -72,7 +72,7 @@ export default class Step5Detailed extends React.Component {
                             {list.association.map((list2, index2) => (
                               <tr key = {index2}>
                                 <td>
-                                  {list2} Pays ${this.total(list.association.length,list.total)} For This Order
+                                  {list2} Pays ${this.total(list.association.length,list.cost)} For This Order
                                 </td>
                               </tr>
                             ))}
