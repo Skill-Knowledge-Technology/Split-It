@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        username : {
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
             validate: {
                 isAlphanumeric: true
             }
-        }, 
-        email : {
+        },
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -25,24 +25,25 @@ module.exports = (sequelize, DataTypes) => {
                 isEmail: true
             }
         },
-        password : {
+        password: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        balance : {
+        balance: {
             // integer type with 9 digits, 2 of them being in decimal part
-            type: DataTypes.DECIMAL(9,2),
+            type: DataTypes.DECIMAL(9, 2),
             allowNull: false,
             defaultValue: 0
-        }, 
-        friends : {
-            type: DataTypes.ARRAY(DataTypes.INTEGER)
         }
-    })
+    },
+        {
+            freezeTableName: true,
+        });
 
-    User.associate = function(models) {
+    User.associate = function (models) {
         User.hasMany(models.Transaction, {
-            as: 'transactions'
+            as: 'transactions',
+            foreignKey: 'transactionID'
         });
     };
 
