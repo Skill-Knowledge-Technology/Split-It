@@ -1,42 +1,27 @@
 import React from 'react';
 
-export default class Step3Detailed extends React.Component {
-  next = e => {
-    e.preventDefault();
-    this.props.setNames();
-    var array = this.props.DetailedSplit.names;
-    var found = false;
-    var valuesSoFar = Object.create(null);
-    for (var i = 0; i < array.length; ++i){
-      var value = array[i].name;
-      if (value in valuesSoFar){
-          found = true;
-          break;
-      }
-      valuesSoFar[value] = true;
-    }
-    if (found === true){
-      alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
-    }
-    else{
-      this.props.nextStep();
-    }
-  };
-
+export default class Step6 extends React.Component {
   back = e => {
     e.preventDefault();
+    this.props.resetNameTotal();
+    this.props.resetNamePayment();
     this.props.prevStep();
   };
+
+  save = e => {
+    e.preventDefault();
+    alert("Saved");
+  }
 
   show = input => e =>{
     e.preventDefault();
     input.names.map((list) => (
       console.log(list)
-      ))
+    ))
   }
 
   render(){ 
-    const { DetailedSplit, changeNames } = this.props;
+    const { Camera } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -52,31 +37,36 @@ export default class Step3Detailed extends React.Component {
               <table className="highlight centered">
                 <thead>
                   <tr>
-                    <th>Number of People</th>
-                    <th>Names (Set Unique Names)</th>
+                    <th>Names</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.names.map((list, index) => (
+                  {Camera.names.map((list, index) => (
                     <tr key = {index}>
                       <td>
-                        {list.number}
+                        {list.name}
                       </td>
                       <td>
-                        <form>
-                          <input type="text" placeholder="Insert Name"
-                            value={list.name} onChange={changeNames(index)}/>
-                        </form>
-                      </td> 
+                        ${list.subtotal}
+                      </td>
+                      <td>
+                        ${list.tax}
+                      </td>
+                      <td>
+                        ${list.total}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <br/>
               <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick={this.next}>
-                Next
-                <i className="material-icons right">navigate_next</i>
+                type="submit" name="action" onClick = {this.save}>
+                Save
+                <i className="material-icons right">save</i>
               </button>
               {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
@@ -90,5 +80,4 @@ export default class Step3Detailed extends React.Component {
       </div>
     );
   }
-
 }

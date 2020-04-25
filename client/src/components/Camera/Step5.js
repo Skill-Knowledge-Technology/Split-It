@@ -1,29 +1,38 @@
 import React from 'react';
 
-export default class Step4Detailed extends React.Component {
+export default class Step5 extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.setOrderQuantity();
-    this.props.setOrders();
-    this.props.setOrderCost();
-    this.props.setOrderTotal();
+    var ordersSize = this.props.Camera.orders.length;
+    for(var i = 0; i < ordersSize; i++){
+      var associationSize = this.props.Camera.orders[i].association.length;
+      for(var j = 0; j < associationSize; j++){
+        var name = this.props.Camera.orders[i].association[j];
+        var cost = this.props.Camera.orders[i].cost;
+        var total = this.total(associationSize,cost)
+        this.props.setNameSubtotal(name,total);
+      }
+    }
+    this.props.setNamePayment();
+    this.props.setNameTotal();
     this.props.nextStep();
   };
 
   back = e => {
     e.preventDefault();
+    this.props.resetAssociation();
     this.props.prevStep();
+    alert("Associations Has Been Resetted");
   };
 
-  show = input => e =>{
-    e.preventDefault();
-    input.orders.map((list) => (
-      console.log(list)
-      ))
+  total(totalPeople,cost){
+    var total = cost/totalPeople; // Total
+    total = Math.ceil(total * 100) / 100; // Round Up
+    return(total);
   }
 
   render(){ 
-    const { DetailedSplit, changeOrderQuantity, changeOrders, changeOrderCost } = this.props;
+    const { Camera } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -39,35 +48,36 @@ export default class Step4Detailed extends React.Component {
             <table className="highlight centered">
                 <thead>
                   <tr>
-                    <th>Order Number</th>
                     <th>Order Quantity</th>
                     <th>Order Names</th>
                     <th>Order Cost</th>
+                    <th>Associations</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.orders.map((list, index) => (
+                  {Camera.orders.map((list, index) => (
                     <tr key = {index}>
                       <td>
-                        {list.number}
+                        {list.quantity}
                       </td>
                       <td>
-                        <form>
-                          <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
-                            value={list.quantity} onChange={changeOrderQuantity(index)}/>
-                        </form>
+                        {list.order}
                       </td>
                       <td>
-                        <form>
-                          <input type="text" placeholder="Insert Order"
-                            value={list.order} onChange={changeOrders(index)}/>
-                        </form>
-                      </td> 
+                        ${list.cost}
+                      </td>
                       <td>
-                        <form>
-                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
-                            value={list.cost} onChange={changeOrderCost(index)}/>
-                        </form>
+                        <table>
+                          <tbody>
+                            {list.association.map((list2, index2) => (
+                              <tr key = {index2}>
+                                <td>
+                                  {list2} Pays ${this.total(list.association.length,list.cost)} For This Order
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </td> 
                     </tr>
                   ))}
@@ -79,12 +89,6 @@ export default class Step4Detailed extends React.Component {
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
-              {/* <hr/>
-              <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick={this.show(DetailedSplit)}>
-                Show
-                <i className="material-icons right">navigate_next</i>
-              </button> */}
             </div>
           </div>
         </div>

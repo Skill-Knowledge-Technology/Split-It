@@ -4,6 +4,9 @@ import './Camera.css'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
+import Step4 from './Step4'
+import Step5 from './Step5'
+import Step6 from './Step6'
 import WrongPage from './WrongPage'
 
 export default class Camera extends React.Component {
@@ -15,8 +18,10 @@ export default class Camera extends React.Component {
       text: '',
       subtotal: 0,
       tax: 0,
+      taxPercent: 0,
       total: 0,
       orders: [],
+      names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
       failAttempts: 0,
       found: false,
       loading: false,
@@ -43,12 +48,27 @@ export default class Camera extends React.Component {
     });
   };
 
+  handleChange = input => e => {
+    this.setState({ [input]: e.target.value });
+  };
+
   changeSubtotal = (newValue) => {
     this.setState({subtotal: newValue});
   }
 
   changeTax = (newValue) => {
     this.setState({tax: newValue});
+  }
+
+  setTax = () => {
+    if(this.state.tax === ''){
+      this.setState({tax: 0});
+    }
+  }
+
+  changeTaxPercent = (subtotal,tax) => {
+    var taxPercent = tax/subtotal;
+    this.setState({taxPercent: taxPercent});
   }
 
   changeTotal = (newValue) => {
@@ -76,19 +96,21 @@ export default class Camera extends React.Component {
 
   generateText = () => {
     this.setState({ loading: true });
-    let uploads = this.state.uploads;
+    var uploads = this.state.uploads;
     for(var i = 0; i < uploads.length; i++) {
       Tesseract.recognize(
         uploads[i], 
         'eng',
       )
       .then(({ data: { text } }) => {
-        console.log(text);
+        // console.log(text);
         this.setState({ 
           text: text,
           found: true,
           loading: false,
         })
+        // this.parse();
+        // this.nextStep();
       })
       .catch(err => {
         console.error(err);
@@ -108,35 +130,35 @@ export default class Camera extends React.Component {
   }
 
   parse = () => {
-    let text = this.state.text;
-    let number = 1;
-    this.setState({ subtotal: 0 });
-    this.setState({ tax: 0 });
-    this.setState({ total: 0 });
-    this.setState({ orders: [] });
-    let temp = [];
+    var text = this.state.text;
+    var number = 1;
+    var tempOrders = [];
     {text.split('\n').map((item, i) => {
-      let array = item.split(' ');
-      console.log(array);
-      if(array.findIndex(word => 'subtotal' === word.toLowerCase()) > -1){
-        this.changeSubtotal(array[array.length-1]);
-      }
-      else if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
+      var array = item.split(' ');
+      // console.log(array);
+      // This searches for tax
+      if(array.findIndex(word => 'tax' === word.toLowerCase()) > -1){
         this.changeTax(array[array.length-1]);
       }
-      else if(array.findIndex(word => 'total' === word.toLowerCase()) > -1){
-        this.changeTotal(array[array.length-1]);
-      }
+      // This is for finding orders and saving into the state orders.
       else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
-        let size = array.length;
-        let quantity = array[0];
-        let cost = array[size-1];
-        let order = array.slice(1,size-1).join(" ");
-        temp.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
+        var size = array.length;
+        var quantity = array[0];
+        var cost = array[size-1];
+        var order = array.slice(1,size-1).join(" ");
+        tempOrders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
         number++;
       }
     })}
-    this.setState({ orders: temp })
+    this.setState({ orders: tempOrders })
+  }
+
+  resetParse = () =>{
+    this.setState({ subtotal: 0 });
+    this.setState({ tax: 0 });
+    this.setState({ taxPercent: 0 });
+    this.setState({ total: 0 });
+    this.setState({ orders: [] });
   }
 
   changeOrderQuantity = (index) => e => {
@@ -207,9 +229,114 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
+  changeNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+  }
+
+  setNames = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === ''){
+        newState.names[i].name = newState.names[i].number;
+        this.setState(newState);
+      }
+    }
+  }
+
+  removeNameSpecificRow = (index) => () => {
+    var newState = Object.assign({}, this.state);
+    newState.names.splice(index,1);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].number = `Person ${i + 1}`;
+    }
+    this.setState(newState);
+  }
+
+  addNameRow = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    newState.names.push({number: `Person ${size + 1}`, name: '', subtotal: 0, tax: 0, total: 0});
+    this.setState(newState);
+  }
+
+  changeAssociation = (index,value) => {
+    var newState = Object.assign({}, this.state);
+    newState.orders[index].association = value;
+    this.setState(newState);
+  }
+
+  resetAssociation = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    for (var i = 0; i < size; i++){
+      newState.orders[i].association = [];
+      this.setState(newState);
+    }
+  }
+
+  setNameSubtotal = (name, total) => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === name){
+        newState.names[i].subtotal += total;
+        this.setState(newState);
+      }
+    }
+  }
+
+  setNamePayment = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      var subtotal = newState.names[i].subtotal;
+      var tax = Math.ceil(subtotal * this.state.taxPercent * 100) / 100;
+      var total = (Math.round((+subtotal + +tax) *1e12)/1e12);
+      newState.names[i].tax = tax;
+      newState.names[i].total = total;
+      this.setState(newState);
+    }
+  }
+
+  resetNamePayment = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].subtotal = 0;
+      newState.names[i].tax = 0;
+      newState.names[i].total = 0;
+      this.setState(newState);
+    }
+  }
+
+  setNameTotal = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    var subtotal = 0;
+    var tax = 0;
+    var total = 0;
+    for(var i = 0; i < size; i++){
+      subtotal = (Math.round((+subtotal + +newState.names[i].subtotal) *1e12)/1e12);
+      tax = (Math.round((+tax + +newState.names[i].tax) *1e12)/1e12);
+      total = (Math.round((+total + +newState.names[i].total) *1e12)/1e12);
+    }
+    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    this.setState(newState);
+  }
+
+  resetNameTotal = () => {
+    var newState = Object.assign({}, this.state);
+    newState.names.pop();
+    this.setState(newState);
+  }
+
   render() {
-    const { currentStep, uploads, text, subtotal, tax, total, orders, failAttempts, found, loading } = this.state;
-    const Camera = { uploads, text, subtotal, tax, total, orders, failAttempts, found };
+    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
+    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
 
     switch (currentStep){
       case 1:
@@ -231,6 +358,12 @@ export default class Camera extends React.Component {
             <Step2
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
+              resetParse = {this.resetParse}
+              handleChange = {this.handleChange}
+              changeSubtotal = {this.changeSubtotal}
+              changeTotal = {this.changeTotal}
+              setTax = {this.setTax}
+              changeTaxPercent = {this.changeTaxPercent}
               changeOrderQuantity = {this.changeOrderQuantity}
               changeOrders = {this.changeOrders}
               changeOrderCost = {this.changeOrderCost}
@@ -248,6 +381,47 @@ export default class Camera extends React.Component {
           <div className = "container">
             <Step3
               prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              changeNames = {this.changeNames}
+              removeNameSpecificRow = {this.removeNameSpecificRow}
+              addNameRow = {this.addNameRow}
+              setNames = {this.setNames}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      case 4:
+        return(
+          <div className = "container">
+            <Step4
+              prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              changeAssociation = {this.changeAssociation}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      case 5:
+        return(
+          <div className = "container">
+            <Step5
+              prevStep = {this.prevStep}
+              nextStep = {this.nextStep}
+              resetAssociation = {this.resetAssociation}
+              setNameSubtotal = {this.setNameSubtotal}
+              setNamePayment = {this.setNamePayment}
+              setNameTotal = {this.setNameTotal}
+              Camera = {Camera}
+            />
+          </div>
+        );
+      case 6:
+        return(
+          <div className = "container">
+            <Step6
+              prevStep = {this.prevStep}
+              resetNameTotal = {this.resetNameTotal}
+              resetNamePayment = {this.resetNamePayment}
               Camera = {Camera}
             />
           </div>
