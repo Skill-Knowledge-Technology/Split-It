@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     const Transaction = sequelize.define("Transaction", {
         transactionID: {
             type: DataTypes.INTEGER,
-            // defaultValue: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
@@ -16,18 +15,30 @@ module.exports = (sequelize, DataTypes) => {
         },
         total: {
             // int with 2 decimal places
-            type: DataTypes.DECIMAL(10,2),
+            type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
         participants: {
             type: DataTypes.ARRAY(DataTypes.INTEGER)
-        }
-    });
+        },
 
-    Transaction.associate = function(models) {
+        ownerID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'User',
+                key: 'userID'
+            }
+        },
+    },
+        {
+            freezeTableName: true,
+        });
+
+    Transaction.associate = function (models) {
         Transaction.belongsTo(models.User, {
-            as: 'createdBy',
-            foreignKey: 'userID'
+            as: 'owner',
+            foreignKey: 'ownerID'
         });
     };
 
