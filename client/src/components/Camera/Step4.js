@@ -32,7 +32,7 @@ export default class Step4 extends React.Component {
     e.preventDefault();
     input.orders.map((list) => (
       console.log(list)
-      ))
+    ))
   }
 
   render(){ 
@@ -97,5 +97,4 @@ export default class Step4 extends React.Component {
       </div>
     );
   }
-
 }

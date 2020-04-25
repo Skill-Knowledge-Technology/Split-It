@@ -8,7 +8,12 @@ export default class Step4Detailed extends React.Component {
   
   next = e => {
     e.preventDefault();
-    this.props.nextStep();
+    if(this.props.checkAssociation()){
+      alert("Check The Associations!\nEvery Order Has To Be Satisfied");
+    }
+    else{
+      this.props.nextStep();
+    }
   };
 
   back = e => {
@@ -27,7 +32,7 @@ export default class Step4Detailed extends React.Component {
     e.preventDefault();
     input.orders.map((list) => (
       console.log(list)
-      ))
+    ))
   }
 
   render(){ 
@@ -92,5 +97,4 @@ export default class Step4Detailed extends React.Component {
       </div>
     );
   }
-
 }
