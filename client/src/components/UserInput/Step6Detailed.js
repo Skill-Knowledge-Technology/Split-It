@@ -1,32 +1,23 @@
 import React from 'react';
 
 export default class Step6Detailed extends React.Component {
-  next = e => {
-    e.preventDefault();
-    var ordersSize = this.props.DetailedSplit.orders.length;
-    for(var i = 0; i < ordersSize; i++){
-      var associationSize = this.props.DetailedSplit.orders[i].association.length;
-      for(var j = 0; j < associationSize; j++){
-        var name = this.props.DetailedSplit.orders[i].association[j];
-        var cost = this.props.DetailedSplit.orders[i].total;
-        var total = this.total(associationSize,cost)
-        this.props.setNameCost(name,total);
-      }
-    }
-    this.props.nextStep();
-  };
-
   back = e => {
     e.preventDefault();
-    this.props.resetAssociation();
+    this.props.resetNameTotal();
+    this.props.resetNamePayment();
     this.props.prevStep();
-    alert("Associations Has Been Resetted");
   };
 
-  total(totalPeople,cost){
-    var total = cost/totalPeople; // Total
-    total = Math.ceil(total * 100) / 100; // Round Up
-    return(total);
+  save = e => {
+    e.preventDefault();
+    alert("Saved");
+  }
+
+  show = input => e =>{
+    e.preventDefault();
+    input.names.map((list) => (
+      console.log(list)
+    ))
   }
 
   render(){ 
@@ -43,55 +34,50 @@ export default class Step6Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-            <table className="highlight centered">
+              <table className="highlight centered">
                 <thead>
                   <tr>
-                    <th>Order Quantity</th>
-                    <th>Order Names</th>
-                    <th>Order Cost</th>
-                    <th>Associations</th>
+                    <th>Names</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {DetailedSplit.orders.map((list, index) => (
+                  {DetailedSplit.names.map((list, index) => (
                     <tr key = {index}>
                       <td>
-                        {list.quantity}
+                        {list.name}
                       </td>
                       <td>
-                        {list.order}
+                        ${list.subtotal}
                       </td>
                       <td>
-                        ${list.cost}
+                        ${list.tax}
                       </td>
                       <td>
-                        <table>
-                          <tbody>
-                            {list.association.map((list2, index2) => (
-                              <tr key = {index2}>
-                                <td>
-                                  {list2} Pays ${this.total(list.association.length,list.total)} For This Order
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </td> 
+                        ${list.total}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <br/>
               <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick={this.next}>
-                Next
-                <i className="material-icons right">navigate_next</i>
+                type="submit" name="action" onClick = {this.save}>
+                Save
+                <i className="material-icons right">save</i>
               </button>
+              {/* <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                Show
+                <i className="material-icons right">navigate_next</i>
+              </button> */}
             </div>
           </div>
         </div>
       </div>
     );
   }
-
 }
