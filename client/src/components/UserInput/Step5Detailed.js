@@ -3,16 +3,18 @@ import React from 'react';
 export default class Step5Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    var ordersSize = this.props.DetailedSplit.orders.length;
+    var ordersSize = this.props.Camera.orders.length;
     for(var i = 0; i < ordersSize; i++){
-      var associationSize = this.props.DetailedSplit.orders[i].association.length;
+      var associationSize = this.props.Camera.orders[i].association.length;
       for(var j = 0; j < associationSize; j++){
-        var name = this.props.DetailedSplit.orders[i].association[j];
-        var cost = this.props.DetailedSplit.orders[i].total;
+        var name = this.props.Camera.orders[i].association[j];
+        var cost = this.props.Camera.orders[i].cost;
         var total = this.total(associationSize,cost)
-        this.props.setNameCost(name,total);
+        this.props.setNameSubtotal(name,total);
       }
     }
+    this.props.setNamePayment();
+    this.props.setNameTotal();
     this.props.nextStep();
   };
 
@@ -93,5 +95,4 @@ export default class Step5Detailed extends React.Component {
       </div>
     );
   }
-
 }
