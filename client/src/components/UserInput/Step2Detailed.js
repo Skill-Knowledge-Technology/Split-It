@@ -3,22 +3,27 @@ import React from 'react';
 export default class Step2Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    if(this.props.DetailedSplit.totalPeople <= 0 || this.props.DetailedSplit.totalOrders <= ''){
-      alert("Please Enter a Valid Number For People or Order");
-    }
-    else{
-      this.props.changePeopleOrder(this.props.DetailedSplit.totalPeople, this.props.DetailedSplit.totalOrders);
-      this.props.nextStep();
-    }
+    this.props.setOrderQuantity();
+    this.props.setOrders();
+    this.props.setOrderCost();
+    this.props.setOrderTotal();
+    this.props.nextStep();
   };
 
   back = e => {
     e.preventDefault();
-    this.props.prevJump();
+    this.props.prevStep();
   };
 
+  show = input => e =>{
+    e.preventDefault();
+    input.orders.map((list) => (
+      console.log(list)
+      ))
+  }
+
   render(){ 
-    const { DetailedSplit, handleChange } = this.props;
+    const { DetailedSplit, changeOrderQuantity, changeOrders, changeOrderCost } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -31,31 +36,55 @@ export default class Step2Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <form className = "col s12">
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">people</i>
-                    <input type="number" min="1" placeholder="Total Number of People" className="validate"
-                    value={DetailedSplit.totalPeople} onChange={handleChange('totalPeople')} />
-                    <label className="active">Total Number of People</label>
-                    <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">restaurant_menu</i>
-                    <input type="number" min="1" placeholder="Total Orders" className="validate"
-                    value={DetailedSplit.totalOrders} onChange={handleChange('totalOrders')}/>
-                    <label className="active">Total Orders</label>
-                    <span className="helper-text" data-error="Invalid" data-success="Valid">Please Enter a Valid Number</span>
-                  </div>
-                </div>
-              </form>
+            <table className="highlight centered">
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Order Quantity</th>
+                    <th>Order Names</th>
+                    <th>Order Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DetailedSplit.orders.map((list, index) => (
+                    <tr key = {index}>
+                      <td>
+                        {list.number}
+                      </td>
+                      <td>
+                        <form>
+                          <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
+                            value={list.quantity} onChange={changeOrderQuantity(index)}/>
+                        </form>
+                      </td>
+                      <td>
+                        <form>
+                          <input type="text" placeholder="Insert Order"
+                            value={list.order} onChange={changeOrders(index)}/>
+                        </form>
+                      </td> 
+                      <td>
+                        <form>
+                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
+                            value={list.cost} onChange={changeOrderCost(index)}/>
+                        </form>
+                      </td> 
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <br/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
+              {/* <hr/>
+              <button className="btn waves-effect waves-light float-right"
+                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                Show
+                <i className="material-icons right">navigate_next</i>
+              </button> */}
             </div>
           </div>
         </div>

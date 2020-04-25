@@ -1,33 +1,32 @@
 import React from 'react';
-import M from 'materialize-css'
 
 export default class Step5Detailed extends React.Component {
-  componentDidMount() {
-    M.AutoInit();
-  }
-  
   next = e => {
     e.preventDefault();
+    var ordersSize = this.props.DetailedSplit.orders.length;
+    for(var i = 0; i < ordersSize; i++){
+      var associationSize = this.props.DetailedSplit.orders[i].association.length;
+      for(var j = 0; j < associationSize; j++){
+        var name = this.props.DetailedSplit.orders[i].association[j];
+        var cost = this.props.DetailedSplit.orders[i].total;
+        var total = this.total(associationSize,cost)
+        this.props.setNameCost(name,total);
+      }
+    }
     this.props.nextStep();
   };
 
   back = e => {
     e.preventDefault();
+    this.props.resetAssociation();
     this.props.prevStep();
+    alert("Associations Has Been Resetted");
   };
 
-  call = index => e => {
-    var elems = document.querySelector('select[name="' + index + '"]');
-    var instances = M.FormSelect.init(elems);
-    var selectedOne = instances.getSelectedValues();
-    this.props.changeAssociation(index,selectedOne)
-  }
-
-  show = input => e =>{
-    e.preventDefault();
-    input.orders.map((list) => (
-      console.log(list)
-      ))
+  total(totalPeople,cost){
+    var total = cost/totalPeople; // Total
+    total = Math.ceil(total * 100) / 100; // Round Up
+    return(total);
   }
 
   render(){ 
@@ -44,31 +43,39 @@ export default class Step5Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <table className="highlight centered">
+            <table className="highlight centered">
                 <thead>
                   <tr>
-                    <th>Order Number</th>
+                    <th>Order Quantity</th>
                     <th>Order Names</th>
-                    <th>Choose Names That Are Associated To Orders</th>
+                    <th>Order Cost</th>
+                    <th>Associations</th>
                   </tr>
                 </thead>
                 <tbody>
                   {DetailedSplit.orders.map((list, index) => (
                     <tr key = {index}>
                       <td>
-                        {list.number}
+                        {list.quantity}
                       </td>
                       <td>
                         {list.order}
                       </td>
                       <td>
-                        <select multiple name={index} onChange={this.call(index)}>
-                          {DetailedSplit.names.map((list2, index2) => (
-                            <option key = {index2} value = {list2.name}>
-                              {list2.name}
-                            </option>
-                          ))}
-                        </select>
+                        ${list.cost}
+                      </td>
+                      <td>
+                        <table>
+                          <tbody>
+                            {list.association.map((list2, index2) => (
+                              <tr key = {index2}>
+                                <td>
+                                  {list2} Pays ${this.total(list.association.length,list.total)} For This Order
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </td> 
                     </tr>
                   ))}
@@ -80,12 +87,6 @@ export default class Step5Detailed extends React.Component {
                 Next
                 <i className="material-icons right">navigate_next</i>
               </button>
-              {/* <hr/>
-              <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick={this.show(DetailedSplit)}>
-                Show
-                <i className="material-icons right">navigate_next</i>
-              </button> */}
             </div>
           </div>
         </div>

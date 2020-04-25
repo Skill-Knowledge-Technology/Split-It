@@ -1,12 +1,13 @@
 import React from 'react';
+import M from 'materialize-css'
 
 export default class Step4Detailed extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
+  
   next = e => {
     e.preventDefault();
-    this.props.setOrderQuantity();
-    this.props.setOrders();
-    this.props.setOrderCost();
-    this.props.setOrderTotal();
     this.props.nextStep();
   };
 
@@ -14,6 +15,13 @@ export default class Step4Detailed extends React.Component {
     e.preventDefault();
     this.props.prevStep();
   };
+
+  call = index => e => {
+    var elems = document.querySelector('select[name="' + index + '"]');
+    var instances = M.FormSelect.init(elems);
+    var selectedOne = instances.getSelectedValues();
+    this.props.changeAssociation(index,selectedOne)
+  }
 
   show = input => e =>{
     e.preventDefault();
@@ -23,7 +31,7 @@ export default class Step4Detailed extends React.Component {
   }
 
   render(){ 
-    const { DetailedSplit, changeOrderQuantity, changeOrders, changeOrderCost } = this.props;
+    const { DetailedSplit } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -36,13 +44,12 @@ export default class Step4Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-            <table className="highlight centered">
+              <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Order Number</th>
-                    <th>Order Quantity</th>
                     <th>Order Names</th>
-                    <th>Order Cost</th>
+                    <th>Choose Names That Are Associated To Orders</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -52,22 +59,16 @@ export default class Step4Detailed extends React.Component {
                         {list.number}
                       </td>
                       <td>
-                        <form>
-                          <input type="number" min="1" step="1" placeholder="Insert Quantity" className="validate"
-                            value={list.quantity} onChange={changeOrderQuantity(index)}/>
-                        </form>
+                        {list.order}
                       </td>
                       <td>
-                        <form>
-                          <input type="text" placeholder="Insert Order"
-                            value={list.order} onChange={changeOrders(index)}/>
-                        </form>
-                      </td> 
-                      <td>
-                        <form>
-                          <input type="number" min="0" step="0.01" placeholder="Insert Cost" className="validate"
-                            value={list.cost} onChange={changeOrderCost(index)}/>
-                        </form>
+                        <select multiple name={index} onChange={this.call(index)}>
+                          {DetailedSplit.names.map((list2, index2) => (
+                            <option key = {index2} value = {list2.name}>
+                              {list2.name}
+                            </option>
+                          ))}
+                        </select>
                       </td> 
                     </tr>
                   ))}
