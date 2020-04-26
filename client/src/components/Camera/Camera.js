@@ -261,11 +261,11 @@ export default class Camera extends React.Component {
     API.searchByUsername(username)
       .then((res) => {
       if (res.data !== null) {
-        console.log("found");
+        // console.log("found");
         newState.names[index].found = true;
       }
       else {
-        console.log("not found");
+        // console.log("not found");
         newState.names[index].found = false;
       }
     })
