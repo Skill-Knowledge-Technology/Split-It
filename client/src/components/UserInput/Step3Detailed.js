@@ -89,7 +89,7 @@ export default class Step3Detailed extends React.Component {
                       <td>
                         <button className="btn-floating btn-small red"
                           type="submit" name="action" onClick={removeNameSpecificRow(index)}>
-                          <i className="material-icons">remove</i>
+                          <i className="material-icons">delete</i>
                         </button>
                       </td> 
                     </tr>
@@ -99,7 +99,7 @@ export default class Step3Detailed extends React.Component {
               <br/>
               <button className="btn-floating btn-large blue"
                 type="submit" name="action" onClick={addNameRow}>
-                <i className="material-icons">add</i>
+                <i className="material-icons">person_add</i>
               </button>
               <hr/>
               <button className="btn waves-effect waves-light float-right"
