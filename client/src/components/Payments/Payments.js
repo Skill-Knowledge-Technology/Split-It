@@ -25,21 +25,32 @@ class Payments extends React.Component {
     };
 
     render() {
-        const { name, balance } = this.props;
+        const { balance } = this.props;
         return (
             <div className="paymentsbox">
                 <h4>
                     <u>Payments</u>
                 </h4>
-              
-                    <div className="row">
+                <div className="row">
+                    <div className="left-align col 12">
+                        <i className="material-icons prefix">attach_money</i>
+                    </div>
+                    <div className="left-align col 12">
+                        Current Balance
+                    </div>
+                    <div id="balance" className="validate" className="left-align col 12">
+                        {balance}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col s12 m5">
                         <div class="col 12 12"><p>Chris</p></div>
                         <div class="col 12 18"><p>10</p></div>
                         <div class="col 12 12"><a class="waves-effect waves-light btn">Pay</a></div>
                     </div>
-            
+                </div>
             </div>
-        
+
         );
     }
 }

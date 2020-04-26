@@ -29,6 +29,7 @@ class App extends React.Component {
       name: "",
       email: "",
       password: "",
+
       balance: "",
       errors: [],
       isAuthenticated: false,
@@ -129,8 +130,9 @@ class App extends React.Component {
                 <Route path="/Test" component={Test} />
                 <Route path="/Profile/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance}/>)} />
-                <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance}/>)} />
+                <Route path="/Payments" component={Payments} />
+                {/* <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
+                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance}/>)} /> */}
                 <Route exact path="/" component={Home} />
               </Switch>
             </div>
