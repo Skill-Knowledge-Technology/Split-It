@@ -44,6 +44,26 @@ export default class Test extends React.Component {
     const inputs = [...this.state.inputs];
     inputs.splice(idx, 1);
     this.setState({ inputs });
+    let tmp = true;
+    for (let index = 0; index < inputs.length; index++) {
+      if (inputs[index].isFound === false) {
+        console.log([index] + ": not found");
+        tmp = false;
+        break;
+      }
+    }
+    if (tmp) {
+      console.log("all users found");
+      this.setState(  {
+        allUsersFound: true
+      });
+    }
+    else {
+      console.log("not all users found");
+      this.setState({
+        allUsersFound: false
+      })
+    }
   }
 
 
@@ -77,14 +97,15 @@ export default class Test extends React.Component {
       .then(() => {
         let tmp = true;
         for (let index = 0; index < this.state.inputs.length; index++) {
-          if (this.state.inputs[index].isFound == false) {
+          if (this.state.inputs[index].isFound === false) {
             console.log([index] + ": not found");
             tmp = false;
+            break;
           }
         }
         if (tmp) {
           console.log("all users found");
-          this.setState({
+          this.setState(  {
             allUsersFound: true
           });
         }
