@@ -21,7 +21,7 @@ export default class Camera extends React.Component {
       taxPercent: 0,
       total: 0,
       orders: [],
-      names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
+      names: [{number: `Person 1`, name: '', check: false, subtotal: 0, tax: 0, total: 0}],
       failAttempts: 0,
       found: false,
       loading: false,
@@ -242,6 +242,12 @@ export default class Camera extends React.Component {
     }
   }
 
+  changeCheck = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].check = e.target.checked;
+    this.setState(newState);
+  }
+
   removeNameSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
     newState.names.splice(index,1);
@@ -388,6 +394,7 @@ export default class Camera extends React.Component {
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
               changeNames = {this.changeNames}
+              changeCheck = {this.changeCheck}
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}

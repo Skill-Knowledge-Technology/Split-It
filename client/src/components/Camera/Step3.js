@@ -41,7 +41,7 @@ export default class Step3 extends React.Component {
   }
 
   render(){ 
-    const { Camera, changeNames, removeNameSpecificRow, addNameRow} = this.props;
+    const { Camera, changeNames, changeCheck, removeNameSpecificRow, addNameRow} = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -59,6 +59,7 @@ export default class Step3 extends React.Component {
                   <tr>
                     <th>Number of People</th>
                     <th>Names (Set Unique Names)</th>
+                    <th>Check For User</th>
                     <th>Remove</th>
                   </tr>
                 </thead>
@@ -74,6 +75,13 @@ export default class Step3 extends React.Component {
                             value={list.name} onChange={changeNames(index)}/>
                         </form>
                       </td> 
+                      <td>
+                        <label>
+                          <input type="checkbox" className="filled-in"
+                            checked={list.check} onChange={changeCheck(index)}/>
+                          <span></span>
+                        </label>
+                      </td>
                       <td>
                         <button className="btn-floating btn-small red"
                           type="submit" name="action" onClick={removeNameSpecificRow(index)}>
