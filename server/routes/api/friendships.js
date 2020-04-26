@@ -9,4 +9,5 @@ const validatorErrors = require('../../middleware/validatorErrors');
 
 router.post('/createFriendship', [validatorErrors],friendshipController.createFriendship);
 
+router.get('/:requesterId/:addresseeId',[validatorErrors],friendshipController.getFriendship);
 module.exports = router; 

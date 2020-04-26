@@ -1,6 +1,6 @@
 const FriendshipServices = require("../services/friendship")
 
-const createFriendship = async (req, res, next) => {
+const createFriendship = async (req, res) => {
     let requesterId = req.body.requesterID;
     let addresseeId = req.body.addresseeID;
     const friendship = { requesterId, addresseeId };
@@ -15,8 +15,16 @@ const createFriendship = async (req, res, next) => {
 
 
 }
+const getFriendship = async (req, res, next) => {
+    return FriendshipServices.findFriendship(req.params.requesterId,req.params.addresseeId)
+        .then((friendship) => {
+            res.json(friendship)
+        })
+        .catch(error => next(error))
+}
 
 
 module.exports = {
-    createFriendship
+    createFriendship,
+    getFriendship
 }

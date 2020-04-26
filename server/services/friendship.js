@@ -11,6 +11,12 @@ const createFriendship = async (data) => {
     return newFriendship;
 }
 
+const findFriendship = async (requesterId,addresseeId) =>{
+    const Friendship = await db.Friendship.findOne({where: {requesterID:requesterId,addresseeID:addresseeId}});
+    console.log(Friendship + 'found');
+    return Friendship;
+}
 module.exports = {
-    createFriendship
+    createFriendship,
+    findFriendship
 }
