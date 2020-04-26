@@ -9,80 +9,60 @@ class Friends extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userID: this.props.userID,
-            usernameToSearch: '',
+            usernameToSearch: "",
             isFound: false
-        };
+        }
         this.handleChange = this.handleChange.bind(this);
     }
 
-
-    handleChange(event) {
-        this.setState({ usernameToSearch: event.target.usernameToSearch }, function (){
-            console.log((String(this.state.usernameToSearch)))
-             
-        });
+    handleChange(e) {
+        this.setState({ usernameToSearch: e.target.value}, () => {
+            // console.log("usernameToSearch is " + this.state.usernameToSearch)
+            this.handleSearch(String(this.state.usernameToSearch));
+        })
     }
 
-
-    // handleChange = (e) => {
-    //     const { username, value } = e.target;
-    //     this.setState({ usernameToSearch: username }, function () {
-    //         if (username == true) {
-    //             this.handleUserSearch(String(this.state.usernameToSearch))
-    //         }
-    //         else {
-    //             console.log("no blanks please");
-    //         }
-    //     });
-    // };
-
-
-
-    handleUserSearch = function (username) {
-        console.log('username is ' + username)
-        // API.searchByUsername(username)
-        //     .then((res) => {
-        //         console.log("tried to search for user " + username);
-        //         console.log(res);
-        //         if (res.data != null) {
-        //             this.setState({ isFound: true })
-        //         }
-        //         else {
-        //             return;
-        //         }
-
-
-        //     })
+    handleSearch(username) {
+      API.searchByUsername(username)
+      .then((res) => {
+        // console.log(res.data)
+        if (res.data) {
+          this.setState({isFound: true})
+        }
+        else {
+          this.setState({isFound: false})
+        }
+      })
+      .catch((err) => {
+        console.log("search error: " + err)
+      })
     }
-
-
-
 
     render() {
-        const { userID } = this.props;
         return (
             <div>
-                <input
-                    placeholder="Username"
-                    id='usersearchbar'
-                    type="text"
-                    className="validate"
-                    value={this.state.usernameToSearch}
-                    onChange={this.handleChange} />
-                <label for={'usersearchbar'}> Please enter a registered user</label>
-                <div>
-                    <a className="waves-effect waves-light btn"
-                        onClick={() => console.log(this.state.usernameToSearch)}> Add Friend </a>
+                <form>
+                    <label>
+                        Search for a friend!
+                   <input
+                            type="text"
+                            value={this.state.usernameToSearch}
+                            onChange={this.handleChange}
+                            style={{
+                                color:"white"
+                            }}
+                        />
+                    </label>
+                </form>
+                <a
+                  className="waves-effect waves-light btn"
+                  onClick={() => console.log("sent friend request")}
+                  disabled={this.state.isFound === false}
+                >Send Friend Request</a>
 
-
-                </div>
             </div>
         )
-
-
-
-    };
+    }
 
 }
 
