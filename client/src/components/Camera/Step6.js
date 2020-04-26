@@ -70,7 +70,7 @@ export default class Step6 extends React.Component {
               </button>
               {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick={this.show(DetailedSplit)}>
+                type="submit" name="action" onClick={this.show(Camera)}>
                 Show
                 <i className="material-icons right">navigate_next</i>
               </button> */}

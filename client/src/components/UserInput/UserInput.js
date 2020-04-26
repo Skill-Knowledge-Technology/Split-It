@@ -8,7 +8,6 @@ import Step3Detailed from './Step3Detailed'
 import Step4Detailed from './Step4Detailed'
 import Step5Detailed from './Step5Detailed'
 import Step6Detailed from './Step6Detailed'
-import Step7Detailed from './Step7Detailed'
 import WrongPage from './WrongPage'
 
 export default class UserInput extends React.Component {
@@ -19,9 +18,12 @@ export default class UserInput extends React.Component {
         totalPeople: '',
         EZcost: '',
         EZtotal: '',
-        totalOrders: '',
-        names: [],
-        orders: [],
+        subtotal: 0,
+        tax: '',
+        taxPercent: 0,
+        total: 0,
+        names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
+        orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
     };
   }
 
@@ -67,35 +69,27 @@ export default class UserInput extends React.Component {
     this.setState({EZtotal: newTotal});
   }
 
-  changePeopleOrder = (totalPeople,totalOrders) => {
-    var i;
-    var temp = [];
-    for(i = 0; i < totalPeople; i++){
-        temp.push({number: `Person ${i+1}`, name: '', cost: 0});
-    }
-    this.setState({names: temp});
-    temp = [];
-    for(i = 0; i < totalOrders; i++){
-      temp.push({number: `Order #${i+1}`, quantity: '', order: '', cost: '', total: '', association: []});
-    }
-    this.setState({orders: temp});
+  changeSubtotal = (newValue) => {
+    this.setState({subtotal: newValue});
   }
 
-  changeNames = (index) => e => {
-    var newState = Object.assign({}, this.state);
-    newState.names[index].name = e.target.value;
-    this.setState(newState);
+  changeTax = (newValue) => {
+    this.setState({tax: newValue});
   }
 
-  setNames = () => {
-    var newState = Object.assign({}, this.state);
-    var size = newState.names.length;
-    for (var i = 0; i < size; i++){
-      if(newState.names[i].name === ''){
-        newState.names[i].name = newState.names[i].number;
-        this.setState(newState);
-      }
+  setTax = () => {
+    if(this.state.tax === ''){
+      this.setState({tax: 0});
     }
+  }
+
+  changeTaxPercent = (subtotal,tax) => {
+    var taxPercent = tax/subtotal;
+    this.setState({taxPercent: taxPercent});
+  }
+
+  changeTotal = (newValue) => {
+    this.setState({total: newValue});
   }
 
   changeOrderQuantity = (index) => e => {
@@ -104,13 +98,11 @@ export default class UserInput extends React.Component {
     this.setState(newState);
   }
 
-  setOrderQuantity = () => {
-    var newState = Object.assign({}, this.state);
-    var size = newState.orders.length;
+  checkOrderQuantity = () => {
+    var size = this.state.orders.length;
     for (var i = 0; i < size; i++){
-      if(newState.orders[i].quantity === ''){
-        newState.orders[i].quantity = 1;
-        this.setState(newState);
+      if(this.state.orders[i].quantity === '' || this.state.orders[i].quantity <= 0){
+        return true;
       }
     }
   }
@@ -138,32 +130,80 @@ export default class UserInput extends React.Component {
     this.setState(newState);
   }
 
-  setOrderCost = () => {
+  checkOrderCost = () => {
+    var size = this.state.orders.length;
+    for (var i = 0; i < size; i++){
+      if(this.state.orders[i].cost === '' || this.state.orders[i].cost < 0){
+        return true;
+      }
+    }
+  }
+
+  removeOrderSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
+    newState.orders.splice(index,1);
     var size = newState.orders.length;
     for (var i = 0; i < size; i++){
-      if(newState.orders[i].cost === ''){
-        newState.orders[i].cost = 0;
+      newState.orders[i].number = `Order #${i + 1}`;
+    }
+    this.setState(newState);
+  }
+
+  addOrderRow = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.orders.length;
+    newState.orders.push({number: `Order #${size + 1}`, quantity: '', order: '', cost: '', association: []});
+    this.setState(newState);
+  }
+
+  changeNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+  }
+
+  setNames = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      if(newState.names[i].name === ''){
+        newState.names[i].name = newState.names[i].number;
         this.setState(newState);
       }
     }
   }
 
-  setOrderTotal = () => {
+  removeNameSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
-    var size = newState.orders.length;
+    newState.names.splice(index,1);
+    var size = newState.names.length;
     for (var i = 0; i < size; i++){
-      var quantity = newState.orders[i].quantity;
-      var cost = newState.orders[i].cost;
-      newState.orders[i].total = cost * quantity;
-      this.setState(newState);
+      newState.names[i].number = `Person ${i + 1}`;
     }
+    this.setState(newState);
+  }
+
+  
+  addNameRow = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    newState.names.push({number: `Person ${size + 1}`, name: '', subtotal: 0, tax: 0, total: 0});
+    this.setState(newState);
   }
 
   changeAssociation = (index,value) => {
     var newState = Object.assign({}, this.state);
     newState.orders[index].association = value;
     this.setState(newState);
+  }
+
+  checkAssociation = () => {
+    var size = this.state.orders.length;
+    for (var i = 0; i < size; i++){
+      if(this.state.orders[i].association.length === 0){
+        return true;
+      }
+    }
   }
 
   resetAssociation = () => {
@@ -175,32 +215,68 @@ export default class UserInput extends React.Component {
     }
   }
 
-  setNameCost = (name, total) => {
+  setNameSubtotal = (name, total) => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
     for (var i = 0; i < size; i++){
       if(newState.names[i].name === name){
-        newState.names[i].cost += total;
+        newState.names[i].subtotal += total;
         this.setState(newState);
       }
     }
   }
 
-  resetNameCost = () => {
+  setNamePayment = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
     for (var i = 0; i < size; i++){
-      newState.names[i].cost = 0;
+      var subtotal = newState.names[i].subtotal;
+      var tax = Math.ceil(subtotal * this.state.taxPercent * 100) / 100;
+      var total = (Math.round((+subtotal + +tax) *1e12)/1e12);
+      newState.names[i].tax = tax;
+      newState.names[i].total = total;
       this.setState(newState);
     }
+  }
+
+  resetNamePayment = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    for (var i = 0; i < size; i++){
+      newState.names[i].subtotal = 0;
+      newState.names[i].tax = 0;
+      newState.names[i].total = 0;
+      this.setState(newState);
+    }
+  }
+
+  setNameTotal = () => {
+    var newState = Object.assign({}, this.state);
+    var size = newState.names.length;
+    var subtotal = 0;
+    var tax = 0;
+    var total = 0;
+    for(var i = 0; i < size; i++){
+      subtotal = (Math.round((+subtotal + +newState.names[i].subtotal) *1e12)/1e12);
+      tax = (Math.round((+tax + +newState.names[i].tax) *1e12)/1e12);
+      total = (Math.round((+total + +newState.names[i].total) *1e12)/1e12);
+    }
+    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    this.setState(newState);
+  }
+
+  resetNameTotal = () => {
+    var newState = Object.assign({}, this.state);
+    newState.names.pop();
+    this.setState(newState);
   }
 
   render() {
     const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
     const EZSplit = { totalPeople, EZcost, EZtotal };
-    const { totalOrders, names, orders} = this.state;
-    const DetailedSplit = { totalPeople, totalOrders, names, orders};
+    const { subtotal, tax, taxPercent, total, names, orders} = this.state;
+    const DetailedSplit = { subtotal, tax, taxPercent, total, names, orders};
 
     switch (currentStep){
       case 1:
@@ -239,8 +315,19 @@ export default class UserInput extends React.Component {
             <Step2Detailed
               nextStep = {this.nextStep}
               prevJump = {this.prevJump}
-              changePeopleOrder = {this.changePeopleOrder}
               handleChange = {this.handleChange}
+              changeSubtotal = {this.changeSubtotal}
+              changeTotal = {this.changeTotal}
+              setTax = {this.setTax}
+              changeTaxPercent = {this.changeTaxPercent}
+              changeOrderQuantity = {this.changeOrderQuantity}
+              changeOrders = {this.changeOrders}
+              changeOrderCost = {this.changeOrderCost}
+              checkOrderQuantity = {this.checkOrderQuantity}
+              setOrders = {this.setOrders}
+              checkOrderCost = {this.checkOrderCost}
+              removeOrderSpecificRow = {this.removeOrderSpecificRow}
+              addOrderRow = {this.addOrderRow}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -252,6 +339,8 @@ export default class UserInput extends React.Component {
               nextStep = {this.nextStep}
               prevStep = {this.prevStep}
               changeNames = {this.changeNames}
+              removeNameSpecificRow = {this.removeNameSpecificRow}
+              addNameRow = {this.addNameRow}
               setNames = {this.setNames}
               DetailedSplit = {DetailedSplit}
             />
@@ -263,13 +352,8 @@ export default class UserInput extends React.Component {
             <Step4Detailed
               nextStep = {this.nextStep}
               prevStep = {this.prevStep}
-              changeOrderQuantity = {this.changeOrderQuantity}
-              changeOrders = {this.changeOrders}
-              changeOrderCost = {this.changeOrderCost}
-              setOrderQuantity = {this.setOrderQuantity}
-              setOrders = {this.setOrders}
-              setOrderCost = {this.setOrderCost}
-              setOrderTotal = {this.setOrderTotal}
+              changeAssociation = {this.changeAssociation}
+              checkAssociation = {this.checkAssociation}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -280,7 +364,10 @@ export default class UserInput extends React.Component {
             <Step5Detailed
               nextStep = {this.nextStep}
               prevStep = {this.prevStep}
-              changeAssociation = {this.changeAssociation}
+              resetAssociation = {this.resetAssociation}
+              setNameSubtotal = {this.setNameSubtotal}
+              setNamePayment = {this.setNamePayment}
+              setNameTotal = {this.setNameTotal}
               DetailedSplit = {DetailedSplit}
             />
           </div>
@@ -289,20 +376,9 @@ export default class UserInput extends React.Component {
         return(
           <div className = "container">
             <Step6Detailed
-              nextStep = {this.nextStep}
               prevStep = {this.prevStep}
-              resetAssociation = {this.resetAssociation}
-              setNameCost = {this.setNameCost}
-              DetailedSplit = {DetailedSplit}
-            />
-          </div>
-        );
-      case 107:
-        return(
-          <div className = "container">
-            <Step7Detailed
-              prevStep = {this.prevStep}
-              resetNameCost = {this.resetNameCost}
+              resetNameTotal = {this.resetNameTotal}
+              resetNamePayment = {this.resetNamePayment}
               DetailedSplit = {DetailedSplit}
             />
           </div>

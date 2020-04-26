@@ -95,5 +95,4 @@ export default class Step5 extends React.Component {
       </div>
     );
   }
-
 }

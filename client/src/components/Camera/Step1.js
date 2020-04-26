@@ -1,7 +1,12 @@
 import React from 'react';
+import M from 'materialize-css';
 import './Camera.css'
 
 export default class Step1 extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
+
   next = e => {
     e.preventDefault();
     this.props.parse();
@@ -37,8 +42,8 @@ export default class Step1 extends React.Component {
                       <input className="file-path validate" type="text"/>
                     </div>
                   </div>
-                  <div className="card-image">
-                    <img src = {Camera.uploads} alt = "" />
+                  <div className="container">
+                    <img className="materialboxed" width="250" data-caption="Receipt" src={Camera.uploads} ></img>
                   </div>
                   <br/>
                   {!Camera.found && 

@@ -1,6 +1,11 @@
 import React from 'react';
+import M from 'materialize-css';
 
 export default class Step2 extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
+
   next = e => {
     e.preventDefault();
     var subtotal = this.subtotal(this.props.Camera.orders);
@@ -13,10 +18,14 @@ export default class Step2 extends React.Component {
     else if(this.props.Camera.tax < 0){
       alert("Tax Cannot Be Negative!");
     }
+    else if(this.props.checkOrderQuantity()){
+      alert("Check The Order Quantity!");
+    }
+    else if(this.props.checkOrderCost()){
+      alert("Check The Order Cost!");
+    }
     else{
-      this.props.setOrderQuantity();
       this.props.setOrders();
-      this.props.setOrderCost();
       this.props.setTax();
       this.props.changeSubtotal(subtotal);
       this.props.changeTotal(this.total(subtotal,this.props.Camera.tax))
@@ -110,10 +119,17 @@ export default class Step2 extends React.Component {
                 </tbody>
               </table>
               <br/>
-              <button className="btn-floating btn-large blue"
-                type="submit" name="action" onClick={addOrderRow}>
-                <i className="material-icons">add</i>
-              </button>
+              <div className = "row"> 
+                <div className = "col s6">
+                  <button className="btn-floating btn-large blue"
+                    type="submit" name="action" onClick={addOrderRow}>
+                    <i className="material-icons">add</i>
+                  </button>
+                </div>
+                <div className = "col s6">
+                  <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} ></img>
+                </div>
+              </div>
               <hr/>
               <form className = "col s12">
                 <div className="row">

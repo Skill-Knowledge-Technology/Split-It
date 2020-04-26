@@ -3,23 +3,28 @@ import React from 'react';
 export default class Step3Detailed extends React.Component {
   next = e => {
     e.preventDefault();
-    this.props.setNames();
-    var array = this.props.DetailedSplit.names;
-    var found = false;
-    var valuesSoFar = Object.create(null);
-    for (var i = 0; i < array.length; ++i){
-      var value = array[i].name;
-      if (value in valuesSoFar){
-          found = true;
-          break;
-      }
-      valuesSoFar[value] = true;
-    }
-    if (found === true){
-      alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
+    if (this.props.DetailedSplit.names.length === 0){
+      alert("People Cannot Be Empty!");
     }
     else{
-      this.props.nextStep();
+      this.props.setNames();
+      var array = this.props.DetailedSplit.names;
+      var found = false;
+      var valuesSoFar = Object.create(null);
+      for (var i = 0; i < array.length; ++i){
+        var value = array[i].name;
+        if (value in valuesSoFar){
+            found = true;
+            break;
+        }
+        valuesSoFar[value] = true;
+      }
+      if (found === true){
+        alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
+      }
+      else{
+        this.props.nextStep();
+      }
     }
   };
 
@@ -32,11 +37,11 @@ export default class Step3Detailed extends React.Component {
     e.preventDefault();
     input.names.map((list) => (
       console.log(list)
-      ))
+    ))
   }
 
   render(){ 
-    const { DetailedSplit, changeNames } = this.props;
+    const { DetailedSplit, changeNames, removeNameSpecificRow, addNameRow } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -49,11 +54,12 @@ export default class Step3Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-              <table className="highlight centered">
+            <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Number of People</th>
                     <th>Names (Set Unique Names)</th>
+                    <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,11 +74,22 @@ export default class Step3Detailed extends React.Component {
                             value={list.name} onChange={changeNames(index)}/>
                         </form>
                       </td> 
+                      <td>
+                        <button className="btn-floating btn-small red"
+                          type="submit" name="action" onClick={removeNameSpecificRow(index)}>
+                          <i className="material-icons">remove</i>
+                        </button>
+                      </td> 
                     </tr>
                   ))}
                 </tbody>
               </table>
               <br/>
+              <button className="btn-floating btn-large blue"
+                type="submit" name="action" onClick={addNameRow}>
+                <i className="material-icons">add</i>
+              </button>
+              <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.next}>
                 Next
@@ -90,5 +107,4 @@ export default class Step3Detailed extends React.Component {
       </div>
     );
   }
-
 }

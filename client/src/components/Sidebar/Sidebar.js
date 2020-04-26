@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 import "./Sidebar.css";
-import { Link } from 'react-router-dom';
 import LoginRegisterRedirect from './LoginRegisterRedirect';
 import ProfileLogOutRedirect from './ProfileLogOutRedirect';
 
@@ -37,16 +36,6 @@ class Sidebar extends Component {
             {
              isAuthenticated === false ? <LoginRegisterRedirect /> : <ProfileLogOutRedirect handleUserLogOut={handleUserLogOut} name={name} userID={userID}/> 
             }
-            {/* <li>
-              <a className="waves-effect" href="Login">
-                Login
-              </a>
-            </li>
-            <li>
-              <a className="waves-effect" href="Register">
-                Register
-              </a>
-            </li> */}
             <li>
               <div className="divider" />
             </li>
@@ -67,7 +56,7 @@ class Sidebar extends Component {
           </a>
         </div>
         <a href="/" className="brand-logo center">
-        {<img src={ require('../../public/logo.png')} width = "50px" height="50px" />}
+        <img src={ require('../../public/logo.png')} width = "50px" height="50px" />
           Split It
         </a>
       </div>
