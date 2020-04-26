@@ -9,6 +9,7 @@ import Step4Detailed from './Step4Detailed'
 import Step5Detailed from './Step5Detailed'
 import Step6Detailed from './Step6Detailed'
 import WrongPage from './WrongPage'
+import API from "../../utils/api";
 
 export default class UserInput extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class UserInput extends React.Component {
         tax: '',
         taxPercent: 0,
         total: 0,
-        names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
+        names: [{number: `Person 1`, name: '', check: false, subtotal: 0, tax: 0, total: 0}],
         orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
     };
   }
@@ -173,6 +174,12 @@ export default class UserInput extends React.Component {
     }
   }
 
+  changeCheck = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].check = e.target.checked;
+    this.setState(newState);
+  }
+
   removeNameSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
     newState.names.splice(index,1);
@@ -182,12 +189,11 @@ export default class UserInput extends React.Component {
     }
     this.setState(newState);
   }
-
   
   addNameRow = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
-    newState.names.push({number: `Person ${size + 1}`, name: '', subtotal: 0, tax: 0, total: 0});
+    newState.names.push({number: `Person ${size + 1}`, name: '', check: false, subtotal: 0, tax: 0, total: 0});
     this.setState(newState);
   }
 
@@ -339,9 +345,11 @@ export default class UserInput extends React.Component {
               nextStep = {this.nextStep}
               prevStep = {this.prevStep}
               changeNames = {this.changeNames}
+              changeCheck = {this.changeCheck}
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}
+              userSearch = {this.userSearch}
               DetailedSplit = {DetailedSplit}
             />
           </div>
