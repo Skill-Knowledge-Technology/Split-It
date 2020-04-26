@@ -20,10 +20,13 @@ export default class Step3Detailed extends React.Component {
         }
         valuesSoFar[value] = true;
       }
-      if (found === true){
+      // Check For Users Found
+      var findAll = this.props.checkUsers();
+
+      if (found){
         alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
       }
-      else{
+      else if (!found && findAll){
         this.props.nextStep();
       }
     }
@@ -34,7 +37,7 @@ export default class Step3Detailed extends React.Component {
     this.props.prevStep();
   };
 
-  show = input => e =>{
+  show = input => e => {
     e.preventDefault();
     input.names.map((list) => (
       console.log(list)
