@@ -29,7 +29,6 @@ class App extends React.Component {
       name: "",
       email: "",
       password: "",
-
       balance: "",
       errors: [],
       isAuthenticated: false,
