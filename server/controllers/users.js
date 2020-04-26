@@ -45,7 +45,7 @@ const transferUserBalance = (req, res, next) => {
     .catch(error => next(error))
 }
 
-const getUserFriends = (req, res, next) => {
+/*const getUserFriends = (req, res, next) => {
     console.log('hit getUserFriend worked');
     return UserServices.findUserFriends(req.params.userId)
         .then((friends) => {
@@ -62,7 +62,7 @@ const addToUserFriends = (req,res,next) =>{
             res.json(friends) 
         })
         .catch(error => next(error))
-}
+}*/
 
 const login = async (req, res, next) => {
     // we are able to get the userID and username because 
@@ -103,8 +103,8 @@ module.exports = {
     getUserBalance,
     addToUserBalance,
     transferUserBalance,
-    addToUserFriends,
-    getUserFriends,
+    //addToUserFriends,
+    //getUserFriends,
     register,
     login
 
