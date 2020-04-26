@@ -11,6 +11,7 @@ export default class Step3 extends React.Component {
       var array = this.props.Camera.names;
       var found = false;
       var valuesSoFar = Object.create(null);
+      // Check For Unique Names
       for (var i = 0; i < array.length; ++i){
         var value = array[i].name;
         if (value in valuesSoFar){
@@ -19,10 +20,13 @@ export default class Step3 extends React.Component {
         }
         valuesSoFar[value] = true;
       }
-      if (found === true){
+      // Check For Users Found
+      var findAll = this.props.checkUsers();
+
+      if (found){
         alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
       }
-      else{
+      else if (!found && findAll){
         this.props.nextStep();
       }
     }
