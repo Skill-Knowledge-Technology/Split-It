@@ -127,7 +127,7 @@ export default class Step2 extends React.Component {
                   </button>
                 </div>
                 <div className = "col s6">
-                  <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} ></img>
+                  <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} alt= "Receipt"/>
                 </div>
               </div>
               <hr/>
