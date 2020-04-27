@@ -122,7 +122,7 @@ class App extends React.Component {
                 <Route path="/Register" component={Register} />
                 <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
                 <Route path="/Camera" render={ (props) => <Camera {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
-                <Route path="/UserInput" component={UserInput} />
+                <Route path="/UserInput" render={ (props) => <UserInput {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
                 <Route path="/AboutUs" component={AboutUs} />
                 <Route path="/Maps" component={Maps} />
                 <Route path="/Test" component={Test} />

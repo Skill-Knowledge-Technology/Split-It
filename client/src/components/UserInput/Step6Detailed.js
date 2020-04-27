@@ -1,4 +1,5 @@
 import React from 'react';
+import API from '../../utils/api';
 import Autocomplete from 'react-google-autocomplete';
 import M from 'materialize-css'
 
@@ -23,7 +24,16 @@ export default class Step6Detailed extends React.Component {
 
   save = e => {
     e.preventDefault();
-    console.log(this.props)
+    API.createTransaction({
+      ownerID: this.props.Owner.ownerID,
+      total: this.props.DetailedSplit.total,
+    })
+      .then(() => {
+        window.location.href = '/';
+      })
+      .catch((error) => {
+        console.log("saveTrans: " + error)
+      })
   }
 
   selectPlace = (place) => {   
@@ -41,7 +51,7 @@ export default class Step6Detailed extends React.Component {
   }
 
   render(){ 
-    const { DetailedSplit } = this.props;
+    const { DetailedSplit, Owner } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -83,11 +93,13 @@ export default class Step6Detailed extends React.Component {
                 </tbody>
               </table>
               <br/>
-              {/* Modal Trigger */}
+              { Owner.isAuthenticated && (
+              // Modal Trigger
               <button className="waves-effect waves-light btn modal-trigger float-right" data-target="modal1">
                 Save
                 <i className="material-icons right">save</i>
               </button>
+              )}
               {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(DetailedSplit)}>
@@ -97,7 +109,8 @@ export default class Step6Detailed extends React.Component {
             </div>
           </div>
         </div>
-        {/* Modal Structure */}
+        { Owner.isAuthenticated && (
+        // Modal Structure
         <div ref={Modal => {this.Modal = Modal}} id="modal1" className="modal">
           <div className="modal-content">
             <h4>Confirmation Page</h4>
@@ -148,6 +161,7 @@ export default class Step6Detailed extends React.Component {
             </button>
           </div>
         </div>
+        )}
       </div>
     );
   }

@@ -26,6 +26,7 @@ export default class UserInput extends React.Component {
       names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
       orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
       ownerID: this.props.ownerID,
+      isAuthenticated: this.props.isAuthenticated,
       latitude: 0,
       longitude: 0,
       address: '',
@@ -326,9 +327,11 @@ export default class UserInput extends React.Component {
   render() {
     const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
+    const { ownerID, isAuthenticated } = this.state;
     const EZSplit = { totalPeople, EZcost, EZtotal };
     const { subtotal, tax, taxPercent, total, names, orders} = this.state;
     const DetailedSplit = { subtotal, tax, taxPercent, total, names, orders};
+    const Owner = { ownerID, isAuthenticated };
 
     switch (currentStep){
       case 1:
@@ -398,6 +401,7 @@ export default class UserInput extends React.Component {
               userSearch = {this.userSearch}
               checkUsers = {this.checkUsers}
               DetailedSplit = {DetailedSplit}
+              Owner = {Owner}
             />
           </div>
         );
@@ -436,6 +440,7 @@ export default class UserInput extends React.Component {
               resetNamePayment = {this.resetNamePayment}
               saveLocation = {this.saveLocation}
               DetailedSplit = {DetailedSplit}
+              Owner = {Owner}
             />
           </div>
         );

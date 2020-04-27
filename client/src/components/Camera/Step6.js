@@ -1,6 +1,5 @@
 import React from 'react';
 import API from '../../utils/api';
-import { Redirect } from 'react-router-dom';
 import Autocomplete from 'react-google-autocomplete';
 import M from 'materialize-css'
 
