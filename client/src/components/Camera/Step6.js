@@ -30,6 +30,7 @@ export default class Step6 extends React.Component {
       total: this.props.Camera.total,
     })
       .then(() => {
+        alert("Saved!");
         window.location.href = '/';
       })
       .catch((error) => {

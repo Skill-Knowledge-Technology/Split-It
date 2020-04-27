@@ -448,7 +448,6 @@ export default class Camera extends React.Component {
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}
-              userSearch = {this.userSearch}
               checkUsers = {this.checkUsers}
               Camera = {Camera}
               Owner = {Owner}

@@ -58,7 +58,7 @@ export default class Step3Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-            <table className="highlight centered">
+              <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Number of People</th>

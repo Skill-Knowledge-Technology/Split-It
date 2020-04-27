@@ -29,6 +29,7 @@ export default class Step6Detailed extends React.Component {
       total: this.props.DetailedSplit.total,
     })
       .then(() => {
+        alert("Saved!");
         window.location.href = '/';
       })
       .catch((error) => {

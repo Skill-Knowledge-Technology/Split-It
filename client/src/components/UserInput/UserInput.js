@@ -171,6 +171,15 @@ export default class UserInput extends React.Component {
     }
   }
 
+  changeEZNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+    if(e.target.value !== '') {
+      this.userSearch(index);
+    }
+  }
+
   setNames = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
@@ -212,6 +221,17 @@ export default class UserInput extends React.Component {
     var size = this.state.names.length;
     for(var i = 0; i < size; i++){
       if(this.state.names[i].check === true && this.state.names[i].found === false){
+        alert(this.state.names[i].name + " Is Not A User!");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkEZUsers = () => {
+    var size = this.state.names.length;
+    for(var i = 0; i < size; i++){
+      if(this.state.names[i].found === false){
         alert(this.state.names[i].name + " Is Not A User!");
         return false;
       }
@@ -327,9 +347,9 @@ export default class UserInput extends React.Component {
   render() {
     const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
-    const { ownerID, isAuthenticated } = this.state;
-    const EZSplit = { totalPeople, EZcost, EZtotal };
     const { subtotal, tax, taxPercent, total, names, orders} = this.state;
+    const { ownerID, isAuthenticated } = this.state;
+    const EZSplit = { totalPeople, EZcost, EZtotal, names };
     const DetailedSplit = { subtotal, tax, taxPercent, total, names, orders};
     const Owner = { ownerID, isAuthenticated };
 
@@ -360,7 +380,13 @@ export default class UserInput extends React.Component {
           <div className = "container">
             <Step3EZ
               prevStep = {this.prevStep}
+              changeEZNames = {this.changeEZNames}
+              removeNameSpecificRow = {this.removeNameSpecificRow}
+              addNameRow = {this.addNameRow}
+              setNames = {this.setNames}
+              checkEZUsers = {this.checkEZUsers}
               EZSplit = {EZSplit}
+              Owner = {Owner}
             />
           </div>
         );
@@ -398,7 +424,6 @@ export default class UserInput extends React.Component {
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}
-              userSearch = {this.userSearch}
               checkUsers = {this.checkUsers}
               DetailedSplit = {DetailedSplit}
               Owner = {Owner}
