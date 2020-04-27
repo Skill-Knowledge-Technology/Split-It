@@ -135,7 +135,7 @@ export default class Step6 extends React.Component {
               <div className="row">
                 <div className="input-field col s12">
                   <i className="material-icons prefix">add_location</i>
-                  <Autocomplete style={{width: '90%', display:'inline'}} onPlaceSelected={this.selectPlace} types={['establishment']} componentRestrictions={{country: "us"}}/>
+                  <Autocomplete style={{width: '90%', display:'inline'}} onPlaceSelected={this.selectPlace} types={['address']} componentRestrictions={{country: "us"}}/>
                 </div>
               </div>
             </form>
