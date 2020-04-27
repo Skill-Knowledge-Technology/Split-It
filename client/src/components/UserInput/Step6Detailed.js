@@ -10,7 +10,7 @@ export default class Step6Detailed extends React.Component {
 
   save = e => {
     e.preventDefault();
-    alert("Saved");
+    console.log(this.props)
   }
 
   show = input => e =>{

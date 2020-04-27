@@ -25,6 +25,7 @@ export default class UserInput extends React.Component {
         total: 0,
         names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
         orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
+        ownerID: this.props.ownerID
     };
   }
 

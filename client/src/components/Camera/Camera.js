@@ -26,6 +26,7 @@ export default class Camera extends React.Component {
       failAttempts: 0,
       found: false,
       loading: false,
+      ownerID: this.props.ownerID
     };
   }
 
@@ -381,8 +382,8 @@ export default class Camera extends React.Component {
   }
 
   render() {
-    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
-    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
+    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading, ownerID} = this.state;
+    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found, ownerID };
 
     switch (currentStep){
       case 1:

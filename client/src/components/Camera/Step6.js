@@ -1,4 +1,7 @@
 import React from 'react';
+import Camera from './Camera';
+import API from '../../utils/api';
+import { Redirect } from 'react-router-dom';
 
 export default class Step6 extends React.Component {
   back = e => {
@@ -10,7 +13,19 @@ export default class Step6 extends React.Component {
 
   save = e => {
     e.preventDefault();
-    alert("Saved");
+    // console.log("total: " + this.props.Camera.total);
+    // console.log("ownerID: " + this.props.Camera.ownerID);
+    API.createTransaction({
+      ownerID: this.props.Camera.ownerID,
+      total: this.props.Camera.total
+    })
+      .then(() => {
+        console.log("transaction created");
+        // return <Redirect to="/"/>
+      })
+      .catch((error) => {
+        console.log("saveTrans: " + error)
+      })
   }
 
   show = input => e =>{

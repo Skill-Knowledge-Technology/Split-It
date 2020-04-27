@@ -122,7 +122,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/Register" component={Register} />
                 <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
-                <Route path="/Camera" component={Camera} />
+                <Route path="/Camera/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) : 
+                  ((props) => <Camera {...props} ownerID={this.state.userID}/>)} />
                 <Route path="/UserInput" component={UserInput} />
                 <Route path="/AboutUs" component={AboutUs} />
                 <Route path="/Maps" component={Maps} />

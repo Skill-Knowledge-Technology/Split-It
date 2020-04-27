@@ -11,8 +11,8 @@ const getTransId = (req, res, next) => {
 }
 const createTransaction = async (req, res, next) => {
     let total = req.body.total;
-    let ownerId = req.body.ownerID;
-    const transaction = {total,ownerId};
+    let ownerID = req.body.ownerID;
+    const transaction = {total,ownerID};
     try {
         const createTransaction = TransactionServices.createTransaction(transaction)
         res.json(createTransaction)
