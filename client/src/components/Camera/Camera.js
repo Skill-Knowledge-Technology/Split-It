@@ -26,7 +26,7 @@ export default class Camera extends React.Component {
       failAttempts: 0,
       found: false,
       loading: false,
-      ownerID: this.props.ownerID
+      ownerID: this.props.ownerID,
       latitude: 0,
       longitude: 0,
       address: '',
