@@ -1,4 +1,5 @@
 import React from 'react';
+import Autocomplete from 'react-google-autocomplete';
 import M from 'materialize-css'
 
 export default class Step6 extends React.Component {
@@ -23,6 +24,13 @@ export default class Step6 extends React.Component {
   save = e => {
     e.preventDefault();
     alert("Saved");
+  }
+
+  selectPlace = (place) => {   
+    var latitude = place.geometry.location.lat();
+    var longitude = place.geometry.location.lng();
+    var address = place.formatted_address;
+    this.props.saveLocation(latitude,longitude,address);
   }
 
   show = input => e =>{
@@ -114,7 +122,7 @@ export default class Step6 extends React.Component {
                     </td>
                     <td>
                       <label>
-                        <input type="checkbox" className="filled-in"
+                        <input readOnly type="checkbox" className="filled-in"
                           checked={list.check}/>
                         <span></span>
                       </label>
@@ -127,9 +135,7 @@ export default class Step6 extends React.Component {
               <div className="row">
                 <div className="input-field col s12">
                   <i className="material-icons prefix">add_location</i>
-                  <input
-                    placeholder="Insert Location (Optional)"
-                  />
+                  <Autocomplete style={{width: '90%', display:'inline'}} onPlaceSelected={this.selectPlace} types={['establishment']} componentRestrictions={{country: "us"}}/>
                 </div>
               </div>
             </form>

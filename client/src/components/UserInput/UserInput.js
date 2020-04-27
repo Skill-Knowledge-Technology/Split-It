@@ -304,7 +304,7 @@ export default class UserInput extends React.Component {
       tax = (Math.round((+tax + +newState.names[i].tax) *1e12)/1e12);
       total = (Math.round((+total + +newState.names[i].total) *1e12)/1e12);
     }
-    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    newState.names.push({number: `Total`, name: 'Total', check: false, found: false, subtotal: subtotal, tax: tax, total: total});
     this.setState(newState);
   }
 
@@ -318,8 +318,8 @@ export default class UserInput extends React.Component {
     this.setState({
       latitude: latitude,
       longitude: longitude,
-      address: longitude,
-      })
+      address: address,
+    })
   }
 
   render() {
