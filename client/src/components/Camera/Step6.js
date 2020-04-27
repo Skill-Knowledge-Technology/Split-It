@@ -13,6 +13,7 @@ export default class Step6 extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
+    M.AutoInit();
   }
 
   back = e => {
@@ -92,7 +93,9 @@ export default class Step6 extends React.Component {
                   ))}
                 </tbody>
               </table>
-              <br/>
+              <div className ="row">
+                <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} alt= "Receipt"/>
+              </div>
               { Owner.isAuthenticated && (
               // Modal Trigger
               <button className="waves-effect waves-light btn modal-trigger float-right" data-target="modal1">

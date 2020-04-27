@@ -15,7 +15,7 @@ const ProfileLogOutRedirect = ({ userID, name, handleUserLogOut }) => {
         <Link to="/" onClick={handleUserLogOut} className="waves-effect">Logout</Link>
       </li>
       <li>
-        <Link to={`/UserInput`} className="waves-effect">Logged In Camera</Link>
+        <Link to={`/UserInput`} className="waves-effect">Logged In User Input</Link>
       </li>
       <li>
         <Link to={`/Camera`} className="waves-effect">Logged In Camera</Link>
