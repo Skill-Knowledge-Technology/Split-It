@@ -1,6 +1,19 @@
 import React from 'react';
+import Autocomplete from 'react-google-autocomplete';
+import M from 'materialize-css'
 
 export default class Step6Detailed extends React.Component {
+  componentDidMount() {
+    const options = {
+      inDuration: 250,
+      outDuration: 250,
+      opacity: 0.5,
+      startingTop: "4%",
+      endingTop: "10%"
+    };
+    M.Modal.init(this.Modal, options);
+  }
+
   back = e => {
     e.preventDefault();
     this.props.resetNameTotal();
@@ -11,6 +24,13 @@ export default class Step6Detailed extends React.Component {
   save = e => {
     e.preventDefault();
     alert("Saved");
+  }
+
+  selectPlace = (place) => {   
+    var latitude = place.geometry.location.lat();
+    var longitude = place.geometry.location.lng();
+    var address = place.formatted_address;
+    this.props.saveLocation(latitude,longitude,address);
   }
 
   show = input => e =>{
@@ -63,8 +83,8 @@ export default class Step6Detailed extends React.Component {
                 </tbody>
               </table>
               <br/>
-              <button className="btn waves-effect waves-light float-right"
-                type="submit" name="action" onClick = {this.save}>
+              {/* Modal Trigger */}
+              <button className="waves-effect waves-light btn modal-trigger float-right" data-target="modal1">
                 Save
                 <i className="material-icons right">save</i>
               </button>
@@ -75,6 +95,57 @@ export default class Step6Detailed extends React.Component {
                 <i className="material-icons right">navigate_next</i>
               </button> */}
             </div>
+          </div>
+        </div>
+        {/* Modal Structure */}
+        <div ref={Modal => {this.Modal = Modal}} id="modal1" className="modal">
+          <div className="modal-content">
+            <h4>Confirmation Page</h4>
+            <hr/>
+            <h5>The Following Information Will Be Saved</h5>
+            <table className="highlight centered">
+              <thead>
+                <tr>
+                  <th>Names</th>
+                  <th>Total</th>
+                  <th>Saved To User</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DetailedSplit.names.map((list, index) => (
+                  <tr key = {index}>
+                    <td>
+                      {list.name}
+                    </td>
+                    <td>
+                      ${list.total}
+                    </td>
+                    <td>
+                      <label>
+                        <input readOnly type="checkbox" className="filled-in"
+                          checked={list.check}/>
+                        <span></span>
+                      </label>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <form>
+              <div className="row">
+                <div className="input-field col s12">
+                  <i className="material-icons prefix">add_location</i>
+                  <Autocomplete style={{width: '90%', display:'inline'}} onPlaceSelected={this.selectPlace} types={['address']} componentRestrictions={{country: "us"}}/>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button className="modal-close btn waves-effect waves-light float-right"
+              type="submit" name="action" onClick = {this.save}>
+              Confirm
+              <i className="material-icons right">save</i>
+            </button>
           </div>
         </div>
       </div>

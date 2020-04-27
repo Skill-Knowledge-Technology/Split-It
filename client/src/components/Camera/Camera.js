@@ -26,6 +26,9 @@ export default class Camera extends React.Component {
       failAttempts: 0,
       found: false,
       loading: false,
+      latitude: 0,
+      longitude: 0,
+      address: '',
     };
   }
 
@@ -370,7 +373,7 @@ export default class Camera extends React.Component {
       tax = (Math.round((+tax + +newState.names[i].tax) *1e12)/1e12);
       total = (Math.round((+total + +newState.names[i].total) *1e12)/1e12);
     }
-    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    newState.names.push({number: `Total`, name: 'Total', check: false, found: false, subtotal: subtotal, tax: tax, total: total});
     this.setState(newState);
   }
 
@@ -378,6 +381,14 @@ export default class Camera extends React.Component {
     var newState = Object.assign({}, this.state);
     newState.names.pop();
     this.setState(newState);
+  }
+
+  saveLocation = (latitude,longitude,address) => {
+    this.setState({
+      latitude: latitude,
+      longitude: longitude,
+      address: address,
+    })
   }
 
   render() {
@@ -472,6 +483,7 @@ export default class Camera extends React.Component {
               prevStep = {this.prevStep}
               resetNameTotal = {this.resetNameTotal}
               resetNamePayment = {this.resetNamePayment}
+              saveLocation = {this.saveLocation}
               Camera = {Camera}
             />
           </div>
