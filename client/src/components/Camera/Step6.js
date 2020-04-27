@@ -29,13 +29,13 @@ export default class Step6 extends React.Component {
       ownerID: this.props.Owner.ownerID,
       total: this.props.Camera.total,
     })
-      .then(() => {
-        alert("Saved!");
-        window.location.href = '/';
-      })
-      .catch((error) => {
-        console.log("saveTrans: " + error)
-      })
+    .then(() => {
+      alert("Saved!");
+      window.location.href = '/';
+    })
+    .catch((error) => {
+      console.log("saveTrans: " + error)
+    })
   }
 
   selectPlace = (place) => {   

@@ -3,34 +3,34 @@
 import axios from "axios";
 
 export default {
-    saveUser: function(userData) {
-        return axios.post("/api/users/register", userData);
-    },
-    loginUser: function(userData) {
-        return axios.post("/api/users/login", userData);
-    },
-    findUserBalance: function(userData) {
-        return axios.get(`/api/users/getBalance/${userData}`)
-    },
-    setAuthToken: function(token) {
-        if (token) {
-            axios.defaults.headers.common['Authorization'] = token
-        }
-        else {
-            delete axios.defaults.headers.common['Authorization']
-        }
-    },
-
-    logoutUser: function() {
-        localStorage.removeItem("jwtToken")
-    }, 
-
-    searchByUsername: function(username) {
-        return axios.get(`/api/users/findByUsername/${username}`);
-    },
-
-
-    createTransaction: function(transData) {
-        return axios.post("/api/transactions/createTransaction", transData);
+  saveUser: function(userData) {
+    return axios.post("/api/users/register", userData);
+  },
+  loginUser: function(userData) {
+    return axios.post("/api/users/login", userData);
+  },
+  findUserBalance: function(userData) {
+    return axios.get(`/api/users/getBalance/${userData}`)
+  },
+  setAuthToken: function(token) {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = token
     }
+    else {
+      delete axios.defaults.headers.common['Authorization']
+    }
+  },
+  logoutUser: function() {
+    localStorage.removeItem("jwtToken")
+  }, 
+  searchByUsername: function(username) {
+    return axios.get(`/api/users/findByUsername/${username}`);
+  },
+  createTransaction: function(transData) {
+    return axios.post("/api/transactions/createTransaction", transData);
+  },
+  addParticipant: function(transData){
+    return axios.post("/api/participants/addParticipant", transData);
+  }
+
 };

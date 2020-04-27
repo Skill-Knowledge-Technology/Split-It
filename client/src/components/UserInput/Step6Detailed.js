@@ -28,13 +28,17 @@ export default class Step6Detailed extends React.Component {
       ownerID: this.props.Owner.ownerID,
       total: this.props.DetailedSplit.total,
     })
-      .then(() => {
-        alert("Saved!");
-        window.location.href = '/';
-      })
-      .catch((error) => {
-        console.log("saveTrans: " + error)
-      })
+    .then((res) => {
+      console.log(res);
+      // API.addParticipant({
+        
+      // })
+      // alert("Saved!");
+      // window.location.href = '/';
+    })
+    .catch((error) => {
+      console.log("saveTrans: " + error)
+    })
   }
 
   selectPlace = (place) => {   
