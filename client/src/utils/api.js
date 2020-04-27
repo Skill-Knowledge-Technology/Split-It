@@ -7,7 +7,7 @@ export default {
         return axios.post("/api/users/register", userData);
     },
     loginUser: function(userData) {
-        return axios.post("api/users/login", userData);
+        return axios.post("/api/users/login", userData);
     },
     findUserBalance: function(userData) {
         return axios.get(`/api/users/getBalance/${userData}`)
@@ -27,5 +27,10 @@ export default {
 
     searchByUsername: function(username) {
         return axios.get(`/api/users/findByUsername/${username}`);
+    },
+
+
+    createTransaction: function(transData) {
+        return axios.post("/api/transactions/createTransaction", transData);
     }
 };

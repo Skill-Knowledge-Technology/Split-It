@@ -5,15 +5,19 @@ const findTransaction = async (id) => {
     console.log(Transaction + 'found');
     return Transaction;
 }
+
 const createTransaction = async (data)=> {
+    try {
     const newTransaction = await db.Transaction.create({
         total: data.total,
-        userID: data.ownerId,
-        date: Date.now()
+        ownerID: data.ownerID
     });
-    console.log("service has creaetd a transaction owned by user " + newTransaction.userID);
+    console.log("service has created a transaction owned by user " + newTransaction.ownerID);
     return newTransaction;
-
+    }
+    catch (error) {
+        return console.log(error);
+    }
 }
 
 
