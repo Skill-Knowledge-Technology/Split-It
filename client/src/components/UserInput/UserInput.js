@@ -15,16 +15,19 @@ export default class UserInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        currentStep: 1,
-        totalPeople: '',
-        EZcost: '',
-        EZtotal: '',
-        subtotal: 0,
-        tax: '',
-        taxPercent: 0,
-        total: 0,
-        names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
-        orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
+      currentStep: 1,
+      totalPeople: '',
+      EZcost: '',
+      EZtotal: '',
+      subtotal: 0,
+      tax: '',
+      taxPercent: 0,
+      total: 0,
+      names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
+      orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
+      latitude: 0,
+      longitude: 0,
+      address: '',
     };
   }
 
@@ -311,6 +314,14 @@ export default class UserInput extends React.Component {
     this.setState(newState);
   }
 
+  saveLocation = (latitude,longitude,address) => {
+    this.setState({
+      latitude: latitude,
+      longitude: longitude,
+      address: longitude,
+      })
+  }
+
   render() {
     const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
@@ -422,6 +433,7 @@ export default class UserInput extends React.Component {
               prevStep = {this.prevStep}
               resetNameTotal = {this.resetNameTotal}
               resetNamePayment = {this.resetNamePayment}
+              saveLocation = {this.saveLocation}
               DetailedSplit = {DetailedSplit}
             />
           </div>
