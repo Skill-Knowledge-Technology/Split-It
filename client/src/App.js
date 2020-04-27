@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom';
 import API from "./utils/api";
 import jwt_decode from "jwt-decode";
@@ -122,9 +121,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/Register" component={Register} />
                 <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
-                <Route path="/Camera/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) : 
-                  ((props) => <Camera {...props} ownerID={this.state.userID}/>)} />
-                <Route path="/UserInput" component={UserInput} />
+                <Route path="/Camera" render={ (props) => <Camera {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
+                <Route path="/UserInput" render={ (props) => <UserInput {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
                 <Route path="/AboutUs" component={AboutUs} />
                 <Route path="/Maps" component={Maps} />
                 <Route path="/Test" component={Test} />

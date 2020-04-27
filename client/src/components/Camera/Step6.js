@@ -1,6 +1,5 @@
 import React from 'react';
 import API from '../../utils/api';
-import { Redirect } from 'react-router-dom';
 import Autocomplete from 'react-google-autocomplete';
 import M from 'materialize-css'
 
@@ -14,6 +13,7 @@ export default class Step6 extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
+    M.AutoInit();
   }
 
   back = e => {
@@ -25,19 +25,17 @@ export default class Step6 extends React.Component {
 
   save = e => {
     e.preventDefault();
-    // console.log("total: " + this.props.Camera.total);
-    // console.log("ownerID: " + this.props.Camera.ownerID);
     API.createTransaction({
-      ownerID: this.props.Camera.ownerID,
-      total: this.props.Camera.total
+      ownerID: this.props.Owner.ownerID,
+      total: this.props.Camera.total,
     })
-      .then(() => {
-        console.log("transaction created");
-        // return <Redirect to="/"/>
-      })
-      .catch((error) => {
-        console.log("saveTrans: " + error)
-      })
+    .then(() => {
+      alert("Saved!");
+      window.location.href = '/';
+    })
+    .catch((error) => {
+      console.log("saveTrans: " + error)
+    })
   }
 
   selectPlace = (place) => {   
@@ -55,7 +53,7 @@ export default class Step6 extends React.Component {
   }
 
   render(){ 
-    const { Camera } = this.props;
+    const { Camera, Owner } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -96,12 +94,16 @@ export default class Step6 extends React.Component {
                   ))}
                 </tbody>
               </table>
-              <br/>
-              {/* Modal Trigger */}
+              <div className ="row">
+                <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} alt= "Receipt"/>
+              </div>
+              { Owner.isAuthenticated && (
+              // Modal Trigger
               <button className="waves-effect waves-light btn modal-trigger float-right" data-target="modal1">
                 Save
                 <i className="material-icons right">save</i>
               </button>
+              )}
               {/* <hr/>
               <button className="btn waves-effect waves-light float-right"
                 type="submit" name="action" onClick={this.show(Camera)}>
@@ -111,7 +113,8 @@ export default class Step6 extends React.Component {
             </div>
           </div>
         </div>
-        {/* Modal Structure */}
+        { Owner.isAuthenticated && (
+        // Modal Structure
         <div ref={Modal => {this.Modal = Modal}} id="modal1" className="modal">
           <div className="modal-content">
             <h4>Confirmation Page</h4>
@@ -162,6 +165,7 @@ export default class Step6 extends React.Component {
             </button>
           </div>
         </div>
+        )}
       </div>
     );
   }

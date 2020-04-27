@@ -27,6 +27,7 @@ export default class Camera extends React.Component {
       found: false,
       loading: false,
       ownerID: this.props.ownerID,
+      isAuthenticated: this.props.isAuthenticated,
       latitude: 0,
       longitude: 0,
       address: '',
@@ -393,8 +394,10 @@ export default class Camera extends React.Component {
   }
 
   render() {
-    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading, ownerID} = this.state;
-    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found, ownerID };
+    const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
+    const { ownerID, isAuthenticated } = this.state;
+    const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
+    const Owner = { ownerID, isAuthenticated };
 
     switch (currentStep){
       case 1:
@@ -445,9 +448,9 @@ export default class Camera extends React.Component {
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}
-              userSearch = {this.userSearch}
               checkUsers = {this.checkUsers}
               Camera = {Camera}
+              Owner = {Owner}
             />
           </div>
         );
@@ -486,6 +489,7 @@ export default class Camera extends React.Component {
               resetNamePayment = {this.resetNamePayment}
               saveLocation = {this.saveLocation}
               Camera = {Camera}
+              Owner = {Owner}
             />
           </div>
         );
