@@ -47,58 +47,50 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="loginbox">
-        <h4>
-          <u>Login</u>
-        </h4>
-        <form className="col s12">
-          <div className="row">
-            <div className="input-field col s12">
-              <i className="material-icons prefix">email</i>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter Email"
-                onChange={this.handleChange("email")}
-                className="validate"
-              />
-              <span
-                className="helper-text"
-                data-error="Invalid Email"
-                data-success="Valid"
-                onChange={this.handleChange("error")}
-              >
-                Please Enter a Valid Email
-              </span>
+      <div className="container">
+        <div className="row">
+          <div className="col s12 m12 l12">
+            <div className="card blue-grey darken-1">
+              <div className="card-content white-text">
+                <span className="card-title">Login</span>
+                <form>
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <i className="material-icons prefix">email</i>
+                      <label for="email" className="active">E-mail</label>
+                      <input id="email" type="email" placeholder="Enter Email" className="validate"
+                        onChange={this.handleChange("email")}/>
+                      <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange("error")}>
+                        Please Enter a Valid Email
+                      </span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <i className="material-icons prefix">lock</i>
+                      <label for="password" className="active">Password</label>
+                      <input id="password" type="password" placeholder="Enter Password" 
+                        onChange={this.handleChange("password")} className="validate"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div className="card-action">
+                <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleSubmit}>
+                  Login
+                  <i className="material-icons right">send</i>
+                </button>
+                { this.state.errors.length > 0 ?  
+                this.state.errors.map((error,index) => {
+                  return <li key={index}> {error} </li>
+                })
+                : 
+                <div></div>
+                } 
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <i className="material-icons prefix">lock</i>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter Password"
-                onChange={this.handleChange("password")}
-                className="validate"
-              />
-            </div>
-          </div>
-        </form>
-        <button
-          className="btn waves-effect waves-light"
-          type="submit"
-          name="action"
-          onClick={this.handleSubmit}
-        >
-          Login<i className="material-icons right">send</i>
-        </button>
-        <br></br>
-        { this.state.errors.length > 0 ?  this.state.errors.map((error,index) => {
-          return <li key={index}> {error} </li>
-        })
-        : <div></div>
-      } 
+        </div>
       </div>
     );
   }
