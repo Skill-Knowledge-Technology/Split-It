@@ -111,7 +111,7 @@ const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) =
 
 
 
-const addFriends = async (userId, friendsId) => {
+/*const addFriends = async (userId, friendsId) => {
     friendsId = parseInt(friendsId);
     console.log('friend to add ' + friendsId);
     if (friendsId == userId) {
@@ -151,7 +151,7 @@ const addFriends = async (userId, friendsId) => {
             console.log(err)
         )
     console.log('try add to friend');
-}
+}*/
 
 
 const findUserByUsername = async (username) => {
@@ -161,11 +161,11 @@ const findUserByUsername = async (username) => {
 
 }
 
-const findUserFriends = async (userID) => {
+/*const findUserFriends = async (userID) => {
     const User = await db.User.findByPk(userID);
     console.log('user found in services');
     return User.friends;
-}
+}*/
 
 
 const createUser = async (data) => {
@@ -199,8 +199,8 @@ module.exports = {
     addBalance,
     transferBalancetoUsers,
     findUser,
-    findUserFriends,
-    addFriends,
+    //findUserFriends,
+    //addFriends,
     createUser,
     generateHash,
     getJwtToken,

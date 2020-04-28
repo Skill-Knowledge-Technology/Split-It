@@ -31,7 +31,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                equals: 0 || 1 || 2
+                customValidator(value) {
+                    if (value !== 0 && value !== 1 && value !== 2) {
+                        throw new Error("status must be 0,1,or 2");
+                    }
+                }
             }
         }
     },

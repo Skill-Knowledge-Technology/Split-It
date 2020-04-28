@@ -31,6 +31,9 @@ export default {
   },
   addParticipant: function(transData){
     return axios.post("/api/participates/addParticipant", transData);
+  },
+  createFriendship: function(data) {
+    return axios.post("/api/friendships/createFriendship", data);
   }
 
 };

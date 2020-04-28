@@ -158,7 +158,7 @@ export default class Test extends React.Component {
             <a 
             className="waves-effect waves-light btn" 
             onClick={() => console.log("You hit Next")} 
-            disabled={this.state.allUsersFound == false}>Next</a>
+            disabled={this.state.allUsersFound === false}>Next</a>
           </div>
         </div>
       </div>
