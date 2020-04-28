@@ -1,8 +1,6 @@
 import React from "react";
 import "./Login.css";
-import API from "../../utils/api";
 import { withRouter } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 
 class Login extends React.Component {
   constructor(props) {
@@ -38,10 +36,10 @@ class Login extends React.Component {
   };
 
   handleRedirect = () => {
-    if (this.props.isAuthenticated == true) {
+    if (this.props.isAuthenticated) {
       return this.props.history.push("/");
     } else {
-      return this.props.history.push("/login");
+      return this.props.history.push("/Login");
     }
   };
 
@@ -57,7 +55,7 @@ class Login extends React.Component {
                   <div className="row">
                     <div className="input-field col s12">
                       <i className="material-icons prefix">email</i>
-                      <label for="email" className="active">E-mail</label>
+                      <label className="active">E-mail</label>
                       <input id="email" type="email" placeholder="Enter Email" className="validate"
                         onChange={this.handleChange("email")}/>
                       <span className="helper-text" data-error="Invalid Email" data-success="Valid" onChange={this.handleChange("error")}>
@@ -68,7 +66,7 @@ class Login extends React.Component {
                   <div className="row">
                     <div className="input-field col s12">
                       <i className="material-icons prefix">lock</i>
-                      <label for="password" className="active">Password</label>
+                      <label className="active">Password</label>
                       <input id="password" type="password" placeholder="Enter Password" 
                         onChange={this.handleChange("password")} className="validate"/>
                     </div>

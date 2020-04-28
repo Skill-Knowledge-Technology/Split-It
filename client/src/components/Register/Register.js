@@ -81,7 +81,7 @@ class Register extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="material-icons prefix">account_circle</i>
-                    <label for="username" className="active">Username</label>
+                    <label className="active">Username</label>
                     <input placeholder="Enter Username" id="username" type="text"
                       onChange={this.handleChange("username")}/>
                   </div>
@@ -89,7 +89,7 @@ class Register extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="material-icons prefix">email</i>
-                    <label for="email" className="active">E-mail</label>
+                    <label className="active">E-mail</label>
                     <input id="email" type="email" placeholder="Enter Email" className="validate"
                       onChange={this.handleChange("email")}/>
                     <span className="helper-text" data-error="Invalid Email" data-success="Valid">
@@ -100,7 +100,7 @@ class Register extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="material-icons prefix">lock</i>
-                    <label for="password" className="active">Password</label>
+                    <label className="active">Password</label>
                     <input id="password" type="password" placeholder="Enter Password"
                       onChange={this.handleChange("password")}/>
                   </div>
@@ -108,7 +108,7 @@ class Register extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="material-icons prefix">lock</i>
-                    <label for="password2" className="active">Confirm Password</label>
+                    <label className="active">Confirm Password</label>
                     <input id="password2" type="password" placeholder="Reenter Password"
                       onChange={this.handleChange("password2")}/>
                   </div>

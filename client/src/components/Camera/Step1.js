@@ -43,13 +43,13 @@ export default class Step1 extends React.Component {
                     </div>
                   </div>
                   <div className="card-image">
-                    <img className="materialboxed" width="250" data-caption="Receipt" src={Camera.uploads} ></img>
+                    <img className="materialboxed" width="250" data-caption="Receipt" src={Camera.uploads} alt=""></img>
                   </div>
                   <br/>
                   {!Camera.found && 
                   (
                     <div className = "center-align">
-                      <a className="btn-large" type="submit" onClick={this.generateText} disabled={loading}>
+                      <a href="#click" className="btn-large" type="submit" onClick={this.generateText} disabled={loading || !Camera.uploads}>
                         { loading && 
                         <span> Generating
                           <div className="preloader-wrapper small active">
