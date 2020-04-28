@@ -10,7 +10,10 @@ const createTransaction = async (data)=> {
     try {
     const newTransaction = await db.Transaction.create({
         total: data.total,
-        ownerID: data.ownerID
+        ownerID: data.ownerID,
+        address: data.address,
+        latitude: data.latitude,
+        longitude: data.longitude
     });
     console.log("service has created a transaction owned by user " + newTransaction.ownerID);
     return newTransaction;
