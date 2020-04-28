@@ -16,7 +16,7 @@ const createFriendship = async (req, res) => {
 
 }
 const getFriendship = async (req, res, next) => {
-    return FriendshipServices.findFriendship(req.params.requesterId,req.params.addresseeId)
+    return FriendshipServices.findFriendship(req.params.requesterId, req.params.addresseeId)
         .then((friendship) => {
             res.json(friendship)
         })
@@ -24,7 +24,19 @@ const getFriendship = async (req, res, next) => {
 }
 
 
+const getMyFriendRequests = async (req, res) => {
+    return FriendshipServices.findFriendRequests(req.params.userId)
+        .then((friendRequests) => {
+            res.json(friendRequests)
+        })
+        .catch((error) => {
+            console.log("controller error: " + error)
+        })
+}
+
+
 module.exports = {
     createFriendship,
-    getFriendship
+    getFriendship,
+    getMyFriendRequests
 }
