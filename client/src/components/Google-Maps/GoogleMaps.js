@@ -6,13 +6,13 @@ export class GoogleMaps extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        currentLocation: {
-          lat: 40.7831,
-          lng: -73.9712
-        },
-        width: props.width,
-        height: props.height,
-    }
+      currentLocation: {
+        lat: 40.7831,
+        lng: -73.9712
+      },
+      width: props.width,
+      height: props.height,
+  }
   }
 
   //Runs when component mounts
