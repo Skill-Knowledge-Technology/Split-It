@@ -42,7 +42,7 @@ export default class Step1 extends React.Component {
                       <input className="file-path validate" type="text"/>
                     </div>
                   </div>
-                  <div className="container">
+                  <div className="card-image">
                     <img className="materialboxed" width="250" data-caption="Receipt" src={Camera.uploads} ></img>
                   </div>
                   <br/>

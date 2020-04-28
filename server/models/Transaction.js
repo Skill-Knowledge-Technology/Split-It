@@ -9,17 +9,11 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        date: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
+
         total: {
             // int with 2 decimal places
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
-        },
-        participants: {
-            type: DataTypes.ARRAY(DataTypes.INTEGER)
         },
 
         ownerID: {
@@ -30,6 +24,21 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'userID'
             }
         },
+
+        address: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+
+        latitude: {
+            type: DataTypes.DOUBLE,
+            allowNull: true
+        },
+
+        longitude: {
+            type: DataTypes.DOUBLE,
+            allowNull: true
+        }
     },
         {
             freezeTableName: true,

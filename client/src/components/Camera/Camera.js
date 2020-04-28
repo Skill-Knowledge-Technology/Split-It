@@ -8,6 +8,7 @@ import Step4 from './Step4'
 import Step5 from './Step5'
 import Step6 from './Step6'
 import WrongPage from './WrongPage'
+import API from "../../utils/api";
 
 export default class Camera extends React.Component {
   constructor(props) {
@@ -21,10 +22,15 @@ export default class Camera extends React.Component {
       taxPercent: 0,
       total: 0,
       orders: [],
-      names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
+      names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
       failAttempts: 0,
       found: false,
       loading: false,
+      ownerID: this.props.ownerID,
+      isAuthenticated: this.props.isAuthenticated,
+      latitude: 0,
+      longitude: 0,
+      address: '',
     };
   }
 
@@ -133,7 +139,7 @@ export default class Camera extends React.Component {
     var text = this.state.text;
     var number = 1;
     var tempOrders = [];
-    {text.split('\n').map((item, i) => {
+    text.split('\n').map((item) => {
       var array = item.split(' ');
       // console.log(array);
       // This searches for tax
@@ -149,7 +155,7 @@ export default class Camera extends React.Component {
         tempOrders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
         number++;
       }
-    })}
+    })
     this.setState({ orders: tempOrders })
   }
 
@@ -229,6 +235,9 @@ export default class Camera extends React.Component {
     var newState = Object.assign({}, this.state);
     newState.names[index].name = e.target.value;
     this.setState(newState);
+    if(newState.names[index].check && e.target.value !== '') {
+      this.userSearch(index);
+    }
   }
 
   setNames = () => {
@@ -240,6 +249,43 @@ export default class Camera extends React.Component {
         this.setState(newState);
       }
     }
+  }
+
+  changeCheck = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].check = e.target.checked;
+    this.setState(newState);
+    if(newState.names[index].check && newState.names[index].name !== '') {
+      this.userSearch(index);
+    }
+  }
+
+  userSearch = (index) => {
+    var newState = Object.assign({}, this.state);
+    var username = this.state.names[index].name;
+    API.searchByUsername(username)
+      .then((res) => {
+      if (res.data !== null) {
+        // console.log("found");
+        newState.names[index].found = true;
+      }
+      else {
+        // console.log("not found");
+        newState.names[index].found = false;
+      }
+    })
+    this.setState(newState);
+  }
+
+  checkUsers = () => {
+    var size = this.state.names.length;
+    for(var i = 0; i < size; i++){
+      if(this.state.names[i].check === true && this.state.names[i].found === false){
+        alert(this.state.names[i].name + " Is Not A User!");
+        return false;
+      }
+    }
+    return true;
   }
 
   removeNameSpecificRow = (index) => () => {
@@ -255,7 +301,7 @@ export default class Camera extends React.Component {
   addNameRow = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
-    newState.names.push({number: `Person ${size + 1}`, name: '', subtotal: 0, tax: 0, total: 0});
+    newState.names.push({number: `Person ${size + 1}`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0});
     this.setState(newState);
   }
 
@@ -329,7 +375,7 @@ export default class Camera extends React.Component {
       tax = (Math.round((+tax + +newState.names[i].tax) *1e12)/1e12);
       total = (Math.round((+total + +newState.names[i].total) *1e12)/1e12);
     }
-    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    newState.names.push({number: `Total`, name: 'Total', check: false, found: false, subtotal: subtotal, tax: tax, total: total});
     this.setState(newState);
   }
 
@@ -339,9 +385,19 @@ export default class Camera extends React.Component {
     this.setState(newState);
   }
 
+  saveLocation = (latitude,longitude,address) => {
+    this.setState({
+      latitude: latitude,
+      longitude: longitude,
+      address: address,
+    })
+  }
+
   render() {
     const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
+    const { ownerID, isAuthenticated } = this.state;
     const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
+    const Owner = { ownerID, isAuthenticated };
 
     switch (currentStep){
       case 1:
@@ -388,10 +444,13 @@ export default class Camera extends React.Component {
               prevStep = {this.prevStep}
               nextStep = {this.nextStep}
               changeNames = {this.changeNames}
+              changeCheck = {this.changeCheck}
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}
+              checkUsers = {this.checkUsers}
               Camera = {Camera}
+              Owner = {Owner}
             />
           </div>
         );
@@ -428,7 +487,9 @@ export default class Camera extends React.Component {
               prevStep = {this.prevStep}
               resetNameTotal = {this.resetNameTotal}
               resetNamePayment = {this.resetNamePayment}
+              saveLocation = {this.saveLocation}
               Camera = {Camera}
+              Owner = {Owner}
             />
           </div>
         );

@@ -11,6 +11,7 @@ export default class Step3 extends React.Component {
       var array = this.props.Camera.names;
       var found = false;
       var valuesSoFar = Object.create(null);
+      // Check For Unique Names
       for (var i = 0; i < array.length; ++i){
         var value = array[i].name;
         if (value in valuesSoFar){
@@ -19,10 +20,13 @@ export default class Step3 extends React.Component {
         }
         valuesSoFar[value] = true;
       }
-      if (found === true){
+      // Check For Users Found
+      var findAll = this.props.checkUsers();
+
+      if (found){
         alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
       }
-      else{
+      else if (!found && findAll){
         this.props.nextStep();
       }
     }
@@ -41,7 +45,7 @@ export default class Step3 extends React.Component {
   }
 
   render(){ 
-    const { Camera, changeNames, removeNameSpecificRow, addNameRow} = this.props;
+    const { Camera, Owner, changeNames, changeCheck, removeNameSpecificRow, addNameRow} = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -59,6 +63,9 @@ export default class Step3 extends React.Component {
                   <tr>
                     <th>Number of People</th>
                     <th>Names (Set Unique Names)</th>
+                    { Owner.isAuthenticated && (
+                    <th>Check For User</th>
+                    )}
                     <th>Remove</th>
                   </tr>
                 </thead>
@@ -73,11 +80,20 @@ export default class Step3 extends React.Component {
                           <input type="text" placeholder="Insert Name"
                             value={list.name} onChange={changeNames(index)}/>
                         </form>
-                      </td> 
+                      </td>
+                      { Owner.isAuthenticated && ( 
+                      <td>
+                        <label>
+                          <input type="checkbox" className="filled-in"
+                            checked={list.check} onChange={changeCheck(index)}/>
+                          <span></span>
+                        </label>
+                      </td>
+                      )}
                       <td>
                         <button className="btn-floating btn-small red"
                           type="submit" name="action" onClick={removeNameSpecificRow(index)}>
-                          <i className="material-icons">remove</i>
+                          <i className="material-icons">delete</i>
                         </button>
                       </td> 
                     </tr>
@@ -87,7 +103,7 @@ export default class Step3 extends React.Component {
               <br/>
               <button className="btn-floating btn-large blue"
                 type="submit" name="action" onClick={addNameRow}>
-                <i className="material-icons">add</i>
+                <i className="material-icons">person_add</i>
               </button>
               <hr/>
               <button className="btn waves-effect waves-light float-right"

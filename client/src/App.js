@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom';
 import API from "./utils/api";
 import jwt_decode from "jwt-decode";
@@ -123,8 +122,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/Register" component={Register} />
                 <Route path="/Login"    render={(props) => <Login {...props} isAuthenticated={this.state.isAuthenticated} errors={this.state.errors} handleUserLogin={this.handleUserLogin}  /> } />
-                <Route path="/Camera" component={Camera} />
-                <Route path="/UserInput" component={UserInput} />
+                <Route path="/Camera" render={ (props) => <Camera {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
+                <Route path="/UserInput" render={ (props) => <UserInput {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
                 <Route path="/AboutUs" component={AboutUs} />
                 <Route path="/Maps" component={Maps} />
                 <Route path="/Test" component={Test} />
@@ -133,8 +132,9 @@ class App extends React.Component {
                   ((props) => <Friends {...props} userID={this.state.userID}/>)} />  */}
                 <Route path="/Profile/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance}/>)} />
-                <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance}/>)} />
+                <Route path="/Payments" component={Payments} />
+                {/* <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
+                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance}/>)} /> */}
                 <Route exact path="/" component={Home} />
               </Switch>
             </div>

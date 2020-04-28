@@ -11,7 +11,8 @@ export default class Step3Detailed extends React.Component {
       var array = this.props.DetailedSplit.names;
       var found = false;
       var valuesSoFar = Object.create(null);
-      for (var i = 0; i < array.length; ++i){
+      // Check For Unique Names
+      for (var i = 0; i < array.length; i++){
         var value = array[i].name;
         if (value in valuesSoFar){
             found = true;
@@ -19,10 +20,13 @@ export default class Step3Detailed extends React.Component {
         }
         valuesSoFar[value] = true;
       }
-      if (found === true){
+      // Check For Users Found
+      var findAll = this.props.checkUsers();
+
+      if (found){
         alert("Please Make Sure All Names Are Unique!\nAdd a Number After a Name if Needed")
       }
-      else{
+      else if (!found && findAll){
         this.props.nextStep();
       }
     }
@@ -33,7 +37,7 @@ export default class Step3Detailed extends React.Component {
     this.props.prevStep();
   };
 
-  show = input => e =>{
+  show = input => e => {
     e.preventDefault();
     input.names.map((list) => (
       console.log(list)
@@ -41,7 +45,7 @@ export default class Step3Detailed extends React.Component {
   }
 
   render(){ 
-    const { DetailedSplit, changeNames, removeNameSpecificRow, addNameRow } = this.props;
+    const { DetailedSplit, Owner, changeNames, changeCheck, removeNameSpecificRow, addNameRow } = this.props;
     return(
       <div className="row">
         <div className="col s12 m12 l12">
@@ -54,11 +58,14 @@ export default class Step3Detailed extends React.Component {
               </button>
             </div>
             <div className="card-content white-text">
-            <table className="highlight centered">
+              <table className="highlight centered">
                 <thead>
                   <tr>
                     <th>Number of People</th>
                     <th>Names (Set Unique Names)</th>
+                    { Owner.isAuthenticated && (
+                    <th>Check For User</th>
+                    )}
                     <th>Remove</th>
                   </tr>
                 </thead>
@@ -73,11 +80,20 @@ export default class Step3Detailed extends React.Component {
                           <input type="text" placeholder="Insert Name"
                             value={list.name} onChange={changeNames(index)}/>
                         </form>
-                      </td> 
+                      </td>
+                      { Owner.isAuthenticated && ( 
+                      <td>
+                        <label>
+                          <input type="checkbox" className="filled-in"
+                            checked={list.check} onChange={changeCheck(index)}/>
+                          <span></span>
+                        </label>
+                      </td>
+                      )}
                       <td>
                         <button className="btn-floating btn-small red"
                           type="submit" name="action" onClick={removeNameSpecificRow(index)}>
-                          <i className="material-icons">remove</i>
+                          <i className="material-icons">delete</i>
                         </button>
                       </td> 
                     </tr>
@@ -87,7 +103,7 @@ export default class Step3Detailed extends React.Component {
               <br/>
               <button className="btn-floating btn-large blue"
                 type="submit" name="action" onClick={addNameRow}>
-                <i className="material-icons">add</i>
+                <i className="material-icons">person_add</i>
               </button>
               <hr/>
               <button className="btn waves-effect waves-light float-right"

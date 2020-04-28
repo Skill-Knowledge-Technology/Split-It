@@ -9,21 +9,27 @@ import Step4Detailed from './Step4Detailed'
 import Step5Detailed from './Step5Detailed'
 import Step6Detailed from './Step6Detailed'
 import WrongPage from './WrongPage'
+import API from "../../utils/api";
 
 export default class UserInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        currentStep: 1,
-        totalPeople: '',
-        EZcost: '',
-        EZtotal: '',
-        subtotal: 0,
-        tax: '',
-        taxPercent: 0,
-        total: 0,
-        names: [{number: `Person 1`, name: '', subtotal: 0, tax: 0, total: 0}],
-        orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
+      currentStep: 1,
+      totalPeople: '',
+      EZcost: '',
+      EZtotal: '',
+      subtotal: 0,
+      tax: '',
+      taxPercent: 0,
+      total: 0,
+      names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
+      orders: [{number: `Order #1`, quantity: '', order: '', cost: '', association: []}],
+      ownerID: this.props.ownerID,
+      isAuthenticated: this.props.isAuthenticated,
+      latitude: 0,
+      longitude: 0,
+      address: '',
     };
   }
 
@@ -160,6 +166,18 @@ export default class UserInput extends React.Component {
     var newState = Object.assign({}, this.state);
     newState.names[index].name = e.target.value;
     this.setState(newState);
+    if(newState.names[index].check && e.target.value !== '') {
+      this.userSearch(index);
+    }
+  }
+
+  changeEZNames = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].name = e.target.value;
+    this.setState(newState);
+    if(e.target.value !== '') {
+      this.userSearch(index);
+    }
   }
 
   setNames = () => {
@@ -173,6 +191,54 @@ export default class UserInput extends React.Component {
     }
   }
 
+  changeCheck = (index) => e => {
+    var newState = Object.assign({}, this.state);
+    newState.names[index].check = e.target.checked;
+    this.setState(newState);
+    if(newState.names[index].check && newState.names[index].name !== '') {
+      this.userSearch(index);
+    }
+  }
+
+  userSearch = (index) => {
+    var newState = Object.assign({}, this.state);
+    var username = this.state.names[index].name;
+    API.searchByUsername(username)
+      .then((res) => {
+      if (res.data !== null) {
+        // console.log("found");
+        newState.names[index].found = true;
+      }
+      else {
+        // console.log("not found");
+        newState.names[index].found = false;
+      }
+    })
+    this.setState(newState);
+  }
+
+  checkUsers = () => {
+    var size = this.state.names.length;
+    for(var i = 0; i < size; i++){
+      if(this.state.names[i].check === true && this.state.names[i].found === false){
+        alert(this.state.names[i].name + " Is Not A User!");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkEZUsers = () => {
+    var size = this.state.names.length;
+    for(var i = 0; i < size; i++){
+      if(this.state.names[i].found === false){
+        alert(this.state.names[i].name + " Is Not A User!");
+        return false;
+      }
+    }
+    return true;
+  }
+
   removeNameSpecificRow = (index) => () => {
     var newState = Object.assign({}, this.state);
     newState.names.splice(index,1);
@@ -182,12 +248,11 @@ export default class UserInput extends React.Component {
     }
     this.setState(newState);
   }
-
   
   addNameRow = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
-    newState.names.push({number: `Person ${size + 1}`, name: '', subtotal: 0, tax: 0, total: 0});
+    newState.names.push({number: `Person ${size + 1}`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0});
     this.setState(newState);
   }
 
@@ -261,7 +326,7 @@ export default class UserInput extends React.Component {
       tax = (Math.round((+tax + +newState.names[i].tax) *1e12)/1e12);
       total = (Math.round((+total + +newState.names[i].total) *1e12)/1e12);
     }
-    newState.names.push({number: `Total`, name: 'Total', subtotal: subtotal, tax: tax, total: total});
+    newState.names.push({number: `Total`, name: 'Total', check: false, found: false, subtotal: subtotal, tax: tax, total: total});
     this.setState(newState);
   }
 
@@ -271,12 +336,22 @@ export default class UserInput extends React.Component {
     this.setState(newState);
   }
 
+  saveLocation = (latitude,longitude,address) => {
+    this.setState({
+      latitude: latitude,
+      longitude: longitude,
+      address: address,
+    })
+  }
+
   render() {
     const { currentStep , totalPeople } = this.state;
     const { EZcost, EZtotal } = this.state;
-    const EZSplit = { totalPeople, EZcost, EZtotal };
     const { subtotal, tax, taxPercent, total, names, orders} = this.state;
+    const { ownerID, isAuthenticated } = this.state;
+    const EZSplit = { totalPeople, EZcost, EZtotal, names };
     const DetailedSplit = { subtotal, tax, taxPercent, total, names, orders};
+    const Owner = { ownerID, isAuthenticated };
 
     switch (currentStep){
       case 1:
@@ -305,7 +380,13 @@ export default class UserInput extends React.Component {
           <div className = "container">
             <Step3EZ
               prevStep = {this.prevStep}
+              changeEZNames = {this.changeEZNames}
+              removeNameSpecificRow = {this.removeNameSpecificRow}
+              addNameRow = {this.addNameRow}
+              setNames = {this.setNames}
+              checkEZUsers = {this.checkEZUsers}
               EZSplit = {EZSplit}
+              Owner = {Owner}
             />
           </div>
         );
@@ -339,10 +420,13 @@ export default class UserInput extends React.Component {
               nextStep = {this.nextStep}
               prevStep = {this.prevStep}
               changeNames = {this.changeNames}
+              changeCheck = {this.changeCheck}
               removeNameSpecificRow = {this.removeNameSpecificRow}
               addNameRow = {this.addNameRow}
               setNames = {this.setNames}
+              checkUsers = {this.checkUsers}
               DetailedSplit = {DetailedSplit}
+              Owner = {Owner}
             />
           </div>
         );
@@ -379,7 +463,9 @@ export default class UserInput extends React.Component {
               prevStep = {this.prevStep}
               resetNameTotal = {this.resetNameTotal}
               resetNamePayment = {this.resetNamePayment}
+              saveLocation = {this.saveLocation}
               DetailedSplit = {DetailedSplit}
+              Owner = {Owner}
             />
           </div>
         );

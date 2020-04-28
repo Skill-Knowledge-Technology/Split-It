@@ -111,7 +111,7 @@ export default class Step2 extends React.Component {
                       <td>
                         <button className="btn-floating btn-small red"
                           type="submit" name="action" onClick={removeOrderSpecificRow(index)}>
-                          <i className="material-icons">remove</i>
+                          <i className="material-icons">delete</i>
                         </button>
                       </td> 
                     </tr>
@@ -123,11 +123,11 @@ export default class Step2 extends React.Component {
                 <div className = "col s6">
                   <button className="btn-floating btn-large blue"
                     type="submit" name="action" onClick={addOrderRow}>
-                    <i className="material-icons">add</i>
+                    <i className="material-icons">restaurant_menu</i>
                   </button>
                 </div>
                 <div className = "col s6">
-                  <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} ></img>
+                  <img className="materialboxed" width="100" data-caption="Receipt" src={Camera.uploads} alt= "Receipt"/>
                 </div>
               </div>
               <hr/>
