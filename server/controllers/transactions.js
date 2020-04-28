@@ -12,7 +12,10 @@ const getTransId = (req, res, next) => {
 const createTransaction = async (req, res, next) => {
     let total = req.body.total;
     let ownerID = req.body.ownerID;
-    const transaction = {total,ownerID};
+    let address = req.body.address;
+    let latitude = req.body.latitude;
+    let longitude = req.body.longitude;
+    const transaction = {total, ownerID, address, latitude, longitude};
     TransactionServices.createTransaction(transaction)
     .then((transaction) => {
         res.json(transaction);
