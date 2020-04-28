@@ -396,9 +396,9 @@ export default class Camera extends React.Component {
 
   render() {
     const { currentStep, uploads, text, subtotal, tax, total, orders, names, failAttempts, found, loading } = this.state;
-    const { ownerID, isAuthenticated } = this.state;
+    const { ownerID, isAuthenticated, latitude, longitude, address } = this.state;
     const Camera = { uploads, text, subtotal, tax, total, orders, names, failAttempts, found };
-    const Owner = { ownerID, isAuthenticated };
+    const Owner = { ownerID, isAuthenticated, latitude, longitude, address };
 
     switch (currentStep){
       case 1:
