@@ -34,6 +34,10 @@ export default {
   },
   createFriendship: function(data) {
     return axios.post("/api/friendships/createFriendship", data);
+  },
+  addToBalance: function(amount) {
+    return axios.post("/api/users/addToBalance", amount);
   }
+
 
 };
