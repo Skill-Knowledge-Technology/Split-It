@@ -27,6 +27,9 @@ export default class Step6Detailed extends React.Component {
     API.createTransaction({
       ownerID: this.props.Owner.ownerID,
       total: this.props.DetailedSplit.total,
+      address: this.props.Owner.address,
+      latitude: this.props.Owner.latitude,
+      longitude: this.props.Owner.longitude,
     })
     .then((res) => {
       var size = this.props.DetailedSplit.names.length;
@@ -37,12 +40,12 @@ export default class Step6Detailed extends React.Component {
             participantId: this.props.DetailedSplit.names[i].id,
             participantTotal: this.props.DetailedSplit.names[i].total,
           })
-          .then(() => {
-            alert("Saved!");
-            window.location.href = '/';
-          })
         }
       }
+    })
+    .then(() => {
+      alert("Saved!");
+      window.location.href = '/';
     })
     .catch((error) => {
       console.log("saveTrans: " + error)
