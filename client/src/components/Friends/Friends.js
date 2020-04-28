@@ -3,8 +3,6 @@ import "./Friends.css";
 import { withRouter } from "react-router-dom";
 import API from "../../utils/api";
 
-
-
 class Friends extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +44,6 @@ class Friends extends React.Component {
     }
   }
 
-
   handleSubmit() {
     let newFriendship = {
       requesterID: this.state.requesterID,
@@ -62,35 +59,34 @@ class Friends extends React.Component {
       })
   }
 
-
   render() {
-    const requesterID = this.props.userID;
     return (
-      <div>
-        <div className="col s6 offset-s3">
-          <form>
-            <label>
-              Search for a friend!
-                   <input
-                type="text"
-                value={this.state.usernameToSearch}
-                onChange={this.handleChange}
-                style={{
-                  color: "white"
-                }}
-              />
-            </label>
-          </form>
-          <a
-            className="waves-effect waves-light btn"
-            onClick={() => this.handleSubmit(this.bind)}
-            disabled={(this.state.isFound === false) || (this.state.myName === this.state.usernameToSearch)}
-          >Send Friend Request</a>
+      <div className="row">
+        <div className="col s12 m12 l12">
+          <div className="card blue-grey darken-1">
+            <div className="card-content white-text">
+              <div className="container">
+                <form className="col s12">
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <i className="material-icons prefix">account_circle</i>
+                      <label for="username" className="active">Search For a Friend!</label>
+                      <input type="text" placeholder="Enter Username" id="username"
+                        value={this.state.usernameToSearch} onChange={this.handleChange} />
+                    </div>
+                  </div>
+                </form>
+                <button className="waves-effect waves-light btn"
+                  onClick={() => this.handleSubmit(this.bind)} disabled={(this.state.isFound === false) || (this.state.myName === this.state.usernameToSearch)}>
+                  Send Friend Request
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
   }
-
 }
 
 

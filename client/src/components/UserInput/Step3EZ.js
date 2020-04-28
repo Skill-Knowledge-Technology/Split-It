@@ -48,6 +48,9 @@ export default class Step3EZ extends React.Component {
         API.createTransaction({
           ownerID: this.props.Owner.ownerID,
           total: this.props.EZSplit.EZcost,
+          address: this.props.Owner.address,
+          latitude: this.props.Owner.latitude,
+          longitude: this.props.Owner.longitude,
         })
         .then((res) => {
           var size = this.props.EZSplit.names.length;
@@ -58,12 +61,12 @@ export default class Step3EZ extends React.Component {
                 participantId: this.props.EZSplit.names[i].id,
                 participantTotal: this.props.EZSplit.EZtotal,
               })
-              .then(() => {
-                alert("Saved!");
-                window.location.href = '/';
-              })
             }
           }
+        })
+        .then(() => {
+          alert("Saved!");
+          window.location.href = '/';
         })
         .catch((error) => {
           console.log("saveTrans: " + error)
