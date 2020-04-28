@@ -71,7 +71,7 @@ class Friends extends React.Component {
                   <div className="row">
                     <div className="input-field col s12">
                       <i className="material-icons prefix">group_add</i>
-                      <label for="username" className="active">Search For a Friend!</label>
+                      <label className="active">Search For a Friend!</label>
                       <input type="text" placeholder="Enter Username" id="username"
                         value={this.state.usernameToSearch} onChange={this.handleChange} />
                     </div>

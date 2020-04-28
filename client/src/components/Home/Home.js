@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css'
 
 function Home(props) {
@@ -14,10 +15,11 @@ function Home(props) {
             <div className="card-content">
               <p>TEXT.</p>
             </div> */}
-            <a className="waves-effect waves-light btn-large" href="UserInput"> 
-            Manual Input 
-            <i className="material-icons right">computer</i>
-            </a>
+            <Link to={`/UserInput`} className="waves-effect waves-light btn-large">
+              <i className="material-icons left">computer</i>
+              User Input
+              <i className="material-icons right">computer</i>
+            </Link>
           </div>
         </div>
         <div className="col s12 m6 l6">
@@ -29,10 +31,11 @@ function Home(props) {
             <div className="card-content">
               <p>TEXT.</p>
             </div> */}
-            <a className="waves-effect waves-light btn-large" href="Camera">
-            Camera
-            <i className="material-icons right">photo_camera</i> 
-            </a>
+            <Link to={`/Camera`} className="waves-effect waves-light btn-large">
+              <i className="material-icons left">camera_alt</i>
+              Camera
+              <i className="material-icons right">camera_alt</i>
+            </Link>
           </div>
         </div>
       </div>

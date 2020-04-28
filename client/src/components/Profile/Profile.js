@@ -66,19 +66,19 @@ class Profile extends React.Component {
                       <img src={uploads} width="200" className="circle responsive-img" alt="Empty"/>
                     </div>
                     <div className="row">
-                      <label for="username" className="active">Username: </label>
+                      <label className="active">Username: </label>
                       <i className="material-icons left">account_box</i>
                       <span id="username"> {name}</span>
                     </div>
                     <div className="row">
-                      <label for="email" className="active">E-mail: </label>
+                      <label className="active">E-mail: </label>
                       <i className="material-icons left">email</i>
                       <span id="email"> {email}</span>
                     </div>
                     <div className="row">
-                      <label for="balance" className="active">Current Balance: </label>
+                      <label  className="active">Current Balance: </label>
                       <i className="material-icons left">account_balance_wallet</i>
-                      <span for="balance"> ${balance}</span>
+                      <span id="balance"> ${balance}</span>
                     </div>
                     <div className="row">
                       <div className="left">
@@ -103,7 +103,7 @@ class Profile extends React.Component {
                       </div>
                     </div>
                     <div className="row">
-                      <label for="username" className="active">Username: </label>
+                      <label className="active">Username: </label>
                       <i className="material-icons left">account_box</i>
                       <span id="username"> {name}</span>
                     </div>
@@ -111,7 +111,7 @@ class Profile extends React.Component {
                       <div className="row">
                         <div className="input-field col s12">
                           <i className="material-icons prefix">email</i>
-                          <label for="email" className="active">E-mail</label>
+                          <label className="active">E-mail</label>
                           <input id="email" type="email" placeholder="Enter Email" className="validate"
                             value={email} onChange={this.handleChange("email")}/>
                           <span className="helper-text" data-error="Invalid Email" data-success="Valid">
@@ -121,9 +121,9 @@ class Profile extends React.Component {
                       </div>
                     </form>
                     <div className="row">
-                      <label for="balance" className="active">Current Balance: </label>
+                      <label className="active">Current Balance: </label>
                       <i className="material-icons left">account_balance_wallet</i>
-                      <span for="balance"> ${balance}</span>
+                      <span id="balance"> ${balance}</span>
                     </div>
                     <div className="row">
                       <div className="left">
