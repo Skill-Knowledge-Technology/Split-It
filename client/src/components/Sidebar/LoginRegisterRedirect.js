@@ -14,13 +14,13 @@ const LoginRegisterRedirect = () => {
         <div className="divider" />
       </li>
       <li>
-        <Link to={`/Login`} className="waves-effect">
+        <Link to={`/Login`}>
           <i className="material-icons">exit_to_app</i>
           Login
         </Link>
       </li>
       <li>
-        <Link to={`/Register`} className="waves-effect">
+        <Link to={`/Register`}>
           <i className="material-icons">portrait</i>
           Register
         </Link>
@@ -29,7 +29,7 @@ const LoginRegisterRedirect = () => {
         <div className="divider" />
       </li>
       <li>
-        <Link to={`/AboutUs`} className="waves-effect">
+        <Link to={`/AboutUs`}>
           <i className="material-icons">info</i>
           About Us
         </Link>

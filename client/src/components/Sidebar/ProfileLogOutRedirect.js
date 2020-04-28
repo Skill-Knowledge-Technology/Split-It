@@ -11,24 +11,24 @@ const ProfileLogOutRedirect = ({ name, handleUserLogOut, email, image }) => {
             <img src={require("../../public/space.jpg")} alt=""/>
           </div>
           <div>
-            <Link to={`/Profile`} className="waves-effect">
+            <Link to={`/Profile`}>
               <img className="circle" src={image} alt=""/>
             </Link>
           </div>
           <div>
-            <Link to={`/Profile`} className="waves-effect">
+            <Link to={`/Profile`}>
               <span className="white-text name">{name}</span>
             </Link>
           </div>
           <div>
-            <Link to={`/Profile`} className="waves-effect"> 
+            <Link to={`/Profile`}> 
               <span className="white-text email">{email}</span>
             </Link>
           </div>
         </div>
       </li>
       <li>
-        <Link to={`/`} className="waves-effect">
+        <Link to={`/`}>
           <i className="material-icons">home</i>
           Home
         </Link>
@@ -36,26 +36,47 @@ const ProfileLogOutRedirect = ({ name, handleUserLogOut, email, image }) => {
       <li>
         <div className="divider" />
       </li>
+      <li>
+        <Link to={`/UserInput`}>
+          <i className="material-icons">computer</i>
+          User Input
+        </Link>
+      </li>
+      <li>
+        <Link to={`/Camera`}>
+          <i className="material-icons">camera_alt</i>
+          Camera
+        </Link>
+      </li>
+      <li>
+        <div className="divider" />
+      </li>
       <li>  
-        <Link to={`/Payments`} className="waves-effect"> Payments </Link>
+        <Link to={`/Payments`}>
+          <i className="material-icons">payment</i>
+          Payments
+        </Link>
       </li>
       <li>  
-        <Link to={`/Friends`} className="waves-effect"> Friends</Link>
-      </li>
-      <li>
-        <Link to="/" onClick={handleUserLogOut} className="waves-effect">Logout</Link>
-      </li>
-      <li>
-        <Link to={`/UserInput`} className="waves-effect">Logged In User Input</Link>
-      </li>
-      <li>
-        <Link to={`/Camera`} className="waves-effect">Logged In Camera</Link>
+        <Link to={`/Friends`}>
+          <i className="material-icons">contacts</i>
+          Friends
+        </Link>
       </li>
       <li>
         <div className="divider" />
       </li>
       <li>
-        <Link to={`/AboutUs`} className="waves-effect">
+        <Link to="/" onClick={handleUserLogOut}>
+          <i className="material-icons">exit_to_app</i>
+          Logout
+        </Link>
+      </li>
+      <li>
+        <div className="divider" />
+      </li>
+      <li>
+        <Link to={`/AboutUs`}>
           <i className="material-icons">info</i>
           About Us
         </Link>
