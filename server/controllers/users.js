@@ -30,19 +30,25 @@ const getUserBalance = (req, res, next) => {
 }
 
 const addToUserBalance = (req, res, next) => {
-    return UserServices.addBalance(req.body.userId, req.body.balanceToAdd)
-        .then((balance) => {
-            res.json(balance)
-        })
-        .catch(error => next(error))
+    if (isNaN(req.body.balanceToAdd)) {
+       return console.log(balanceToAdd + " is not a number")
+    }
+    else {
+        req.body.balanceToAdd = parseFloat(req.body.balanceToAdd).toFixed(2);
+        return UserServices.addBalance(req.body.userId, req.body.balanceToAdd)
+            .then((balance) => {
+                res.json(balance)
+            })
+            .catch(error => next(error))
+    }
 }
 
 const transferUserBalance = (req, res, next) => {
     return UserServices.transferBalancetoUsers(req.params.senderId, req.body.receiverId, req.body.balanceToTransfer)
-    .then((balance) => {
-        res.json(balance)
-    })
-    .catch(error => next(error))
+        .then((balance) => {
+            res.json(balance)
+        })
+        .catch(error => next(error))
 }
 
 /*const getUserFriends = (req, res, next) => {

@@ -11,7 +11,7 @@ class Payments extends React.Component {
       name: this.props.name,
       balance: this.props.balance,
       amountToAdd: "",
-      userID : this.props.userID
+      userID: this.props.userID
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -19,26 +19,26 @@ class Payments extends React.Component {
 
   // Handle field change
   handleChange(e) {
-    this.setState({ amountToAdd: e.target.value} ,() => {
+    this.setState({ amountToAdd: e.target.value }, () => {
       console.log("changes in amount " + this.state.amountToAdd)
     })
   }
-  
+
 
   // eventually api call to call the backend
   handleSubmit() {
-    let addBalance ={
+    let addBalance = {
       balanceToAdd: this.state.amountToAdd,
       userId: this.state.userID
     };
     API.addToBalance(addBalance)
-    .then(()=> {
-      alert("balance added to account "+ this.state.amountToAdd);
-      this.setState({balanceToAdd: ""});
-    })
-    .catch((err) => {
-      console.log("error: " + err)
-    })
+      .then(() => {
+        alert("balance added to account " + this.state.amountToAdd);
+        this.setState({ balanceToAdd: "" });
+      })
+      .catch((err) => {
+        console.log("error: " + err)
+      })
   }
 
   render() {
@@ -48,15 +48,17 @@ class Payments extends React.Component {
         <h4>
           <u>Payments</u>
         </h4>
-        <div className="row">
-          <div className="left-align col 12">
-            <i className="material-icons prefix">attach_money</i>
+        <div className="col s6 offset-s3">
+          <div className="row">
+            <div className="col s2">
+              <i className="material-icons prefix">attach_money</i>
+            </div>
+            <div className="col s4">
+              Current Balance
           </div>
-          <div className="left-align">
-            Current Balance
-          </div>
-          <div id="balance" className="validate" className="left-align">
-            {balance}
+            <div id="balance" className="validate" className="col s4">
+              {balance}
+            </div>
           </div>
         </div>
         <div className="col s6 offset-s3">
@@ -65,18 +67,19 @@ class Payments extends React.Component {
               Input amount to add !
               <input
                 type="number"
-                min="0.00" 
-                max="10000.00" 
-                step="0.01" 
+                min="0.00"
+                max="10000.00"
+                step="0.01"
                 value={this.state.amountToAdd}
                 onChange={this.handleChange}
                 style={{ color: "white" }}
               />
             </label>
-           </form>
+          </form>
           <a
             className="waves-effect waves-light btn"
-            onClick={() => this.handleSubmit(this.bind)}>Add Amount</a>
+            onClick={() => this.handleSubmit(this.bind)}
+            disabled={(isNaN(this.state.amountToAdd))}>Add Amount</a>
 
         </div>
         <div className="col s6 m4 l3">
