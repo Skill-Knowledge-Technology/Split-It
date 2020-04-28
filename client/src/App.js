@@ -19,6 +19,7 @@ import Test from './components/Test/Test';
 import Profile from './components/Profile/Profile';
 import Payments from './components/Payments/Payments';
 import Friends from './components/Friends/Friends';
+import History from './components/History/History';
 import axios from "axios";
 
 class App extends React.Component {
@@ -132,9 +133,10 @@ class App extends React.Component {
                   ((props) => <Friends {...props} userID={this.state.userID} username={this.state.name}/>)} /> 
                 <Route path="/Profile" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance} image = {this.state.image}/>)} />
-                {/* <Route path="/Payments" component={Payments} /> */}
                 <Route path="/Payments" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance} userID={this.state.userID}/>)} />
+                <Route path="/History" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
+                  ((props) => <History {...props} name={this.state.name} userID={this.state.userID}/>)} />
                 <Route exact path="/" component={Home} />
               </Switch>
             </div>
