@@ -24,6 +24,21 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'userID'
             }
         },
+
+        address: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+
+        latitude: {
+            type: DataTypes.DOUBLE,
+            allowNull: true
+        },
+
+        longitude: {
+            type: DataTypes.DOUBLE,
+            allowNull: true
+        }
     },
         {
             freezeTableName: true,
