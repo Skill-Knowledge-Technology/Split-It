@@ -131,9 +131,9 @@ class App extends React.Component {
                   ((props) => <Friends {...props} userID={this.state.userID} username={this.state.name}/>)} /> 
                 <Route path="/Profile/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance}/>)} />
-                <Route path="/Payments" component={Payments} />
-                {/* <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance}/>)} /> */}
+                {/* <Route path="/Payments" component={Payments} /> */}
+                <Route path="/Payments/:userID" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
+                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance} userID={this.state.userID}/>)} />
                 <Route exact path="/" component={Home} />
               </Switch>
             </div>

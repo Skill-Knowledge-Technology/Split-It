@@ -1,6 +1,7 @@
 import React from "react";
 import "./Payments.css";
 import { withRouter } from "react-router-dom";
+import API from "../../utils/api";
 
 
 class Payments extends React.Component {
@@ -9,20 +10,36 @@ class Payments extends React.Component {
     this.state = {
       name: this.props.name,
       balance: this.props.balance,
-    };
+      amountToAdd: "",
+      userID : this.props.userID
+    }
+    this.handleChange = this.handleChange.bind(this);
   }
 
+
   // Handle field change
-  handleChange = (input) => (e) => {
-      this.setState({ [input]: e.target.value });
-  };
+  handleChange(e) {
+    this.setState({ amountToAdd: e.target.value} ,() => {
+      console.log("changes in amount " + this.state.amountToAdd)
+    })
+  }
+  
 
   // eventually api call to call the backend
-  handleSubmit = (e) => {
-      e.preventDefault();
-      // Insert Backend Here.
-      console.log(this.state);
-  };
+  handleSubmit() {
+    let addBalance ={
+      balanceToAdd: this.state.amountToAdd,
+      userId: this.state.userID
+    };
+    API.addToBalance(addBalance)
+    .then(()=> {
+      alert("balance added to account "+ this.state.amountToAdd);
+      this.setState({balanceToAdd: ""});
+    })
+    .catch((err) => {
+      console.log("error: " + err)
+    })
+  }
 
   render() {
     const { balance } = this.props;
@@ -41,6 +58,26 @@ class Payments extends React.Component {
           <div id="balance" className="validate" className="left-align">
             {balance}
           </div>
+        </div>
+        <div className="col s6 offset-s3">
+          <form>
+            <label>
+              Input amount to add !
+              <input
+                type="number"
+                min="0.00" 
+                max="10000.00" 
+                step="0.01" 
+                value={this.state.amountToAdd}
+                onChange={this.handleChange}
+                style={{ color: "white" }}
+              />
+            </label>
+           </form>
+          <a
+            className="waves-effect waves-light btn"
+            onClick={() => this.handleSubmit(this.bind)}>Add Amount</a>
+
         </div>
         <div className="col s6 m4 l3">
           <div className="card blue-grey darken-1">

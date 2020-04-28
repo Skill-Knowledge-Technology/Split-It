@@ -30,7 +30,7 @@ const getUserBalance = (req, res, next) => {
 }
 
 const addToUserBalance = (req, res, next) => {
-    return UserServices.addBalance(req.params.userId, req.body.balanceToAdd)
+    return UserServices.addBalance(req.body.userId, req.body.balanceToAdd)
         .then((balance) => {
             res.json(balance)
         })

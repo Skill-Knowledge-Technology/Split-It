@@ -14,7 +14,7 @@ router.get('/findByUsername/:username',[validatorErrors], userController.getUser
 
 router.get('/getBalance/:userId', [validatorErrors], userController.getUserBalance);
 
-router.post('/addToBalance/:userId', [validatorErrors], userController.addToUserBalance);
+router.post('/addToBalance', [validatorErrors], userController.addToUserBalance);
 
 //router.get('/getFriends/:userId', [validatorErrors], userController.getUserFriends);
 
