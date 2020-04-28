@@ -69,6 +69,12 @@ const ProfileLogOutRedirect = ({ name, handleUserLogOut, email, image }) => {
           History
         </Link>
       </li>
+      <li>  
+        <Link to={`/Maps`}>
+          <i className="material-icons">map</i>
+          Map History
+        </Link>
+      </li>
       <li>
         <div className="divider" />
       </li>
