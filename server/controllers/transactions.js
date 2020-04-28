@@ -16,15 +16,12 @@ const createTransaction = async (req, res, next) => {
     let latitude = req.body.latitude;
     let longitude = req.body.longitude;
     const transaction = {total, ownerID, address, latitude, longitude};
-    try {
-        const createTransaction = TransactionServices.createTransaction(transaction)
-        res.json(createTransaction)
+    TransactionServices.createTransaction(transaction)
+    .then((transaction) => {
+        res.json(transaction);
         console.log('transaction created')
-    }
-    catch (err) {
-        //      next(error)
-        console.log('controller error')
-    }
+    })
+    .catch(error => next(error))
 }
 
 module.exports = {

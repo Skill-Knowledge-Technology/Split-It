@@ -29,9 +29,21 @@ export default class Step6 extends React.Component {
       ownerID: this.props.Owner.ownerID,
       total: this.props.Camera.total,
     })
-    .then(() => {
-      alert("Saved!");
-      window.location.href = '/';
+    .then((res) => {
+      var size = this.props.Camera.names.length;
+      for(var i = 0; i < size; i++){
+        if (this.props.Camera.names[i].check && this.props.Camera.names[i].found && this.props.Camera.names[i].id !== this.props.Owner.ownerID){
+          API.addParticipant({
+            transactionId: res.data.transactionID,
+            participantId: this.props.Camera.names[i].id,
+            participantTotal: this.props.Camera.names[i].total,
+          })
+          .then(() => {
+            alert("Saved!");
+            window.location.href = '/';
+          })
+        }
+      }
     })
     .catch((error) => {
       console.log("saveTrans: " + error)

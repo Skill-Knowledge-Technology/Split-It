@@ -29,12 +29,20 @@ export default class Step6Detailed extends React.Component {
       total: this.props.DetailedSplit.total,
     })
     .then((res) => {
-      console.log(res);
-      // API.addParticipant({
-        
-      // })
-      // alert("Saved!");
-      // window.location.href = '/';
+      var size = this.props.DetailedSplit.names.length;
+      for(var i = 0; i < size; i++){
+        if (this.props.DetailedSplit.names[i].check && this.props.DetailedSplit.names[i].found && this.props.DetailedSplit.names[i].id !== this.props.Owner.ownerID){
+          API.addParticipant({
+            transactionId: res.data.transactionID,
+            participantId: this.props.DetailedSplit.names[i].id,
+            participantTotal: this.props.DetailedSplit.names[i].total,
+          })
+          .then(() => {
+            alert("Saved!");
+            window.location.href = '/';
+          })
+        }
+      }
     })
     .catch((error) => {
       console.log("saveTrans: " + error)
