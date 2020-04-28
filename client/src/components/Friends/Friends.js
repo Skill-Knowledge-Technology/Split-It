@@ -10,7 +10,9 @@ class Friends extends React.Component {
         super(props);
         this.state = {
             usernameToSearch: "",
-            isFound: false
+            isFound: false,
+            requesterID: this.props.userID,
+            addresseeID: ""
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -27,10 +29,10 @@ class Friends extends React.Component {
       .then((res) => {
         // console.log(res.data)
         if (res.data) {
-          this.setState({isFound: true})
+          this.setState({isFound: true, addresseeID: res.data.userID})
         }
         else {
-          this.setState({isFound: false})
+          this.setState({isFound: false, addresseeID: null})
         }
       })
       .catch((err) => {
@@ -38,7 +40,24 @@ class Friends extends React.Component {
       })
     }
 
+
+    handleSubmit() {
+      let newFriendship = {
+        requesterID: this.state.requesterID,
+        addresseeID: this.state.addresseeID
+      };
+      API.createFriendship(newFriendship)
+      .then((res) => {
+        console.log("new friendship: " + res)
+      })
+      .catch((err) => {
+        console.log("error: " + err)
+      })
+    }
+
+
     render() {
+      const requesterID = this.props.userID;
         return (
             <div>
                 <form>
@@ -56,7 +75,7 @@ class Friends extends React.Component {
                 </form>
                 <a
                   className="waves-effect waves-light btn"
-                  onClick={() => console.log("sent friend request")}
+                  onClick={() => this.handleSubmit()}
                   disabled={this.state.isFound === false}
                 >Send Friend Request</a>
 
