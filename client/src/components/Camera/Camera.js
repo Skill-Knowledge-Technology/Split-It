@@ -28,9 +28,9 @@ export default class Camera extends React.Component {
       loading: false,
       ownerID: this.props.ownerID,
       isAuthenticated: this.props.isAuthenticated,
-      latitude: 0,
-      longitude: 0,
-      address: '',
+      latitude: null,
+      longitude: null,
+      address: null,
     };
   }
 
