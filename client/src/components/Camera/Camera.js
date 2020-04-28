@@ -22,7 +22,7 @@ export default class Camera extends React.Component {
       taxPercent: 0,
       total: 0,
       orders: [],
-      names: [{number: `Person 1`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0}],
+      names: [{number: `Person 1`, name: '', id: null, check: false, found: false, subtotal: 0, tax: 0, total: 0}],
       failAttempts: 0,
       found: false,
       loading: false,
@@ -268,6 +268,7 @@ export default class Camera extends React.Component {
       if (res.data !== null) {
         // console.log("found");
         newState.names[index].found = true;
+        newState.names[index].id = res.data.userID;
       }
       else {
         // console.log("not found");
@@ -301,7 +302,7 @@ export default class Camera extends React.Component {
   addNameRow = () => {
     var newState = Object.assign({}, this.state);
     var size = newState.names.length;
-    newState.names.push({number: `Person ${size + 1}`, name: '', check: false, found: false, subtotal: 0, tax: 0, total: 0});
+    newState.names.push({number: `Person ${size + 1}`, name: '', id: null, check: false, found: false, subtotal: 0, tax: 0, total: 0});
     this.setState(newState);
   }
 
