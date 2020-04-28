@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom';
 const ProfileLogOutRedirect = ({ userID, name, handleUserLogOut }) => {
   return (
     <div>
+      <li>
+        <Link to={`/`} className="waves-effect">
+          <i className="material-icons">home</i>
+          Home
+        </Link>
+      </li>
+      <li>
+        <div className="divider" />
+      </li>
       <li>  
         <Link to={`/Profile`} className="waves-effect"> My Profile: {name} </Link>
       </li>
@@ -23,6 +32,21 @@ const ProfileLogOutRedirect = ({ userID, name, handleUserLogOut }) => {
       <li>
         <Link to={`/Camera`} className="waves-effect">Logged In Camera</Link>
       </li>
+      <li>
+        <div className="divider" />
+      </li>
+      <li>
+        <Link to={`/AboutUs`} className="waves-effect">
+          <i className="material-icons">info</i>
+          About Us
+        </Link>
+      </li>
+      <li>
+        <div className="divider" />
+      </li>
+      {/* <li>
+        <a className="subheader">Subheader</a>
+      </li> */}
     </div>
   )
 }
