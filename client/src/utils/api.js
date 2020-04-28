@@ -30,7 +30,7 @@ export default {
     return axios.post("/api/transactions/createTransaction", transData);
   },
   addParticipant: function(transData){
-    return axios.post("/api/participants/addParticipant", transData);
+    return axios.post("/api/participates/addParticipant", transData);
   },
   createFriendship: function(data) {
     return axios.post("/api/friendships/createFriendship", data);
