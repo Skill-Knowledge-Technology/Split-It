@@ -9,8 +9,8 @@ const findTransaction = async (id) => {
 const createTransaction = async (data)=> {
     try {
     const newTransaction = await db.Transaction.create({
-        total: data.total,
         ownerID: data.ownerID,
+        total: data.total,
         address: data.address,
         latitude: data.latitude,
         longitude: data.longitude

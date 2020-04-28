@@ -28,6 +28,9 @@ export default class Step6 extends React.Component {
     API.createTransaction({
       ownerID: this.props.Owner.ownerID,
       total: this.props.Camera.total,
+      address: this.props.Owner.address,
+      latitude: this.props.Owner.latitude,
+      longitude: this.props.Owner.longitude,
     })
     .then((res) => {
       var size = this.props.Camera.names.length;
@@ -38,12 +41,12 @@ export default class Step6 extends React.Component {
             participantId: this.props.Camera.names[i].id,
             participantTotal: this.props.Camera.names[i].total,
           })
-          .then(() => {
-            alert("Saved!");
-            window.location.href = '/';
-          })
         }
       }
+    })
+    .then(() => {
+      alert("Saved!");
+      window.location.href = '/';
     })
     .catch((error) => {
       console.log("saveTrans: " + error)
