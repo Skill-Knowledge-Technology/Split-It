@@ -2,9 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // this will show the profile and logout option if user is authenticated
-const ProfileLogOutRedirect = ({ userID, name, handleUserLogOut }) => {
+const ProfileLogOutRedirect = ({ name, handleUserLogOut, email, image }) => {
   return (
     <div>
+      <li>
+        <div className="user-view">
+          <div className="background">
+            <img src={require("../../public/space.jpg")} alt=""/>
+          </div>
+          <div>
+            <Link to={`/Profile`} className="waves-effect">
+              <img className="circle" src={image} alt=""/>
+            </Link>
+          </div>
+          <div>
+            <Link to={`/Profile`} className="waves-effect">
+              <span className="white-text name">{name}</span>
+            </Link>
+          </div>
+          <div>
+            <Link to={`/Profile`} className="waves-effect"> 
+              <span className="white-text email">{email}</span>
+            </Link>
+          </div>
+        </div>
+      </li>
       <li>
         <Link to={`/`} className="waves-effect">
           <i className="material-icons">home</i>
@@ -13,9 +35,6 @@ const ProfileLogOutRedirect = ({ userID, name, handleUserLogOut }) => {
       </li>
       <li>
         <div className="divider" />
-      </li>
-      <li>  
-        <Link to={`/Profile`} className="waves-effect"> My Profile: {name} </Link>
       </li>
       <li>  
         <Link to={`/Payments`} className="waves-effect"> Payments </Link>

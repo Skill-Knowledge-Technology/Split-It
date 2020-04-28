@@ -9,7 +9,7 @@ class Profile extends React.Component {
       name: this.props.name,
       email: this.props.email,
       balance: this.props.balance,
-      uploads: require("../../public/People/dummy.jpg"),
+      uploads: this.props.image,
       edit: false,
     };
   }

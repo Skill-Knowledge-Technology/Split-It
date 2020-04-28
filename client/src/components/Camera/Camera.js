@@ -95,6 +95,7 @@ export default class Camera extends React.Component {
         text: '',
         failAttempts: 0,
         found: false,
+        loading: false,
       });
     }
     reader.readAsDataURL(file);

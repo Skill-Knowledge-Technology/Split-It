@@ -17,7 +17,7 @@ class Sidebar extends Component {
     });
   }
   render() {
-    const {isAuthenticated, name, handleUserLogOut , userID } = this.props
+    const {isAuthenticated, name, handleUserLogOut, email, image } = this.props;
     return (
       <div className = "navbar-fixed">
         <nav>
@@ -26,7 +26,7 @@ class Sidebar extends Component {
             <div className="col-s12">
               <ul id="slide-out" className="sidenav sidenav-close">
                 {
-                isAuthenticated === false ? <LoginRegisterRedirect /> : <ProfileLogOutRedirect handleUserLogOut={handleUserLogOut} name={name} userID={userID}/> 
+                isAuthenticated === false ? <LoginRegisterRedirect /> : <ProfileLogOutRedirect handleUserLogOut={handleUserLogOut} name={name} email={email} image={image}/> 
                 }
               </ul>
               <a href="#open" data-target="slide-out" className="sidenav-trigger left show-on-medium-and-up">

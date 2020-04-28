@@ -30,6 +30,7 @@ class App extends React.Component {
       email: "",
       password: "",
       balance: "",
+      image: require("./public/People/dummy.jpg"),
       errors: [],
       isAuthenticated: false,
     };
@@ -116,7 +117,7 @@ class App extends React.Component {
   render() {
     return (
         <Router>
-          <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut} userID={this.state.userID}/>
+          <Sidebar isAuthenticated={this.state.isAuthenticated} name={this.state.name} handleUserLogOut={this.handleUserLogOut} email={this.state.email} image={this.state.image}/>
           <div className="container-fluid text-center">
             <div className="row justify-content-center">
               <Switch>
@@ -130,7 +131,7 @@ class App extends React.Component {
                 <Route path="/Friends" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Friends {...props} userID={this.state.userID} username={this.state.name}/>)} /> 
                 <Route path="/Profile" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance}/>)} />
+                  ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance} image = {this.state.image}/>)} />
                 {/* <Route path="/Payments" component={Payments} /> */}
                 <Route path="/Payments" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance} userID={this.state.userID}/>)} />
