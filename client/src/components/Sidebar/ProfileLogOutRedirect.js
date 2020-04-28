@@ -6,7 +6,7 @@ const ProfileLogOutRedirect = ({ userID, name, handleUserLogOut }) => {
   return (
     <div>
       <li>  
-        <Link to={`/Profile/${userID}`} className="waves-effect"> {name} </Link>
+        <Link to={`/Profile`} className="waves-effect"> My Profile: {name} </Link>
       </li>
       <li>  
         <Link to={`/Payments`} className="waves-effect"> Payments </Link>
