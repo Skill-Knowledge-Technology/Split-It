@@ -49,9 +49,21 @@ export default class Step3EZ extends React.Component {
           ownerID: this.props.Owner.ownerID,
           total: this.props.EZSplit.EZcost,
         })
-        .then(() => {
-          alert("Saved!");
-          window.location.href = '/';
+        .then((res) => {
+          var size = this.props.EZSplit.names.length;
+          for(var i = 0; i < size; i++){
+            if (this.props.EZSplit.names[i].id !== this.props.Owner.ownerID){
+              API.addParticipant({
+                transactionId: res.data.transactionID,
+                participantId: this.props.EZSplit.names[i].id,
+                participantTotal: this.props.EZSplit.EZtotal,
+              })
+              .then(() => {
+                alert("Saved!");
+                window.location.href = '/';
+              })
+            }
+          }
         })
         .catch((error) => {
           console.log("saveTrans: " + error)
