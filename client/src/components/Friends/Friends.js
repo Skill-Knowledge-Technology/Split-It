@@ -61,15 +61,16 @@ class Friends extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col s12 m12 l12">
-          <div className="card blue-grey darken-1">
-            <div className="card-content white-text">
-              <div className="container">
-                <form className="col s12">
+      <div className="container">
+        <div className="row">
+          <div className="col s12 m12 l12">
+            <div className="card blue-grey darken-1">
+              <div className="card-content white-text">
+                <span className="card-title">Add Friend</span>
+                <form>
                   <div className="row">
                     <div className="input-field col s12">
-                      <i className="material-icons prefix">account_circle</i>
+                      <i className="material-icons prefix">group_add</i>
                       <label for="username" className="active">Search For a Friend!</label>
                       <input type="text" placeholder="Enter Username" id="username"
                         value={this.state.usernameToSearch} onChange={this.handleChange} />

@@ -74,8 +74,6 @@ class Login extends React.Component {
                     </div>
                   </div>
                 </form>
-              </div>
-              <div className="card-action">
                 <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.handleSubmit}>
                   Login
                   <i className="material-icons right">send</i>
