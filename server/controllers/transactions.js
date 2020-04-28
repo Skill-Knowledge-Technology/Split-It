@@ -13,15 +13,12 @@ const createTransaction = async (req, res, next) => {
     let total = req.body.total;
     let ownerID = req.body.ownerID;
     const transaction = {total,ownerID};
-    try {
-        const createTransaction = TransactionServices.createTransaction(transaction)
-        res.json(createTransaction)
+    TransactionServices.createTransaction(transaction)
+    .then((transaction) => {
+        res.json(transaction);
         console.log('transaction created')
-    }
-    catch (err) {
-        //      next(error)
-        console.log('controller error')
-    }
+    })
+    .catch(error => next(error))
 }
 
 module.exports = {
