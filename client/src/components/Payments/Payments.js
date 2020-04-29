@@ -53,6 +53,18 @@ class Payments extends React.Component {
       })
   }
 
+  pay = (transactionID, participantTotal) => e => {
+    e.preventDefault();
+    var userID = this.state.userID;
+    var balance = this.state.balance;
+    if(balance < participantTotal){
+      alert("You Cannot Afford This Payment!\nPlease Add Some Funds!");
+    }
+    else{
+      // Add Backend!
+    }
+  }
+
   render() {
     const { balance } = this.props;
     return (
@@ -95,7 +107,7 @@ class Payments extends React.Component {
                             </div>
                             <div className="card-action">
                               <button className="btn waves-effect waves-light float-right"
-                                type="button" name="action">
+                                type="button" name="action" onClick={this.pay(partTransaction.transactionID, partTransaction.participantTotal)}>
                                 Pay
                               </button>
                             </div>
