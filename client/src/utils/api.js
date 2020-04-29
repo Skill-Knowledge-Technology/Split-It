@@ -39,7 +39,16 @@ export default {
     return axios.post("/api/users/addToBalance", amount);
   },
   getFriendRequests: function(userId) {
-    return axios.get(`api/friendships/myFriendRequests/${userId}`);
+    return axios.get(`/api/friendships/myFriendRequests/${userId}`);
+  },
+  getOwnedTransactions: function(userId) {
+    return axios.get(`/api/transactions/ownedTransactions/${userId}`);
+  },
+  getPartTransactions: function(userId) {
+    return axios.get(`/api/transactions/partTransactions/${userId}`);
+  },
+  getAllTransactions: function(userId) {
+    return axios.get(`/api/transactions/allTransactions/${userId}`);
   }
 
 

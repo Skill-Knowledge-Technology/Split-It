@@ -27,7 +27,7 @@ class Friends extends React.Component {
           friendRequests: myfriendRequests
         }, () => {
           console.log("state.friendRequests is " + this.state.friendRequests);
-          console.log("tpype of is " + typeof(this.state.friendRequests));
+          console.log("type of is " + typeof(this.state.friendRequests));
         })
       })
   }
