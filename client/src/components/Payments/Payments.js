@@ -8,6 +8,14 @@ import API from "../../utils/api";
 class Payments extends React.Component {
   componentDidMount() {
     M.AutoInit();
+
+    API.getPartTransactions(this.state.userID)
+    .then(res => {
+      const partTransactions = res.data;
+      this.setState({
+        partTransactions: partTransactions
+      });
+    });
   }
 
   constructor(props) {
@@ -16,7 +24,8 @@ class Payments extends React.Component {
       name: this.props.name,
       balance: this.props.balance,
       amountToAdd: "",
-      userID: this.props.userID
+      userID: this.props.userID,
+      partTransactions: [],
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -73,23 +82,27 @@ class Payments extends React.Component {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col s6 m4">
-                        <div className="card white">
-                          <div className="card-content black-text">
-                            <span className="card-title">Name</span>
-                            <p>TransactionID: </p>
-                            <p>Date: </p>
-                            <p>My Total: </p>
-                            <p>Location: </p>
-                          </div>
-                          <div className="card-action">
-                            <button className="btn waves-effect waves-light float-right"
-                              type="button" name="action">
-                              Pay
-                            </button>
+                      {this.state.partTransactions.map((partTransaction, idx) =>
+                      !partTransaction.isPaid &&
+                        (
+                        <div className="col s6 m4"  key={`part-${idx}`}>
+                          <div className="card white">
+                            <div className="card-content black-text">
+                              <span className="card-title">TransactionID: {partTransaction.transactionID}</span>
+                              <p>Date: {partTransaction.createdAt}</p>
+                              <p>My Total: ${partTransaction.participantTotal}</p>
+                              <p>Status: {partTransaction.isPaid ? "Paid" : "Not Paid"}</p>
+                            </div>
+                            <div className="card-action">
+                              <button className="btn waves-effect waves-light float-right"
+                                type="button" name="action">
+                                Pay
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                        )
+                      )}
                     </div>
                   </div>
                   <div id="Funds" className="col s12">
