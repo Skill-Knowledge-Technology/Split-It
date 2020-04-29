@@ -24,7 +24,25 @@ const createTransaction = async (req, res, next) => {
     .catch(error => next(error))
 }
 
+const getOwnedTransactions = async (req, res, next) => {
+    return TransactionServices.findOwnedTransactions(req.params.userID)
+    .then((transactions) => {
+        res.json(transactions)
+    })
+    .catch(error => next(error))
+}
+
+const getPartTransactions = async (req, res, next) => {
+    return TransactionServices.findPartTransactions(req.params.userID)
+    .then((transactions) => {
+        res.json(transactions)
+    })
+    .catch(error => next(error))
+}
+
 module.exports = {
     getTransId,
-    createTransaction
+    createTransaction,
+    getOwnedTransactions,
+    getPartTransactions
 }

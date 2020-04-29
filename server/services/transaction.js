@@ -24,7 +24,34 @@ const createTransaction = async (data)=> {
 }
 
 
+const findOwnedTransactions = async (id) => {
+    try {
+        const ownedTransactions = await db.Transaction.findAll({
+            where: {
+                ownerID: id
+            }
+        });
+        console.log("Owned Transactions found: " + ownedTransactions);
+        return ownedTransactions;
+    }
+    catch (err) {
+        console.log("service error: " + err)
+    }
+}
+
+const findPartTransactions = async (id) => {
+    try {
+        const partTransactions = await db.Transaction.findAll({
+            where: {
+                
+            }
+        })
+    }
+}
+
+
 module.exports ={
     findTransaction,
-    createTransaction
+    createTransaction,
+    findOwnedTransactions
 }
