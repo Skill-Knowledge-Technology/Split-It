@@ -127,7 +127,8 @@ class App extends React.Component {
                 <Route path="/Camera" render={ (props) => <Camera {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
                 <Route path="/UserInput" render={ (props) => <UserInput {...props} isAuthenticated={this.state.isAuthenticated} ownerID={this.state.userID}/>} />
                 <Route path="/AboutUs" component={AboutUs} />
-                <Route path="/Maps" component={Maps} />
+                <Route path="/Maps" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
+                  ((props) => <Maps {...props} name={this.state.name} userID={this.state.userID}/>)} />
                 <Route path="/Test" component={Test} />
                 <Route path="/Friends" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Friends {...props} userID={this.state.userID} username={this.state.name}/>)} /> 

@@ -68,63 +68,65 @@ class History extends React.Component {
                   </div>
                   <div id="ViewAll" className="col s12">
                     <div className="row">
-                      <div className="col s12 m6">
-                        {this.state.ownedTransactions.map((ownTransaction, idx) =>
-                          <div className="card white" key={`allOwn-${idx}`}>
+                      {this.state.ownedTransactions.map((ownTransaction, idx) =>
+                        <div className="col s6 m4"  key={`allOwn-${idx}`}>
+                          <div className="card white">
                             <div className="card-content black-text">
                               <span className="card-title">TransactionID: {ownTransaction.transactionID}</span>
                               <p><b>Owner</b></p>
                               <p>Date: {ownTransaction.createdAt}</p>
-                              <p>Total: {ownTransaction.total}</p>
+                              <p>Transaction Total: ${ownTransaction.total}</p>
                               <p>Location: {ownTransaction.address}</p>
                             </div>
                           </div>
-                        )}
+                        </div>
+                      )}
 
-                        {this.state.partTransactions.map((partTransaction, idx) =>
-                          <div className="card white" key={`allPart-${idx}`}>
+                      {this.state.partTransactions.map((partTransaction, idx) =>
+                        <div className="col s6 m4"  key={`allPart-${idx}`}>
+                          <div className="card white">
                             <div className="card-content black-text">
-                              <span className="card-title">TransactionID: {String(partTransaction.transactionID)}</span>
+                              <span className="card-title">TransactionID: {partTransaction.transactionID}</span>
                               <p><b>Particpant</b></p>
                               <p>Date: {partTransaction.createdAt}</p>
-                              <p>My Total: {partTransaction.participantTotal}</p>
-                              <p>Paid Yet?: {String(partTransaction.isPaid)}</p>
+                              <p>My Total: ${partTransaction.participantTotal}</p>
+                              <p>Status: {partTransaction.isPaid ? "Paid" : "Not Paid"}</p>
                             </div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div id="Owner" className="col s12">
                     <div className="row">
-                      <div className="col s12 m6">
-                        {this.state.ownedTransactions.map((ownTransaction, idx) =>
-                          <div className="card white" key={`own-${idx}`}>
+                      {this.state.ownedTransactions.map((ownTransaction, idx) =>
+                        <div className="col s6 m4"  key={`own-${idx}`}>
+                          <div className="card white">
                             <div className="card-content black-text">
                               <span className="card-title">TransactionID: {ownTransaction.transactionID}</span>
                               <p>Date: {ownTransaction.createdAt}</p>
-                              <p>Total: {ownTransaction.total}</p>
+                              <p>Transaction Total: ${ownTransaction.total}</p>
                               <p>Location: {ownTransaction.address}</p>
                             </div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div id="Participate" className="col s12">
                     <div className="row">
-                      <div className="col s12 m6">
-                        {this.state.partTransactions.map((partTransaction, idx) =>
-                          <div className="card white" key={`part-${idx}`}>
+                      {this.state.partTransactions.map((partTransaction, idx) =>
+                        <div className="col s6 m4"  key={`part-${idx}`}>
+                          <div className="card white">
                             <div className="card-content black-text">
-                              <span className="card-title">TransactionID: {String(partTransaction.transactionID)}</span>
+                              <span className="card-title">TransactionID: {partTransaction.transactionID}</span>
                               <p>Date: {partTransaction.createdAt}</p>
-                              <p>My Total: {partTransaction.participantTotal}</p>
-                              <p>Paid Yet?: {String(partTransaction.isPaid)}</p>
+                              <p>My Total: ${partTransaction.participantTotal}</p>
+                              <p>Status: {partTransaction.isPaid ? "Paid" : "Not Paid"}</p>
                             </div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
