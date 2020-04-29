@@ -77,6 +77,30 @@ class Friends extends React.Component {
       })
   }
 
+  remove = (requesterID) => e => {
+    e.preventDefault();
+    var userID = this.state.userID;
+    // Insert Backend
+  }
+
+  acceptRequest = (requesterID) => e => {
+    e.preventDefault();
+    var userID = this.state.userID;
+    // Insert Backend
+  }
+
+  rejectRequest = (requesterID) => e => {
+    e.preventDefault();
+    var userID = this.state.userID;
+    // Insert Backend
+  }
+
+  cancelRequest = (requesterID) => e => {
+    e.preventDefault();
+    var userID = this.state.userID;
+    // Insert Backend
+  }
+
   render() {
     const { friendRequests } = this.state;
     return (
@@ -106,7 +130,22 @@ class Friends extends React.Component {
                     </div>
                     <div id="Friends" className="col s12">
                       <div className="row">
-                        Friends
+                        {friendRequests.map((friendRequests, idx) => 
+                          <div className="col s6 m4"  key={idx}>
+                            <div className="card white">
+                              <div className="card-content black-text">
+                                <span className="card-title">UserID: {friendRequests.requesterID}</span>
+                              </div>
+                              <div className="card-action">
+                                <button className="btn red waves-effect waves-light float-right"
+                                  type="button" name="action" onClick={this.remove(friendRequests.requesterID)}>
+                                    <i className="material-icons left">delete</i>
+                                    Remove Friend
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div id="Add" className="col s12">
@@ -148,12 +187,12 @@ class Friends extends React.Component {
                               <div className="card-action">
                                 <div className="row">
                                   <button className="btn blue waves-effect waves-light left"
-                                    type="button" name="action">
+                                    type="button" name="action" onClick={this.acceptRequest(friendRequests.requesterID)}>
                                     <i className="material-icons left">check</i>
                                     Accept
                                   </button>
                                   <button className="btn red waves-effect waves-light right"
-                                    type="button" name="action">
+                                    type="button" name="action" onClick={this.rejectRequest(friendRequests.requesterID)}>
                                     <i className="material-icons left">close</i>
                                     Reject
                                   </button>
@@ -174,7 +213,7 @@ class Friends extends React.Component {
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
-                                  type="button" name="action">
+                                  type="button" name="action" onClick={this.cancelRequest(friendRequests.requesterID)}>
                                     <i className="material-icons left">delete</i>
                                     Remove
                                 </button>
