@@ -54,10 +54,35 @@ const findPartTransactions = async (id) => {
     }
 }
 
+const findAllTransactions = async (id) => {
+    // literally performing the two same calls as above - there prob is a more 
+    // efficient way of doing this 
+    const partTransactions = await db.Participates.findAll({
+        where: {
+            participantID: id
+        }
+    });
+
+    const ownedTransactions = await db.Transaction.findAll({
+            where: {
+                ownerID: id
+            }
+        });
+    
+    try {
+        console.log("return all transactions");
+        return(ownedTransactions.concat(partTransactions));
+    }
+    catch (err) {
+        console.log("service error: " + err)
+    }
+}
+
 
 module.exports ={
     findTransaction,
     createTransaction,
     findOwnedTransactions,
-    findPartTransactions
+    findPartTransactions,
+    findAllTransactions
 }

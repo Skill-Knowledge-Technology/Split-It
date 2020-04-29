@@ -15,4 +15,6 @@ router.get('/ownedTransactions/:userID',[validatorErrors], transactionController
 
 router.get('/partTransactions/:userID',[validatorErrors], transactionController.getPartTransactions);
 
+router.get('/allTransactions/:userID', [validatorErrors], transactionController.getAllTransactions);
+
 module.exports = router;

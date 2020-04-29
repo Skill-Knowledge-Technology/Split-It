@@ -40,9 +40,18 @@ const getPartTransactions = async (req, res, next) => {
     .catch(error => next(error))
 }
 
+const getAllTransactions = async (req, res, next) => {
+    return TransactionServices.findAllTransactions(req.params.userID)
+    .then((transactions) => {
+        res.json(transactions)
+    })
+    .catch(error => next(error))
+}
+
 module.exports = {
     getTransId,
     createTransaction,
     getOwnedTransactions,
-    getPartTransactions
+    getPartTransactions,
+    getAllTransactions
 }
