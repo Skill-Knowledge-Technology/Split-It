@@ -183,7 +183,9 @@ export default class Step3EZ extends React.Component {
               <div className="row">
                 <div className="input-field col s12">
                   <i className="material-icons prefix">add_location</i>
-                  <Autocomplete style={{width: '90%', display:'inline'}} onPlaceSelected={this.selectPlace} types={['address']} componentRestrictions={{country: "us"}}/>
+                  <label className="active">Enter a Location By Address (Optional)</label>
+                  <Autocomplete style={{width: '90%', display:'inline'}} onPlaceSelected={this.selectPlace} 
+                    placeholder="Location (Optional)" types={['address']} componentRestrictions={{country: "us"}}/>
                 </div>
               </div>
             </form>
