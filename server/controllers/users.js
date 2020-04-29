@@ -31,7 +31,7 @@ const getUserBalance = (req, res, next) => {
 
 const addToUserBalance = (req, res, next) => {
     if (isNaN(req.body.balanceToAdd)) {
-       return console.log(balanceToAdd + " is not a number")
+        return console.log(balanceToAdd + " is not a number")
     }
     else {
         req.body.balanceToAdd = parseFloat(req.body.balanceToAdd).toFixed(2);
@@ -44,31 +44,16 @@ const addToUserBalance = (req, res, next) => {
 }
 
 const transferUserBalance = (req, res, next) => {
-    return UserServices.transferBalancetoUsers(req.params.senderId, req.body.receiverId, req.body.balanceToTransfer)
+    return UserServices.transferBalancetoUsers(req.params.senderId,
+        req.body.receiverId,
+        req.body.balanceToTransfer,
+        req.body.transactionId)
         .then((balance) => {
             res.json(balance)
         })
         .catch(error => next(error))
 }
 
-/*const getUserFriends = (req, res, next) => {
-    console.log('hit getUserFriend worked');
-    return UserServices.findUserFriends(req.params.userId)
-        .then((friends) => {
-            res.json('friends found ' + friends)
-        })
-        .catch(error => next(error))
-
-}
-
-const addToUserFriends = (req,res,next) =>{
-    console.log('friend add controller hit');
-    return UserServices.addFriends(req.params.userId, req.body.friendsId)
-        .then((friends) => {
-            res.json(friends) 
-        })
-        .catch(error => next(error))
-}*/
 
 const login = async (req, res, next) => {
     // we are able to get the userID and username because 
@@ -109,8 +94,6 @@ module.exports = {
     getUserBalance,
     addToUserBalance,
     transferUserBalance,
-    //addToUserFriends,
-    //getUserFriends,
     register,
     login
 

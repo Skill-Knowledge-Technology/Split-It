@@ -72,7 +72,7 @@ const addBalance = async (userId, balanceToAdd) => {
     console.log('try to add balance');
 }
 
-const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) => {
+const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered, transactionId) => {
     balanceTransfered = parseFloat(balanceTransfered);
     console.log('balance transfered is ' + balanceTransfered)
     let senderCurrentBalance = await findUserBalance(senderId);
@@ -90,7 +90,7 @@ const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) =
             { where: { userID: senderId } }
         )
             .then(result =>
-                console.log(' result is ' + result)
+                console.log('sender result is ' + result)
             )
             .catch(err =>
                 console.log(err)
@@ -101,11 +101,26 @@ const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered) =
             { where: { userID: receiverId } }
         )
             .then(result =>
-                console.log(' result is ' + result)
+                console.log('receiver result is ' + result)
             )
             .catch(err =>
                 console.log(err)
             )
+
+        db.Participates.update(
+            { isPaid: true },
+            {
+                where: {
+                    transactionID: transactionId,
+                    participantID: senderId
+                }
+            }
+        )
+            .then(result =>
+                console.log('participate result is ' + result)
+            )
+            .catch(err =>
+                console.log(err))
     }
 }
 

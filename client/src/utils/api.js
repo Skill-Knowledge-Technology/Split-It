@@ -35,11 +35,17 @@ export default {
   createFriendship: function(data) {
     return axios.post("/api/friendships/createFriendship", data);
   },
-  addToBalance: function(amount) {
-    return axios.post("/api/users/addToBalance", amount);
+  addToBalance: function(amount, userId) {
+    return axios.post("/api/users/addToBalance", amount, userId);
+  },
+  transferBalance: function(senderID, data) {
+    return axios.post(`/api/users/transferBalance/${senderID}`, data);
   },
   getFriendRequests: function(userId) {
     return axios.get(`/api/friendships/myFriendRequests/${userId}`);
+  },
+  getTransaction: function(transID) {
+    return axios.get(`/api/transactions/${transID}`);
   },
   getOwnedTransactions: function(userId) {
     return axios.get(`/api/transactions/ownedTransactions/${userId}`);
