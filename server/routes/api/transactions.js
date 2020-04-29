@@ -13,6 +13,6 @@ router.post('/createTransaction',[validatorErrors],transactionController.createT
 
 router.get('/ownedTransactions/:userID',[validatorErrors], transactionController.getOwnedTransactions);
 
-router.get('partTransactions/:userID',[validatorErrors], transactionController.getPartTransactions);
+router.get('/partTransactions/:userID',[validatorErrors], transactionController.getPartTransactions);
 
 module.exports = router;

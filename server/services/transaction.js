@@ -41,11 +41,16 @@ const findOwnedTransactions = async (id) => {
 
 const findPartTransactions = async (id) => {
     try {
-        const partTransactions = await db.Transaction.findAll({
+        const partTransactions = await db.Participates.findAll({
             where: {
-                
+                participantID: id
             }
-        })
+        });
+        console.log("Participated in found: " + partTransactions);
+        return partTransactions;
+    }
+    catch (err) {
+        console.log("service error: " + err)
     }
 }
 
@@ -53,5 +58,6 @@ const findPartTransactions = async (id) => {
 module.exports ={
     findTransaction,
     createTransaction,
-    findOwnedTransactions
+    findOwnedTransactions,
+    findPartTransactions
 }
