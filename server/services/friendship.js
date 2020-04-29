@@ -33,7 +33,7 @@ const findFriendRequests = async (userID) => {
                 friendshipStatus: 1
             }
         });
-        console.log("Friend Requests found: " + FriendRequests);
+        console.log("Friend Requests found: " + {FriendRequests});
         return FriendRequests;
     }
     catch (err) {

@@ -37,6 +37,9 @@ export default {
   },
   addToBalance: function(amount) {
     return axios.post("/api/users/addToBalance", amount);
+  },
+  getFriendRequests: function(userId) {
+    return axios.get(`api/friendships/myFriendRequests/${userId}`);
   }
 
 
