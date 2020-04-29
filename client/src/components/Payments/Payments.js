@@ -62,14 +62,14 @@ class Payments extends React.Component {
           // variables in the data object MUST match with controller
           let receiverId = res.data.ownerID;
           let senderId = this.state.userID;
-          let balanceToTransfer = this.state.amountToAdd;
+          let balanceToTransfer = participantTotal;
           let transactionId = transactionID;
           let data = { receiverId, balanceToTransfer, transactionId };
           //2. Perform transferBalance API call
           API.transferBalance(senderId, data)
             .then(() => {
               alert("Transaction Paid!")
-              //3. reload the component to get updated state
+              //3. reload the component to update state
               this.componentDidMount();
             })
         })
@@ -80,15 +80,6 @@ class Payments extends React.Component {
     else {
       alert("You Cannot Afford This Payment!\nPlease Add Some Funds!");
     }
-    // var userID = this.state.userID;
-    // var balance = this.state.balance;
-    // let data = { userID }
-    // if (balance < participantTotal) {
-    //   alert("You Cannot Afford This Payment!\nPlease Add Some Funds!");
-    // }
-    // else {
-    //   // Add Backend!
-    // }
   }
 
   render() {
@@ -133,7 +124,8 @@ class Payments extends React.Component {
                               </div>
                               <div className="card-action">
                                 <button className="btn waves-effect waves-light float-right"
-                                  type="button" name="action" onClick={this.pay(partTransaction.transactionID, partTransaction.participantTotal)}>
+                                  type="button" name="action" onClick={this.pay(partTransaction.transactionID, parseFloat(partTransaction.participantTotal))}>
+                                  {/* type="button" name="action" onClick={console.log("TransID: " + partTransaction.transactionID + "   myTotal: " +  typeof(partTransaction.participantTotal))}> */}
                                   Pay
                               </button>
                               </div>
