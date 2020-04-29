@@ -59,7 +59,7 @@ class History extends React.Component {
                         <a className="active" href="#ViewAll">All History</a>
                       </li>
                       <li className="tab col s4">
-                        <a className="active" href="#Owner">Owned Transactions</a>
+                        <a href="#Owner">Owned Transactions</a>
                       </li>
                       <li className="tab col s4">
                         <a href="#Participate">Participated Transactions</a>
