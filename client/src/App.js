@@ -23,13 +23,26 @@ import History from './components/History/History';
 import axios from "axios";
 
 class App extends React.Component {
+  componentDidMount() {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      this.setAuthToken(token)
+      const decoded = jwt_decode(token)
+      this.setState({
+        userID: decoded.id,
+        name: decoded.username,
+        email: decoded.email,
+        isAuthenticated: true
+      })
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       userID: null,
       name: "",
       email: "",
-      password: "",
       image: require("./public/People/dummy.jpg"),
       errors: [],
       isAuthenticated: false,
@@ -45,13 +58,11 @@ class App extends React.Component {
       const { token } = res.data
       localStorage.setItem("jwtToken", token)
       this.setAuthToken(token)
-      console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
       const decoded = jwt_decode(token)
       this.setState({
         userID: decoded.id,
         name: decoded.username,
         email: email,
-        password: password,
         isAuthenticated: true
       })
     })
@@ -90,7 +101,6 @@ class App extends React.Component {
       userID: null,
       name: "",
       email: "",
-      password: "",
       errors: [],
       isAuthenticated: false,
     })
