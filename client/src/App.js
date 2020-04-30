@@ -30,7 +30,6 @@ class App extends React.Component {
       name: "",
       email: "",
       password: "",
-      balance: "",
       image: require("./public/People/dummy.jpg"),
       errors: [],
       isAuthenticated: false,
@@ -55,13 +54,6 @@ class App extends React.Component {
         password: password,
         isAuthenticated: true
       })
-      // finding the banance of the user using an API 
-      API.findUserBalance(decoded.id)
-        .then((res) => {
-          this.setState({
-            balance: res.data
-          })
-        })
       console.log(this.state)
     })
       .catch((error) => {
@@ -133,9 +125,9 @@ class App extends React.Component {
                 <Route path="/Friends" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Friends {...props} userID={this.state.userID} username={this.state.name}/>)} /> 
                 <Route path="/Profile" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance} image = {this.state.image}/>)} />
+                  ((props) => <Profile {...props} name={this.state.name} email={this.state.email} userID={this.state.userID} image = {this.state.image}/>)} />
                 <Route path="/Payments" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance} userID={this.state.userID}/>)} />
+                  ((props) => <Payments {...props} name={this.state.name} userID={this.state.userID}/>)} />
                 <Route path="/History" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <History {...props} name={this.state.name} userID={this.state.userID}/>)} />
                 <Route exact path="/" component={Home} />

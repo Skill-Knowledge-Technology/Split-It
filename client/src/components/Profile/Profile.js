@@ -1,14 +1,26 @@
 import React from "react";
 import "./Profile.css";
 import { withRouter } from "react-router-dom";
+import API from "../../utils/api";
 
 class Profile extends React.Component {
+  componentDidMount() {
+    // finding the banance of the user using an API 
+    API.findUserBalance(this.state.userID)
+      .then((res) => {
+        this.setState({
+          balance: res.data
+        });
+      });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
+      userID: this.props.userID,
       name: this.props.name,
       email: this.props.email,
-      balance: this.props.balance,
+      balance: "",
       uploads: this.props.image,
       edit: false,
     };
