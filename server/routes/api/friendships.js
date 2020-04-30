@@ -13,4 +13,6 @@ router.get('/getFriendship/:requesterId/:addresseeId',[validatorErrors],friendsh
 
 router.get('/myFriendRequests/:userId',[validatorErrors], friendshipController.getMyFriendRequests);
 
+router.delete('/removeFriendship/:requesterId/:addresseeId',[validatorErrors], friendshipController.removeFriendship);
+
 module.exports = router; 

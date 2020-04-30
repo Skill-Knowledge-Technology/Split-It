@@ -1,4 +1,5 @@
 const db = require('../models')
+const { Op } = require("sequelize");
 
 const createFriendship = async (data) => {
     const newFriendship = await db.Friendship.create({
@@ -33,7 +34,7 @@ const findFriendRequests = async (userID) => {
                 friendshipStatus: 1
             }
         });
-        console.log("Friend Requests found: " + {FriendRequests});
+        console.log("Friend Requests found: " + { FriendRequests });
         return FriendRequests;
     }
     catch (err) {
@@ -41,8 +42,36 @@ const findFriendRequests = async (userID) => {
     }
 }
 
+const deleteFriendship = async (requesterId, addresseeId) => {
+    requesterId = parseFloat(requesterId);
+    addresseeId = parseFloat(addresseeId);
+
+    try {
+        noFriendship = await db.Friendship.destroy({
+            where: {
+                [Op.or]: [
+                    {
+                        addresseeID: addresseeId,
+                        requesterID: requesterId
+                    },
+                    {
+                        addresseeID: requesterId,
+                        requesterID: addresseeId
+                    }
+                ]
+            }
+        });
+        console.log("Service: Friendship deleted");
+        return noFriendship;
+    }
+    catch (err) {
+        console.log("Sericve error: " + err);
+    }
+}
+
 module.exports = {
     createFriendship,
     findFriendship,
-    findFriendRequests
+    findFriendRequests,
+    deleteFriendship
 }

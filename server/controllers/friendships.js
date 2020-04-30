@@ -34,9 +34,19 @@ const getMyFriendRequests = async (req, res) => {
         })
 }
 
+const removeFriendship = async (req, res) => {
+    return FriendshipServices.deleteFriendship(req.params.requesterId, req.params.addresseeId)
+        .then((deletedFriendship) => {
+            res.json(deletedFriendship)
+        })
+        .catch((error) => {
+            console.log("controller error: " + error)
+        })
+}
 
 module.exports = {
     createFriendship,
     getFriendship,
-    getMyFriendRequests
+    getMyFriendRequests,
+    removeFriendship
 }
