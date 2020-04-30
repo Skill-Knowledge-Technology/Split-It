@@ -12,6 +12,13 @@ class Profile extends React.Component {
           balance: res.data
         });
       });
+
+    API.findUser(this.state.userID)
+      .then((res) => {
+        this.setState({ 
+          email: res.data.email 
+        });
+      });
   }
 
   constructor(props) {
@@ -19,7 +26,7 @@ class Profile extends React.Component {
     this.state = {
       userID: this.props.userID,
       name: this.props.name,
-      email: this.props.email,
+      email: "",
       balance: "",
       uploads: this.props.image,
       edit: false,
