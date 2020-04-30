@@ -54,7 +54,6 @@ class App extends React.Component {
         password: password,
         isAuthenticated: true
       })
-      console.log(this.state)
     })
       .catch((error) => {
         if (error.response) {
@@ -98,10 +97,31 @@ class App extends React.Component {
     window.location.href = '/'
   }
 
+  redirect = (e) => {
+    e.preventDefault();
+    window.location.href = '/Login'
+  };
+
   notAuthorized = () => {
     return (
-      <div className="text-align center">
-      <h4 span style={{color: 'Red'}}> You do not have permission to access this page</h4>
+      <div className="container">
+       <div className="row">
+          <div className="col s12 m12 l12">
+            <div className="card blue-grey darken-1">
+              <div className="card-content white-text">
+                <span className="card-title">Bad Access</span>
+                <h4> You do not have permission to access this page!</h4>
+              </div>
+              <div className="card-action">
+                <button className="btn-large" type="submit" name="action"
+                  onClick={this.redirect}>
+                  Click Here To Be Redirected!
+                  <i className="material-icons right">compare_arrows</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
