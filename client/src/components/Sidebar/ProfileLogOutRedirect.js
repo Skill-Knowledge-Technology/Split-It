@@ -80,7 +80,7 @@ const ProfileLogOutRedirect = ({ name, handleUserLogOut, email, image }) => {
       </li>
       <li>
         <Link to="/" onClick={handleUserLogOut}>
-          <i className="material-icons">exit_to_app</i>
+          <i className="material-icons">power_settings_new</i>
           Logout
         </Link>
       </li>

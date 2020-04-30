@@ -23,14 +23,26 @@ import History from './components/History/History';
 import axios from "axios";
 
 class App extends React.Component {
+  componentDidMount() {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      this.setAuthToken(token)
+      const decoded = jwt_decode(token)
+      this.setState({
+        userID: decoded.id,
+        name: decoded.username,
+        email: decoded.email,
+        isAuthenticated: true
+      })
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       userID: null,
       name: "",
       email: "",
-      password: "",
-      balance: "",
       image: require("./public/People/dummy.jpg"),
       errors: [],
       isAuthenticated: false,
@@ -46,23 +58,13 @@ class App extends React.Component {
       const { token } = res.data
       localStorage.setItem("jwtToken", token)
       this.setAuthToken(token)
-      console.log(this.setAuthToken(token)) // When I console.log it, this reutrns the data of { token }
       const decoded = jwt_decode(token)
       this.setState({
         userID: decoded.id,
         name: decoded.username,
         email: email,
-        password: password,
         isAuthenticated: true
       })
-      // finding the banance of the user using an API 
-      API.findUserBalance(decoded.id)
-        .then((res) => {
-          this.setState({
-            balance: res.data
-          })
-        })
-      console.log(this.state)
     })
       .catch((error) => {
         if (error.response) {
@@ -99,17 +101,37 @@ class App extends React.Component {
       userID: null,
       name: "",
       email: "",
-      password: "",
       errors: [],
       isAuthenticated: false,
     })
     window.location.href = '/'
   }
 
+  redirect = (e) => {
+    e.preventDefault();
+    window.location.href = '/Login'
+  };
+
   notAuthorized = () => {
     return (
-      <div className="text-align center">
-      <h4 span style={{color: 'Red'}}> You do not have permission to access this page</h4>
+      <div className="container">
+       <div className="row">
+          <div className="col s12 m12 l12">
+            <div className="card blue-grey darken-1">
+              <div className="card-content white-text">
+                <span className="card-title">Bad Access</span>
+                <h4> You do not have permission to access this page!</h4>
+              </div>
+              <div className="card-action">
+                <button className="btn-large" type="submit" name="action"
+                  onClick={this.redirect}>
+                  Click Here To Be Redirected!
+                  <i className="material-icons right">compare_arrows</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -133,9 +155,9 @@ class App extends React.Component {
                 <Route path="/Friends" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <Friends {...props} userID={this.state.userID} username={this.state.name}/>)} /> 
                 <Route path="/Profile" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Profile {...props} name={this.state.name} email={this.state.email} balance={this.state.balance} image = {this.state.image}/>)} />
+                  ((props) => <Profile {...props} name={this.state.name} email={this.state.email} userID={this.state.userID} image = {this.state.image}/>)} />
                 <Route path="/Payments" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
-                  ((props) => <Payments {...props} name={this.state.name} balance={this.state.balance} userID={this.state.userID}/>)} />
+                  ((props) => <Payments {...props} name={this.state.name} userID={this.state.userID}/>)} />
                 <Route path="/History" render={ !this.state.isAuthenticated ? (this.notAuthorized) :
                   ((props) => <History {...props} name={this.state.name} userID={this.state.userID}/>)} />
                 <Route exact path="/" component={Home} />

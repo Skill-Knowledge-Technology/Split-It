@@ -16,13 +16,21 @@ class Payments extends React.Component {
           partTransactions: partTransactions
         });
       });
+
+    // finding the banance of the user using an API 
+    API.findUserBalance(this.state.userID)
+      .then((res) => {
+        this.setState({
+          balance: res.data
+        });
+      });
   }
 
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.name,
-      balance: this.props.balance,
+      balance: "",
       amountToAdd: "",
       userID: this.props.userID,
       partTransactions: [],
@@ -46,7 +54,8 @@ class Payments extends React.Component {
     API.addToBalance(addBalance)
       .then(() => {
         alert("$" + this.state.amountToAdd + " Has Been Added");
-        this.setState({ balanceToAdd: "" });
+        this.setState({ amountToAdd: "" });
+        this.componentDidMount();
       })
       .catch((err) => {
         console.log("error: " + err)
@@ -83,7 +92,7 @@ class Payments extends React.Component {
   }
 
   render() {
-    const { balance } = this.props;
+    const { balance } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -151,7 +160,7 @@ class Payments extends React.Component {
                                 <div className="input-field col s12">
                                   <i className="material-icons prefix">money</i>
                                   <label className="active">Added Balance</label>
-                                  <input type="number" min="0.00" max="10000.00" step="0.01"
+                                  <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="Insert Amount To Add To Account"
                                     value={this.state.amountToAdd} onChange={this.handleChange} />
                                 </div>
                               </div>
