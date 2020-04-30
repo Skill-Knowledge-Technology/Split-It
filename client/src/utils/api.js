@@ -44,6 +44,18 @@ export default {
   getFriendRequests: function(userId) {
     return axios.get(`/api/friendships/myFriendRequests/${userId}`);
   },
+  getSentRequests: function(userId) {
+    return axios.get(`/api/friendships/mySentRequests/${userId}`);
+  },
+  getMyFriends: function(userId) {
+    return axios.get(`/api/friendships/getMyFriends/${userId}`);
+  },
+  acceptRequest: function(requesterID, addresseeID) {
+    return axios.put(`/api/friendships/acceptRequest/${requesterID}/${addresseeID}`);
+  },
+  deleteFriendship: function(requesterID, addresseeID) {
+    return axios.delete(`/api/friendships/removeFriendship/${requesterID}/${addresseeID}`);
+  },
   getTransaction: function(transID) {
     return axios.get(`/api/transactions/${transID}`);
   },
@@ -56,6 +68,4 @@ export default {
   getAllTransactions: function(userId) {
     return axios.get(`/api/transactions/allTransactions/${userId}`);
   }
-
-
 };

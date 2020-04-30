@@ -23,6 +23,15 @@ const getFriendship = async (req, res, next) => {
         .catch(error => next(error))
 }
 
+const getMyFriends = async(req, res) => {
+    return FriendshipServices.findMyFriends(req.params.userId)
+    .then((myFriends) => {
+        res.json(myFriends)
+    })
+    .catch((error) => {
+        console.log("controller error: " + error)
+    })
+}
 
 const getMyFriendRequests = async (req, res) => {
     return FriendshipServices.findFriendRequests(req.params.userId)
@@ -34,9 +43,42 @@ const getMyFriendRequests = async (req, res) => {
         })
 }
 
+const getSentRequests = async (req, res) => {
+    return FriendshipServices.findSentRequests(req.params.userId)
+    .then((sentRequests) => {
+        res.json(sentRequests)
+    })
+    .catch((error) => {
+        console.log("controller error: " + error)
+    })
+}
+
+const acceptRequest = async (req, res) => {
+    return FriendshipServices.acceptRequest(req.params.requesterId, req.params.addresseeId)
+    .then((accepted) => {
+        res.json(accepted)
+    })
+    .catch((error) => {
+        console.log("controller error: " + error)
+    })
+}
+
+const removeFriendship = async (req, res) => {
+    return FriendshipServices.deleteFriendship(req.params.requesterId, req.params.addresseeId)
+        .then((deletedFriendship) => {
+            res.json(deletedFriendship)
+        })
+        .catch((error) => {
+            console.log("controller error: " + error)
+        })
+}
 
 module.exports = {
     createFriendship,
     getFriendship,
-    getMyFriendRequests
+    getMyFriends,
+    getMyFriendRequests,
+    getSentRequests,
+    acceptRequest,
+    removeFriendship
 }

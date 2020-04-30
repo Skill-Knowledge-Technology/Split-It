@@ -7,18 +7,30 @@ import API from "../../utils/api";
 class Friends extends React.Component {
   componentDidMount() {
     M.AutoInit();
-    
+
     API.getFriendRequests(this.state.requesterID)
       .then(res => {
-        console.log("res is " + JSON.stringify(res.data, null, 2));
         const myfriendRequests = res.data;
         this.setState({
           friendRequests: myfriendRequests
-        }, () => {
-          console.log("state.friendRequests is " + this.state.friendRequests);
-          console.log("type of is " + typeof(this.state.friendRequests));
         })
-      })
+      });
+
+    API.getMyFriends(this.state.requesterID)
+      .then(res => {
+        const myFriends = res.data;
+        this.setState({
+          myFriends: myFriends
+        });
+      });
+
+      API.getSentRequests(this.state.requesterID)
+      .then(res => {
+        const sentRequests = res.data;
+        this.setState({
+          sentRequests: sentRequests
+        });
+      });
   }
 
   constructor(props) {
@@ -29,7 +41,9 @@ class Friends extends React.Component {
       myName: this.props.username,
       requesterID: this.props.userID,
       addresseeID: "",
-      friendRequests: []
+      friendRequests: [],
+      myFriends: [],
+      sentRequests: []
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -71,38 +85,51 @@ class Friends extends React.Component {
       .then(() => {
         alert("Friend Request sent to " + this.state.usernameToSearch);
         this.setState({ usernameToSearch: "" });
+        this.componentDidMount();
       })
       .catch((err) => {
         console.log("error: " + err)
       })
   }
 
-  remove = (requesterID) => e => {
-    e.preventDefault();
-    var userID = this.state.userID;
-    // Insert Backend
+  // function used for deleting requests, sent requests, and friends
+  remove = (requesterID, addresseeID) => e => {
+    e.preventDefault();  
+
+    API.deleteFriendship(requesterID, addresseeID)
+    .then(() => {
+      this.componentDidMount();
+    })
+    .catch((err) => {
+      console.log("error: " + err)
+    });
+  
+    this.componentDidMount();
   }
 
-  acceptRequest = (requesterID) => e => {
+  // function used to accept friend requests
+  accept = (requesterID, addresseeID) => e => {
     e.preventDefault();
-    var userID = this.state.userID;
-    // Insert Backend
+
+    API.acceptRequest(requesterID,addresseeID)
+    .then(() => {
+      this.componentDidMount();
+    })
+    .catch((err) => {
+      console.log("error: " + err)
+    });
   }
 
-  rejectRequest = (requesterID) => e => {
-    e.preventDefault();
-    var userID = this.state.userID;
-    // Insert Backend
+
+  // helper function to make sure we dont send the same ID twice in a request
+  isSelf = (friendship) => {
+    if (friendship.requesterID == this.state.requesterID) return friendship.addresseeID;
+    else return friendship.requesterID;
   }
 
-  cancelRequest = (requesterID) => e => {
-    e.preventDefault();
-    var userID = this.state.userID;
-    // Insert Backend
-  }
 
   render() {
-    const { friendRequests } = this.state;
+    const { friendRequests, myFriends, sentRequests } = this.state;
     return (
       <div>
         <div className="container">
@@ -121,25 +148,25 @@ class Friends extends React.Component {
                           <a href="#Add">Add Friends</a>
                         </li>
                         <li className="tab col s3">
-                          <a href="#Requests">Friend Request</a>
+                          <a href="#Requests">Friend Requests</a>
                         </li>
                         <li className="tab col s3">
-                          <a href="#Sent">Request Sent</a>
+                          <a href="#Sent">Requests Sent</a>
                         </li>
                       </ul>
                     </div>
                     <div id="Friends" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) => 
-                          <div className="col s6 m4"  key={idx}>
+                        {myFriends.map((myFriend, idx) =>
+                          <div className="col s6 m4" key={`friend-${idx}`}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {friendRequests.requesterID}</span>
+                                <span className="card-title">UserID: {this.isSelf(myFriend)}</span>
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
-                                  type="button" name="action" onClick={this.remove(friendRequests.requesterID)}>
-                                    <i className="material-icons left">delete</i>
+                                  type="button" name="action" onClick={this.remove(this.state.requesterID, this.isSelf(myFriend))}>
+                                  <i className="material-icons left">delete</i>
                                     Remove Friend
                                 </button>
                               </div>
@@ -169,7 +196,7 @@ class Friends extends React.Component {
                               <button className="waves-effect waves-light btn"
                                 onClick={() => this.handleSubmit(this.bind)} disabled={(this.state.isFound === false) || (this.state.myName === this.state.usernameToSearch)}>
                                 <i className="material-icons left">person_add</i>
-                                Send Friend Request
+                                Send Friend Requests
                               </button>
                             </div>
                           </div>
@@ -178,8 +205,8 @@ class Friends extends React.Component {
                     </div>
                     <div id="Requests" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) => 
-                          <div className="col s6 m4"  key={idx}>
+                        {friendRequests.map((friendRequests, idx) =>
+                          <div className="col s6 m4" key={idx}>
                             <div className="card white">
                               <div className="card-content black-text">
                                 <span className="card-title">UserID: {friendRequests.requesterID}</span>
@@ -187,12 +214,14 @@ class Friends extends React.Component {
                               <div className="card-action">
                                 <div className="row">
                                   <button className="btn blue waves-effect waves-light left"
-                                    type="button" name="action" onClick={this.acceptRequest(friendRequests.requesterID)}>
+                                    // FOR BUTTON: in this case, the logged in user is the recipient so
+                                    //  state.receiverID(current user) is sent to accept function as the addressee
+                                    type="button" name="action" onClick={this.accept(friendRequests.requesterID, this.state.requesterID)}>
                                     <i className="material-icons left">check</i>
                                     Accept
                                   </button>
                                   <button className="btn red waves-effect waves-light right"
-                                    type="button" name="action" onClick={this.rejectRequest(friendRequests.requesterID)}>
+                                    type="button" name="action" onClick={this.remove(this.state.requesterID, this.isSelf(friendRequests))}>
                                     <i className="material-icons left">close</i>
                                     Reject
                                   </button>
@@ -205,16 +234,16 @@ class Friends extends React.Component {
                     </div>
                     <div id="Sent" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) => 
-                          <div className="col s6 m4"  key={idx}>
+                        {sentRequests.map((sentRequest, idx) =>
+                          <div className="col s6 m4" key={`sent-${idx}`}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {friendRequests.requesterID}</span>
+                                <span className="card-title">UserID: {sentRequest.addresseeID}</span>
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
-                                  type="button" name="action" onClick={this.cancelRequest(friendRequests.requesterID)}>
-                                    <i className="material-icons left">delete</i>
+                                  type="button" name="action" onClick={this.remove(this.state.requesterID, this.isSelf(sentRequest))}>
+                                  <i className="material-icons left">delete</i>
                                     Remove
                                 </button>
                               </div>
