@@ -24,6 +24,32 @@ const findFriendship = async (requesterId, addresseeId) => {
     return Friendship;
 }
 
+const findMyFriends = async (userID) => {
+    userID = parseFloat(userID);
+    try {
+        myFriends = await db.Friendship.findAll({
+            where: {
+                // returns any duplicates (ie, two people sent a request to each other at the same time)
+                [Op.or]: [
+                    {
+                        addresseeID: userID,
+                        friendshipStatus: 2
+                    },
+                    {
+                        requesterID: userID,
+                        friendshipStatus: 2
+                    }
+                ]
+            }
+        });
+        console.log("Service: Friends found");
+        return myFriends;
+    }
+    catch (err) {
+        console.log("Sericve error: " + err);
+    }
+}
+
 const findFriendRequests = async (userID) => {
     userID = parseFloat(userID);
     try {
@@ -49,6 +75,7 @@ const deleteFriendship = async (requesterId, addresseeId) => {
     try {
         noFriendship = await db.Friendship.destroy({
             where: {
+                // deletes any duplicates (ie, two people sent a request to each other at the same time)
                 [Op.or]: [
                     {
                         addresseeID: addresseeId,
@@ -72,6 +99,7 @@ const deleteFriendship = async (requesterId, addresseeId) => {
 module.exports = {
     createFriendship,
     findFriendship,
+    findMyFriends,
     findFriendRequests,
     deleteFriendship
 }

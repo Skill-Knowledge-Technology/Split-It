@@ -11,6 +11,8 @@ router.post('/createFriendship', [validatorErrors],friendshipController.createFr
 
 router.get('/getFriendship/:requesterId/:addresseeId',[validatorErrors],friendshipController.getFriendship);
 
+router.get('/getMyFriends/:userId',[validatorErrors],friendshipController.getMyFriends);
+
 router.get('/myFriendRequests/:userId',[validatorErrors], friendshipController.getMyFriendRequests);
 
 router.delete('/removeFriendship/:requesterId/:addresseeId',[validatorErrors], friendshipController.removeFriendship);
