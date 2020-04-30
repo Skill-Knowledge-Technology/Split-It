@@ -43,6 +43,16 @@ const getMyFriendRequests = async (req, res) => {
         })
 }
 
+const getSentRequests = async (req, res) => {
+    return FriendshipServices.findSentRequests(req.params.userId)
+    .then((sentRequests) => {
+        res.json(sentRequests)
+    })
+    .catch((error) => {
+        console.log("controller error: " + error)
+    })
+}
+
 const removeFriendship = async (req, res) => {
     return FriendshipServices.deleteFriendship(req.params.requesterId, req.params.addresseeId)
         .then((deletedFriendship) => {
@@ -58,5 +68,6 @@ module.exports = {
     getFriendship,
     getMyFriends,
     getMyFriendRequests,
+    getSentRequests,
     removeFriendship
 }

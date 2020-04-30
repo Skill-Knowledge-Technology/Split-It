@@ -23,7 +23,15 @@ class Friends extends React.Component {
         this.setState({
           myFriends: myFriends
         });
-      })
+      });
+
+      API.getSentRequests(this.state.requesterID)
+      .then(res => {
+        const sentRequests = res.data;
+        this.setState({
+          sentRequests: sentRequests
+        });
+      });
   }
 
   constructor(props) {
@@ -35,7 +43,8 @@ class Friends extends React.Component {
       requesterID: this.props.userID,
       addresseeID: "",
       friendRequests: [],
-      myFriends: []
+      myFriends: [],
+      sentRequests: []
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -77,6 +86,7 @@ class Friends extends React.Component {
       .then(() => {
         alert("Friend Request sent to " + this.state.usernameToSearch);
         this.setState({ usernameToSearch: "" });
+        this.componentDidMount();
       })
       .catch((err) => {
         console.log("error: " + err)
@@ -87,24 +97,28 @@ class Friends extends React.Component {
     e.preventDefault();
     var userID = this.state.userID;
     // Insert Backend
+    this.componentDidMount();
   }
 
   acceptRequest = (requesterID) => e => {
     e.preventDefault();
     var userID = this.state.userID;
     // Insert Backend
+    this.componentDidMount();
   }
 
   rejectRequest = (requesterID) => e => {
     e.preventDefault();
     var userID = this.state.userID;
     // Insert Backend
+    this.componentDidMount();
   }
 
   cancelRequest = (requesterID) => e => {
     e.preventDefault();
     var userID = this.state.userID;
     // Insert Backend
+    this.componentDidMount();
   }
 
   // helper function to prevent returning own id in 'My Friends'
@@ -115,7 +129,7 @@ class Friends extends React.Component {
 
 
   render() {
-    const { friendRequests, myFriends } = this.state;
+    const { friendRequests, myFriends, sentRequests } = this.state;
     return (
       <div>
         <div className="container">
@@ -218,15 +232,15 @@ class Friends extends React.Component {
                     </div>
                     <div id="Sent" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) =>
-                          <div className="col s6 m4" key={idx}>
+                        {sentRequests.map((sentRequest, idx) =>
+                          <div className="col s6 m4" key={`sent-${idx}`}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {friendRequests.requesterID}</span>
+                                <span className="card-title">UserID: {sentRequest.addresseeID}</span>
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
-                                  type="button" name="action" onClick={this.cancelRequest(friendRequests.requesterID)}>
+                                  type="button" name="action" onClick={this.cancelRequest(sentRequest.requesterID)}>
                                   <i className="material-icons left">delete</i>
                                     Remove
                                 </button>

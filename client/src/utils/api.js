@@ -44,6 +44,9 @@ export default {
   getFriendRequests: function(userId) {
     return axios.get(`/api/friendships/myFriendRequests/${userId}`);
   },
+  getSentRequests: function(userId) {
+    return axios.get(`/api/friendships/mySentRequests/${userId}`);
+  },
   getMyFriends: function(userId) {
     return axios.get(`/api/friendships/getMyFriends/${userId}`);
   },

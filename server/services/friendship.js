@@ -68,6 +68,24 @@ const findFriendRequests = async (userID) => {
     }
 }
 
+const findSentRequests = async (userID) => {
+    userID = parseFloat(userID);
+    try {
+        const sentRequests = await db.Friendship.findAll({
+            where:
+            {
+                requesterID: userID,
+                friendshipStatus: 1
+            }
+        });
+        console.log("Sent Requests found: " + { sentRequests });
+        return sentRequests;
+    }
+    catch (err) {
+        console.log("service error: " + err)
+    }
+}
+
 const deleteFriendship = async (requesterId, addresseeId) => {
     requesterId = parseFloat(requesterId);
     addresseeId = parseFloat(addresseeId);
@@ -101,5 +119,6 @@ module.exports = {
     findFriendship,
     findMyFriends,
     findFriendRequests,
+    findSentRequests,
     deleteFriendship
 }
