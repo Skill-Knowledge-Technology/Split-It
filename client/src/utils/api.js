@@ -44,6 +44,9 @@ export default {
   getFriendRequests: function(userId) {
     return axios.get(`/api/friendships/myFriendRequests/${userId}`);
   },
+  getMyFriends: function(userId) {
+    return axios.get(`/api/friendships/getMyFriends/${userId}`);
+  },
   getTransaction: function(transID) {
     return axios.get(`/api/transactions/${transID}`);
   },

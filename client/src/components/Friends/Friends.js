@@ -7,17 +7,22 @@ import API from "../../utils/api";
 class Friends extends React.Component {
   componentDidMount() {
     M.AutoInit();
-    
+
     API.getFriendRequests(this.state.requesterID)
       .then(res => {
         console.log("res is " + JSON.stringify(res.data, null, 2));
         const myfriendRequests = res.data;
         this.setState({
           friendRequests: myfriendRequests
-        }, () => {
-          console.log("state.friendRequests is " + this.state.friendRequests);
-          console.log("type of is " + typeof(this.state.friendRequests));
         })
+      });
+
+    API.getMyFriends(this.state.requesterID)
+      .then(res => {
+        const myFriends = res.data;
+        this.setState({
+          myFriends: myFriends
+        });
       })
   }
 
@@ -29,7 +34,8 @@ class Friends extends React.Component {
       myName: this.props.username,
       requesterID: this.props.userID,
       addresseeID: "",
-      friendRequests: []
+      friendRequests: [],
+      myFriends: []
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -101,8 +107,15 @@ class Friends extends React.Component {
     // Insert Backend
   }
 
+  // helper function to prevent returning own id in 'My Friends'
+  isSelf = (friendship) => {
+    if (friendship.requesterID == this.state.requesterID) return friendship.addresseeID;
+    else return friendship.requesterID;
+  }
+
+
   render() {
-    const { friendRequests } = this.state;
+    const { friendRequests, myFriends } = this.state;
     return (
       <div>
         <div className="container">
@@ -121,25 +134,25 @@ class Friends extends React.Component {
                           <a href="#Add">Add Friends</a>
                         </li>
                         <li className="tab col s3">
-                          <a href="#Requests">Friend Request</a>
+                          <a href="#Requests">Friend Requests</a>
                         </li>
                         <li className="tab col s3">
-                          <a href="#Sent">Request Sent</a>
+                          <a href="#Sent">Requests Sent</a>
                         </li>
                       </ul>
                     </div>
                     <div id="Friends" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) => 
-                          <div className="col s6 m4"  key={idx}>
+                        {myFriends.map((myFriend, idx) =>
+                          <div className="col s6 m4" key={`friend-${idx}`}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {friendRequests.requesterID}</span>
+                                <span className="card-title">UserID: {this.isSelf(myFriend)}</span>
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
-                                  type="button" name="action" onClick={this.remove(friendRequests.requesterID)}>
-                                    <i className="material-icons left">delete</i>
+                                  type="button" name="action" onClick={this.remove(myFriend.requesterID)}>
+                                  <i className="material-icons left">delete</i>
                                     Remove Friend
                                 </button>
                               </div>
@@ -169,7 +182,7 @@ class Friends extends React.Component {
                               <button className="waves-effect waves-light btn"
                                 onClick={() => this.handleSubmit(this.bind)} disabled={(this.state.isFound === false) || (this.state.myName === this.state.usernameToSearch)}>
                                 <i className="material-icons left">person_add</i>
-                                Send Friend Request
+                                Send Friend Requests
                               </button>
                             </div>
                           </div>
@@ -178,8 +191,8 @@ class Friends extends React.Component {
                     </div>
                     <div id="Requests" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) => 
-                          <div className="col s6 m4"  key={idx}>
+                        {friendRequests.map((friendRequests, idx) =>
+                          <div className="col s6 m4" key={idx}>
                             <div className="card white">
                               <div className="card-content black-text">
                                 <span className="card-title">UserID: {friendRequests.requesterID}</span>
@@ -205,8 +218,8 @@ class Friends extends React.Component {
                     </div>
                     <div id="Sent" className="col s12">
                       <div className="row">
-                        {friendRequests.map((friendRequests, idx) => 
-                          <div className="col s6 m4"  key={idx}>
+                        {friendRequests.map((friendRequests, idx) =>
+                          <div className="col s6 m4" key={idx}>
                             <div className="card white">
                               <div className="card-content black-text">
                                 <span className="card-title">UserID: {friendRequests.requesterID}</span>
@@ -214,7 +227,7 @@ class Friends extends React.Component {
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
                                   type="button" name="action" onClick={this.cancelRequest(friendRequests.requesterID)}>
-                                    <i className="material-icons left">delete</i>
+                                  <i className="material-icons left">delete</i>
                                     Remove
                                 </button>
                               </div>
