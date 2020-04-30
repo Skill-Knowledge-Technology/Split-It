@@ -50,6 +50,9 @@ export default {
   getMyFriends: function(userId) {
     return axios.get(`/api/friendships/getMyFriends/${userId}`);
   },
+  acceptRequest: function(requesterID, addresseeID) {
+    return axios.put(`/api/friendships/acceptRequest/${requesterID}/${addresseeID}`);
+  },
   deleteFriendship: function(requesterID, addresseeID) {
     return axios.delete(`/api/friendships/removeFriendship/${requesterID}/${addresseeID}`);
   },

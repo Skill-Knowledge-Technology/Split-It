@@ -95,7 +95,7 @@ class Friends extends React.Component {
   // function used for deleting requests, sent requests, and friends
   remove = (requesterID, addresseeID) => e => {
     e.preventDefault();  
-    console.log("remove function invoked");
+
     API.deleteFriendship(requesterID, addresseeID)
     .then(() => {
       this.componentDidMount();
@@ -103,12 +103,25 @@ class Friends extends React.Component {
     .catch((err) => {
       console.log("error: " + err)
     });
-    
-
+  
     this.componentDidMount();
   }
 
-  // helper function to prevent returning own id in 'My Friends'
+  // function used to accept friend requests
+  accept = (requesterID, addresseeID) => e => {
+    e.preventDefault();
+
+    API.acceptRequest(requesterID,addresseeID)
+    .then(() => {
+      this.componentDidMount();
+    })
+    .catch((err) => {
+      console.log("error: " + err)
+    });
+  }
+
+
+  // helper function to make sure we dont send the same ID twice in a request
   isSelf = (friendship) => {
     if (friendship.requesterID == this.state.requesterID) return friendship.addresseeID;
     else return friendship.requesterID;
@@ -201,7 +214,9 @@ class Friends extends React.Component {
                               <div className="card-action">
                                 <div className="row">
                                   <button className="btn blue waves-effect waves-light left"
-                                    type="button" name="action" onClick={this.remove(friendRequests.requesterID)}>
+                                    // FOR BUTTON: in this case, the logged in user is the recipient so
+                                    //  state.receiverID(current user) is sent to accept function as the addressee
+                                    type="button" name="action" onClick={this.accept(friendRequests.requesterID, this.state.requesterID)}>
                                     <i className="material-icons left">check</i>
                                     Accept
                                   </button>

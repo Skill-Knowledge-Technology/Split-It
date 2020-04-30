@@ -86,6 +86,28 @@ const findSentRequests = async (userID) => {
     }
 }
 
+const acceptRequest = async (requesterId, addresseeId) => {
+    requesterId = parseFloat(requesterId);
+    addresseeId = parseFloat(addresseeId);
+
+    try {
+        const acceptedRequest = await db.Friendship.update({
+            friendshipStatus: 2
+        }, {
+            where: {
+                requesterID: requesterId,
+                addresseeID: addresseeId
+            }
+        });
+        console.log("Request accepted");
+        return acceptedRequest;
+    }
+    catch (err) {
+        console.log("service error: " + err)
+    }
+}
+
+
 // can send the ID's in any order with this function
 const deleteFriendship = async (requesterId, addresseeId) => {
     requesterId = parseFloat(requesterId);
@@ -121,5 +143,6 @@ module.exports = {
     findMyFriends,
     findFriendRequests,
     findSentRequests,
+    acceptRequest,
     deleteFriendship
 }
