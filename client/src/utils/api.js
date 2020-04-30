@@ -50,6 +50,9 @@ export default {
   getMyFriends: function(userId) {
     return axios.get(`/api/friendships/getMyFriends/${userId}`);
   },
+  deleteFriendship: function(requesterID, addresseeID) {
+    return axios.delete(`/api/friendships/removeFriendship/${requesterID}/${addresseeID}`);
+  },
   getTransaction: function(transID) {
     return axios.get(`/api/transactions/${transID}`);
   },
@@ -62,6 +65,4 @@ export default {
   getAllTransactions: function(userId) {
     return axios.get(`/api/transactions/allTransactions/${userId}`);
   }
-
-
 };

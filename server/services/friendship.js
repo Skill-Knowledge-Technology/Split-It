@@ -86,6 +86,7 @@ const findSentRequests = async (userID) => {
     }
 }
 
+// can send the ID's in any order with this function
 const deleteFriendship = async (requesterId, addresseeId) => {
     requesterId = parseFloat(requesterId);
     addresseeId = parseFloat(addresseeId);
