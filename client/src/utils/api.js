@@ -9,6 +9,9 @@ export default {
   loginUser: function(userData) {
     return axios.post("/api/users/login", userData);
   },
+  findUser: function(userId) {
+    return axios.get(`/api/users/${userId}`)
+  },
   findUserBalance: function(userData) {
     return axios.get(`/api/users/getBalance/${userData}`)
   },

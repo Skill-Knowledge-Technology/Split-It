@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from './components/Sidebar/Sidebar'
+import "materialize-css/dist/css/materialize.min.css";
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -31,9 +32,12 @@ class App extends React.Component {
       this.setState({
         userID: decoded.id,
         name: decoded.username,
-        email: decoded.email,
         isAuthenticated: true
       })
+      API.findUser(decoded.id)
+        .then((res) => {
+          this.setState({ email: res.data.email })
+        })
     }
   }
 

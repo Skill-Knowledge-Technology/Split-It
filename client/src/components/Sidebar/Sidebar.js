@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import M from "materialize-css/dist/js/materialize.min.js";
-import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css";
 import "./Sidebar.css";
 import LoginRegisterRedirect from './LoginRegisterRedirect';
 import ProfileLogOutRedirect from './ProfileLogOutRedirect';
