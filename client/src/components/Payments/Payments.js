@@ -51,15 +51,19 @@ class Payments extends React.Component {
       balanceToAdd: this.state.amountToAdd,
       userId: this.state.userID
     };
-    API.addToBalance(addBalance)
+    if (this.state.amountToAdd < 0){
+      alert("$" + this.state.amountToAdd + " Is A Negative Balance\nPlease Enter A Correct Amount To Add!");
+    }
+    else{
+      API.addToBalance(addBalance)
       .then(() => {
         alert("$" + this.state.amountToAdd + " Has Been Added");
-        this.setState({ amountToAdd: "" });
-        this.componentDidMount();
+        window.location.reload();
       })
       .catch((err) => {
         console.log("error: " + err)
       })
+    }
   }
 
   pay = (transactionID, participantTotal) => e => {
@@ -79,7 +83,7 @@ class Payments extends React.Component {
             .then(() => {
               alert("Transaction Paid!")
               //3. reload the component to update state
-              this.componentDidMount();
+              window.location.reload();
             })
         })
         .catch((err) => {
