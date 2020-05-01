@@ -8,29 +8,44 @@ class Friends extends React.Component {
   componentDidMount() {
     M.AutoInit();
 
-    API.getFriendRequests(this.state.requesterID)
-      .then(res => {
-        const myfriendRequests = res.data;
-        this.setState({
-          friendRequests: myfriendRequests
+  API.getFriendRequests(this.state.requesterID)
+    .then(res => {
+      const myfriendRequests = res.data;
+      myfriendRequests.map((Requests) => {
+        var id = Requests.requesterID;
+        API.findUser(id)
+          .then((res2) => {
+            var friend = this.state.friendRequests.concat({ requesterID: Requests.requesterID, addresseeID: Requests.addresseeID, username: res2.data.username} );
+            this.setState({ friendRequests: friend })
         })
-      });
+      })
+    });
 
-    API.getMyFriends(this.state.requesterID)
-      .then(res => {
-        const myFriends = res.data;
-        this.setState({
-          myFriends: myFriends
-        });
-      });
+  API.getMyFriends(this.state.requesterID)
+    .then(res => {
+      const myFriends = res.data;
+      myFriends.map((Friends) => {
+        var id = this.isSelf(Friends);
+        API.findUser(id)
+          .then((res2) => {
+            var friend = this.state.myFriends.concat({ requesterID: Friends.requesterID, addresseeID: Friends.addresseeID, username: res2.data.username} );
+            this.setState({ myFriends: friend })
+        })
+      })
+    });
 
-      API.getSentRequests(this.state.requesterID)
-      .then(res => {
-        const sentRequests = res.data;
-        this.setState({
-          sentRequests: sentRequests
-        });
-      });
+    API.getSentRequests(this.state.requesterID)
+    .then(res => {
+      const sentRequest = res.data;
+      sentRequest.map((Sent) => {
+        var id = Sent.addresseeID;
+        API.findUser(id)
+          .then((res2) => {
+            var friend = this.state.sentRequests.concat({ requesterID: Sent.requesterID, addresseeID: Sent.addresseeID, username: res2.data.username} );
+            this.setState({ sentRequests: friend })
+        })
+      })
+    });
   }
 
   constructor(props) {
@@ -84,8 +99,7 @@ class Friends extends React.Component {
     API.createFriendship(newFriendship)
       .then(() => {
         alert("Friend Request sent to " + this.state.usernameToSearch);
-        this.setState({ usernameToSearch: "" });
-        this.componentDidMount();
+        window.location.reload();
       })
       .catch((err) => {
         console.log("error: " + err)
@@ -98,13 +112,11 @@ class Friends extends React.Component {
 
     API.deleteFriendship(requesterID, addresseeID)
     .then(() => {
-      this.componentDidMount();
+      window.location.reload();
     })
     .catch((err) => {
       console.log("error: " + err)
     });
-  
-    this.componentDidMount();
   }
 
   // function used to accept friend requests
@@ -113,20 +125,18 @@ class Friends extends React.Component {
 
     API.acceptRequest(requesterID,addresseeID)
     .then(() => {
-      this.componentDidMount();
+      window.location.reload();
     })
     .catch((err) => {
       console.log("error: " + err)
     });
   }
 
-
   // helper function to make sure we dont send the same ID twice in a request
   isSelf = (friendship) => {
     if (friendship.requesterID == this.state.requesterID) return friendship.addresseeID;
     else return friendship.requesterID;
   }
-
 
   render() {
     const { friendRequests, myFriends, sentRequests } = this.state;
@@ -161,7 +171,7 @@ class Friends extends React.Component {
                           <div className="col s6 m4" key={`friend-${idx}`}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {this.isSelf(myFriend)}</span>
+                                <span className="card-title">{myFriend.username}</span>
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
@@ -209,7 +219,7 @@ class Friends extends React.Component {
                           <div className="col s6 m4" key={idx}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {friendRequests.requesterID}</span>
+                                <span className="card-title">{friendRequests.username}</span>
                               </div>
                               <div className="card-action">
                                 <div className="row">
@@ -238,7 +248,7 @@ class Friends extends React.Component {
                           <div className="col s6 m4" key={`sent-${idx}`}>
                             <div className="card white">
                               <div className="card-content black-text">
-                                <span className="card-title">UserID: {sentRequest.addresseeID}</span>
+                                <span className="card-title">{sentRequest.username}</span>
                               </div>
                               <div className="card-action">
                                 <button className="btn red waves-effect waves-light float-right"
