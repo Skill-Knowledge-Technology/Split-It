@@ -7,14 +7,13 @@ Take a look at https://app-split-it.herokuapp.com/ !
 
 ## Our Technology
 <br>
+
 ### Frontend
-React
-React Materialize
-Tesseract OCR
+* React
+* React Materialize
+* Tesseract OCR
 
 ### Backend
-<br>
-
-Express
-Sequelize
-postgreSQL
+* Express
+* Sequelize
+* PostgreSQL
