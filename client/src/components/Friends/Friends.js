@@ -99,7 +99,7 @@ class Friends extends React.Component {
     API.createFriendship(newFriendship)
       .then(() => {
         alert("Friend Request sent to " + this.state.usernameToSearch);
-        window.location.reload();
+        this.componentDidMount();
       })
       .catch((err) => {
         console.log("error: " + err)
@@ -112,7 +112,7 @@ class Friends extends React.Component {
 
     API.deleteFriendship(requesterID, addresseeID)
     .then(() => {
-      window.location.reload();
+      this.componentDidMount();
     })
     .catch((err) => {
       console.log("error: " + err)
@@ -125,7 +125,7 @@ class Friends extends React.Component {
 
     API.acceptRequest(requesterID,addresseeID)
     .then(() => {
-      window.location.reload();
+      this.componentDidMount();
     })
     .catch((err) => {
       console.log("error: " + err)
