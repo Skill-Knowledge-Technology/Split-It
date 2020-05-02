@@ -153,11 +153,13 @@ export default class Step6 extends React.Component {
                       ${list.total}
                     </td>
                     <td>
-                      <label>
-                        <input readOnly type="checkbox" className="filled-in"
-                          checked={list.check}/>
-                        <span></span>
-                      </label>
+                      {list.check && (
+                        <label>
+                          <input readOnly type="checkbox" className="filled-in"
+                            checked={list.check}/>
+                          <span></span>
+                        </label>
+                      )}
                     </td>
                   </tr>
                 ))}

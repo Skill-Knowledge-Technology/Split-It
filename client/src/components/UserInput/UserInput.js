@@ -286,7 +286,7 @@ export default class UserInput extends React.Component {
     var size = newState.names.length;
     for (var i = 0; i < size; i++){
       if(newState.names[i].name === name){
-        newState.names[i].subtotal += total;
+        newState.names[i].subtotal = (Math.round((+newState.names[i].subtotal + +total) *1e12)/1e12);
         this.setState(newState);
       }
     }
