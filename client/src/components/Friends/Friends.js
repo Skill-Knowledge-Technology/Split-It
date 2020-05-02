@@ -92,18 +92,32 @@ class Friends extends React.Component {
   }
 
   handleSubmit() {
-    let newFriendship = {
-      requesterID: this.state.requesterID,
-      addresseeID: this.state.addresseeID
-    };
-    API.createFriendship(newFriendship)
-      .then(() => {
-        alert("Friend Request sent to " + this.state.usernameToSearch);
-        this.componentDidMount();
-      })
-      .catch((err) => {
-        console.log("error: " + err)
-      })
+    API.findFriendship(this.state.requesterID, this.state.addresseeID)
+    .then((res) => {
+      console.log("find Friendship res: " + res.data);
+      // no friendship found between users
+      if (!res.data) {
+        let newFriendship = {
+          requesterID: this.state.requesterID,
+          addresseeID: this.state.addresseeID
+        };
+        API.createFriendship(newFriendship)
+          .then(() => {
+            alert("Friend Request sent to " + this.state.usernameToSearch);
+            this.componentDidMount();
+          })
+          .catch((err) => {
+            console.log("error: " + err)
+          })
+      }
+      // friendship already exists - could be friends or pending
+      else {
+        alert("Friendship already exists - check your Friends or Requests")
+      }
+    })
+    .catch((err) => {
+      console.log("error: " + err)
+    })
   }
 
   // function used for deleting requests, sent requests, and friends
