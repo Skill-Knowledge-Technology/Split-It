@@ -104,6 +104,9 @@ class Friends extends React.Component {
         API.createFriendship(newFriendship)
           .then(() => {
             alert("Friend Request sent to " + this.state.usernameToSearch);
+            this.setState({ friendRequests: [] });
+            this.setState({ myFriends: [] });
+            this.setState({ sentRequests: [] });
             this.componentDidMount();
           })
           .catch((err) => {
@@ -126,6 +129,9 @@ class Friends extends React.Component {
 
     API.deleteFriendship(requesterID, addresseeID)
     .then(() => {
+      this.setState({ friendRequests: [] });
+      this.setState({ myFriends: [] });
+      this.setState({ sentRequests: [] });
       this.componentDidMount();
     })
     .catch((err) => {
@@ -139,6 +145,9 @@ class Friends extends React.Component {
 
     API.acceptRequest(requesterID,addresseeID)
     .then(() => {
+      this.setState({ friendRequests: [] });
+      this.setState({ myFriends: [] });
+      this.setState({ sentRequests: [] });
       this.componentDidMount();
     })
     .catch((err) => {
