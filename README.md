@@ -1,153 +1,52 @@
-# Project Starter 
-A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
-SplitIt is a web development that allows users to split recent transactions among people for an easier alternative than doing it manually. Our proposed idea was for merchants to have a QR code for the items that were ordered and through that QR code, users can scan it and will automatically ring up the bill. Through the code it will automatically split the bill among it's users, or if some people do not wish to use it; the application will allow its users to select options on how they want to split the bill accordingly. The account will be linked to your bank account and from there it will be saved. To use this service the user will have to log-in into the account and it will prompt the user to select one of three options.<br> 1.  QR Code Scan <br>2. Google API image recognition<br>3. User Input<br> The application will be mostly be used through the QR code becasue through Google API image recognition it will sometimes be faulty and not  work. 
+## Split-It 
+A billing splitting application that solves your headaches when eating out with friends and family! 
+  
+## Motivation
 
-## Stack
+Everyone has experienced the problem of having to split the bill between a group of friends. Split It intends to solve the headaches and pain of calculating the bill between a group of people without using cash to split the bill. One of the goals of Split It is to provide the user a pleasant and enjoyable experience while using our product. The user will have the option of manually assigning the name and cost of an item to each person in the group or automate the process by taking a picure of the receipt and assigning the cost of the item to each person. The User will also have the option to choose the tax and tip as part of the payment system. 
 
-*API*
-
-- express.js
-- sequelize.js
-
-*React client*
-
-- Built using `create-react-app` and configured to work with the api.
-- Bootstrap 4.x added to `/client/public/index.html`
-- React Router
-
-*Project Structure*
-
-<pre>
-.
-├── README.md
-├── <strong>api</strong>
-│   ├── app.js
-│   ├── <strong>config</strong>
-│   │   └── config.json
-│   ├── <strong>controllers</strong>
-│   │   ├── appConfig.js
-│   │   ├── index.js
-│   │   └── posts.js
-│   └── <strong>models</strong>
-│       ├── index.js
-│       └── post.js
-├── <strong>client</strong>
-│   ├── README.md
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── <strong>public</strong>
-│   │   ├── favicon.ico
-│   │   ├── index.html
-│   │   ├── logo192.png
-│   │   ├── logo512.png
-│   │   ├── manifest.json
-│   │   └── robots.txt
-│   └── <strong>src</strong>
-│       ├── App.css
-│       ├── App.js
-│       ├── App.test.js
-│       ├── <strong>components</strong>
-│       │   ├── Loading.js
-│       │   └── Post.js
-│       ├── index.css
-│       ├── index.js
-│       ├── logo.svg
-│       ├── <strong>pages</strong>
-│       │   ├── AboutUsPage.js
-│       │   ├── PostFormPage.js
-│       │   ├── PostsListPage.js
-│       │   └── ShowPostPage.js
-│       └── serviceWorker.js
-├── package-lock.json
-└── package.json
-</pre>
-
-
-## Dev Setup
-
-Each team member will need to do this on their local machine.
-
-### Create a postgres db
-
-Create a user in postgres named `ctp_user` with the password `ctp_pass`:
-
-> This only needs to be done one time on your machine
-> You can create additional users if you want to.
+## Installation
+A step by step guide on running the application locally
 
 ```
-createuser -P -s -e ctp_user
+1. Download the zip folder and unzip the contents of the Split-It folder
+```
+<br>
+
+```
+2. Using your terminal, go to the root directory of the Split-It folder
 ```
 
-Create a separate db for this project:
+<br>
 
 ```
-createdb -h localhost -U ctp_user app2019_development
+3. Using your terminal, go into the server folder and type in npm install. 
+After it is done installing , go to the client folder and type in npm install
 ```
 
-> You will create a DB for each project you start based on this repo. For other projects change `app2019_development` to the new apps database name.
+<br>
 
-*For more details see this [installing postgres guide](https://github.com/CUNYTechPrep/ctp2019/blob/master/guides/installing-postgresql.md)*
-
-### Running the app
-
-For local development you will need two terminals open, one for the api-backend and another for the react-client.
-
-*Clone* this app, then:
-
-```bash
-# api-backend terminal 1
-cp .env.example .env
-npm install
-npm run dev
+```
+4. open up two terminals, in one terminal go to the server folder
+and type npm run dev. On another terminal go to the client folder
+and type in npm start 
 ```
 
-```bash
-# react-client terminal 2
-cd client
-npm install
-npm start
+<br>
+
+```
+5. open up your favorite web browser and go to http://localhost:3000/
 ```
 
-- api-backend will launch at: http://localhost:8080
-- react-client will launch at: http://localhost:3000
+## Application
+Take a look at https://app-split-it.herokuapp.com/ ! 
 
-> In production you will only deploy a single app. The react client will build into static files that will be served from the backend.
+### Frontend
+* React
+* React Materialize
+* Tesseract OCR
 
-## Deployment
-
-### Setting up Heroku
-
-Install the heroku cli if you don't already have it. 
-
-> You will also need a heroku account
-> And this will only be done once on your machine
-
-```bash
-# on mac
-brew install heroku/brew/heroku
-heroku login
-```
-
-### Create a Heroku project
-
-Next, `cd` into this project directory and create a project:
-
-```bash
-heroku create cool-appname
-heroku addons:create heroku-postgresql:hobby-dev
-```
-
-> This will deploy your apps to https://cool-appname.herokuapp.com, assuming that it is not taken already.
-
-> You only need to do this once per app
-
-### Deploying the app
-
-Whenever you want to update the app run this command.
-
-```bash
-git push heroku master
-```
-
-> This command deploys your master branch. You can change that and deploy a different branch such as: `git push heroku development`
-
+### Backend
+* Express
+* Sequelize
+* PostgreSQL
