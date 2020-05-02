@@ -44,6 +44,9 @@ export default {
   transferBalance: function(senderID, data) {
     return axios.post(`/api/users/transferBalance/${senderID}`, data);
   },
+  findFriendship: function(requesterID, addresseeID) {
+    return axios.get(`/api/friendships/getFriendship/${requesterID}/${addresseeID}`);
+  },
   getFriendRequests: function(userId) {
     return axios.get(`/api/friendships/myFriendRequests/${userId}`);
   },
