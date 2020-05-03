@@ -58,7 +58,7 @@ class Payments extends React.Component {
       API.addToBalance(addBalance)
       .then(() => {
         alert("$" + this.state.amountToAdd + " Has Been Added");
-        window.location.reload();
+        this.componentDidMount();
       })
       .catch((err) => {
         console.log("error: " + err)
@@ -83,7 +83,7 @@ class Payments extends React.Component {
             .then(() => {
               alert("Transaction Paid!")
               //3. reload the component to update state
-              window.location.reload();
+              this.componentDidMount();
             })
         })
         .catch((err) => {

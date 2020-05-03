@@ -12,12 +12,22 @@ const createFriendship = async (data) => {
     return newFriendship;
 }
 
+// checks to see if any friendship exists with these two ID's - order of args doesn't matter
+// HOWEVER if there are duplicates it will only return the first one it finds
 const findFriendship = async (requesterId, addresseeId) => {
     const Friendship = await db.Friendship.findOne({
         where:
         {
-            requesterID: requesterId,
-            addresseeID: addresseeId
+            [Op.or]: [
+                {
+                    requesterID: requesterId,
+                    addresseeID: addresseeId
+                },
+                {
+                    requesterID: addresseeId,
+                    addresseeID: requesterId
+                }
+            ]
         }
     });
     console.log(Friendship + 'found');
