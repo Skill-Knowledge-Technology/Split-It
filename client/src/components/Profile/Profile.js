@@ -61,7 +61,16 @@ class Profile extends React.Component {
   // eventually api call to call the backend
   handleSubmit = (e) => {
     e.preventDefault();
-    // Insert Backend Here.
+    
+    API.searchByEmail(this.state.newEmail)
+    .then((res) => {
+      if (res.data) {
+        alert("Email is already taken");
+      }
+      else {
+        alert("Email is available");
+      }
+    })
     console.log(this.state);
   };
 

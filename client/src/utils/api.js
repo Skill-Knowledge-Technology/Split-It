@@ -29,6 +29,9 @@ export default {
   searchByUsername: function(username) {
     return axios.get(`/api/users/findByUsername/${username}`);
   },
+  searchByEmail: function(email) {
+    return axios.get(`/api/users/findByEmail/${email}`);
+  },
   createTransaction: function(transData) {
     return axios.post("/api/transactions/createTransaction", transData);
   },

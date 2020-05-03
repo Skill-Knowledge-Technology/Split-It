@@ -38,6 +38,21 @@ const findUserByEmail = async (email) => {
     return User
 }
 
+const updateUserEmail = async (id, email) => {
+    id = parseFloat(id);
+    db.User.update(
+        { email: email },
+        { where: { userID: id } }
+    )
+        .then(result =>
+            console.log(' result is ' + result)
+        )
+        .catch(err =>
+            console.log(err)
+        )
+    console.log('try to update email');
+}
+
 
 const findUser = async (id) => {
     const User = await db.User.findByPk(id);
@@ -124,64 +139,12 @@ const transferBalancetoUsers = async (senderId, receiverId, balanceTransfered, t
     }
 }
 
-
-
-/*const addFriends = async (userId, friendsId) => {
-    friendsId = parseInt(friendsId);
-    console.log('friend to add ' + friendsId);
-    if (friendsId == userId) {
-        return console.log('can not add yourself')
-    }
-    let currentFriendList = await findUserFriends(userId);
-    console.log('currentFriendList is ' + currentFriendList);
-    console.log('datatype of current friend list ' + typeof currentFriendList);
-    let newFriendList;
-    if (currentFriendList == null) {
-        newFriendList = [friendsId];
-        console.log('initializing new friend list');
-        console.log('new friend list is ' + newFriendList);
-        console.log('new friend list is typeof ' + typeof newFriendList)
-    }
-    else {
-        const foundFriend = currentFriendList.includes(friendsId)
-
-        if (foundFriend) {
-            return console.log('already friends');
-        }
-        else {
-            newFriendList = currentFriendList.concat(friendsId);
-        }
-        console.log('new friends list ' + newFriendList);
-        console.log('datatype of new friends list ' + typeof newFriendList);
-
-    }
-    db.User.update(
-        { friends: newFriendList },
-        { where: { userID: userId } }
-    )
-        .then(result =>
-            console.log('result is ' + result)
-        )
-        .catch(err =>
-            console.log(err)
-        )
-    console.log('try add to friend');
-}*/
-
-
 const findUserByUsername = async (username) => {
     const User = await db.User.findOne({ where: { username: username } })
     console.log(User + 'has been found by username in service');
     return User;
 
 }
-
-/*const findUserFriends = async (userID) => {
-    const User = await db.User.findByPk(userID);
-    console.log('user found in services');
-    return User.friends;
-}*/
-
 
 const createUser = async (data) => {
     try {
@@ -197,9 +160,6 @@ const createUser = async (data) => {
     }
 
 }
-// console.log(data.username + " " + data.email + " " + data.password + " - read from createUser function");
-// console.log("createUser function invoked");
-
 
 // function to generate a hash of the password asynchronously with 8 rounds
 const generateHash = async (password) => {
@@ -214,11 +174,10 @@ module.exports = {
     addBalance,
     transferBalancetoUsers,
     findUser,
-    //findUserFriends,
-    //addFriends,
     createUser,
     generateHash,
     getJwtToken,
     verifyJwtToken,
-    findUserByUsername
+    findUserByUsername,
+    updateUserEmail
 }
