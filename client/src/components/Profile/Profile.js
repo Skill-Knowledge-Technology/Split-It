@@ -70,9 +70,9 @@ class Profile extends React.Component {
         alert("Email is already taken");
       }
       else {
-        API.updateEmail(this.state.userID, this.state.newEmail)
+        let newEmailObj = {newEmail: this.state.newEmail};
+        API.updateEmail(this.state.userID, newEmailObj)
         .then(() => {
-          alert("Email updated");
           this.componentDidMount();
         })
         .catch((err) => {
