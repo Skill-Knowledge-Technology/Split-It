@@ -15,8 +15,8 @@ class Profile extends React.Component {
 
     API.findUser(this.state.userID)
       .then((res) => {
-        this.setState({ 
-          email: res.data.email 
+        this.setState({
+          email: res.data.email
         });
       });
   }
@@ -26,8 +26,9 @@ class Profile extends React.Component {
     this.state = {
       userID: this.props.userID,
       name: this.props.name,
-      email: "",
+      email: this.props.email,
       balance: "",
+      newEmail: "",
       uploads: this.props.image,
       edit: false,
     };
@@ -66,11 +67,11 @@ class Profile extends React.Component {
 
   handleEdit = (e) => {
     e.preventDefault();
-    this.setState({ edit: !this.state.edit});
+    this.setState({ edit: !this.state.edit });
   };
-  
+
   render() {
-    const {name, email, balance, uploads} = this.state;
+    const { name, email, balance, uploads, newEmail } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -78,90 +79,90 @@ class Profile extends React.Component {
             <div className="card blue-grey darken-1">
               <div className="card-content white-text">
                 <span className="card-title">Profile</span>
-                {!this.state.edit && 
+                {!this.state.edit &&
                   (
-                  <div className="container">
-                    <div className="center-align">
-                      <img src={uploads} width="200" className="circle responsive-img" alt="Empty"/>
-                    </div>
-                    <div className="row">
-                      <label className="active">Username: </label>
-                      <i className="material-icons left">account_box</i>
-                      <span id="username"> {name}</span>
-                    </div>
-                    <div className="row">
-                      <label className="active">E-mail: </label>
-                      <i className="material-icons left">email</i>
-                      <span id="email"> {email}</span>
-                    </div>
-                    <div className="row">
-                      <label  className="active">Current Balance: </label>
-                      <i className="material-icons left">account_balance_wallet</i>
-                      <span id="balance"> ${balance}</span>
-                    </div>
-                    <div className="row">
-                      <div className="left">
-                        <button className="btn" type="edit" name="action"
-                          onClick={this.handleEdit}>
-                          Edit
-                          <i className="material-icons right">edit</i>
-                        </button>
+                    <div className="container">
+                      <div className="center-align">
+                        <img src={uploads} width="200" className="circle responsive-img" alt="Empty" />
                       </div>
-                    </div>
-                  </div>
-                )}
-                {this.state.edit && 
-                  (
-                  <div className="container">
-                    <div className="center-align">
-                      <div>
-                        <img src={uploads} width="200" className="circle responsive-img" alt="Empty"/>
-                      </div>
-                      <div>
-                        <input type="file" onChange={this.handleImageChange} accept="image/*"/>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <label className="active">Username: </label>
-                      <i className="material-icons left">account_box</i>
-                      <span id="username"> {name}</span>
-                    </div>
-                    <form>
                       <div className="row">
-                        <div className="input-field col s12">
-                          <i className="material-icons prefix">email</i>
-                          <label className="active">E-mail</label>
-                          <input id="email" type="email" placeholder="Enter Email" className="validate"
-                            value={email} onChange={this.handleChange("email")}/>
-                          <span className="helper-text" data-error="Invalid Email" data-success="Valid">
-                            Please Enter a Valid Email
-                          </span>
+                        <label className="active">Username: </label>
+                        <i className="material-icons left">account_box</i>
+                        <span id="username"> {name}</span>
+                      </div>
+                      <div className="row">
+                        <label className="active">E-mail: </label>
+                        <i className="material-icons left">email</i>
+                        <span id="email"> {email}</span>
+                      </div>
+                      <div className="row">
+                        <label className="active">Current Balance: </label>
+                        <i className="material-icons left">account_balance_wallet</i>
+                        <span id="balance"> ${balance}</span>
+                      </div>
+                      <div className="row">
+                        <div className="left">
+                          <button className="btn" type="edit" name="action"
+                            onClick={this.handleEdit}>
+                            Edit
+                          <i className="material-icons right">edit</i>
+                          </button>
                         </div>
                       </div>
-                    </form>
-                    <div className="row">
-                      <label className="active">Current Balance: </label>
-                      <i className="material-icons left">account_balance_wallet</i>
-                      <span id="balance"> ${balance}</span>
                     </div>
-                    <div className="row">
-                      <div className="left">
-                        <button className="btn" type="submit" name="action"
-                          onClick={this.handleSubmit}>
-                          Save
+                  )}
+                {this.state.edit &&
+                  (
+                    <div className="container">
+                      <div className="center-align">
+                        <div>
+                          <img src={uploads} width="200" className="circle responsive-img" alt="Empty" />
+                        </div>
+                        <div>
+                          <input type="file" onChange={this.handleImageChange} accept="image/*" />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <label className="active">Username: </label>
+                        <i className="material-icons left">account_box</i>
+                        <span id="username"> {name}</span>
+                      </div>
+                      <form>
+                        <div className="row">
+                          <div className="input-field col s12">
+                            <i className="material-icons prefix">email</i>
+                            <label className="active">E-mail</label>
+                            <input id="email" type="email" placeholder="Enter Email" className="validate"
+                              value={newEmail} onChange={this.handleChange("newEmail")} />
+                            <span className="helper-text" data-error="Invalid Email" data-success="Valid">
+                              Please Enter a Valid Email
+                          </span>
+                          </div>
+                        </div>
+                      </form>
+                      <div className="row">
+                        <label className="active">Current Balance: </label>
+                        <i className="material-icons left">account_balance_wallet</i>
+                        <span id="balance"> ${balance}</span>
+                      </div>
+                      <div className="row">
+                        <div className="left">
+                          <button className="btn" type="submit" name="action"
+                            onClick={this.handleSubmit}>
+                            Save
                           <i className="material-icons right">save</i>
-                        </button>
+                          </button>
                         </div>
                         <div className="right">
-                        <button className="btn" type="edit" name="action"
-                          onClick={this.handleEdit}>
-                          Cancel
+                          <button className="btn" type="edit" name="action"
+                            onClick={this.handleEdit}>
+                            Cancel
                           <i className="material-icons right">cancel</i>
-                        </button>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
             </div>
           </div>

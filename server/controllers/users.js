@@ -21,6 +21,14 @@ const getUserByUsername = (req, res, next) => {
         .catch(error => next(error))
 }
 
+const getUserByEmail = (req, res, next) => {
+    return UserServices.findUserByEmail(req.params.email)
+    .then((user) => {
+        res.json(user)
+    })
+    .catch(error => next(error))
+}
+
 const getUserBalance = (req, res, next) => {
     return UserServices.findUserBalance(req.params.userId)
         .then((balance) => {
@@ -91,6 +99,7 @@ const register = async (req, res, next) => {
 module.exports = {
     getUserById,
     getUserByUsername,
+    getUserByEmail,
     getUserBalance,
     addToUserBalance,
     transferUserBalance,
