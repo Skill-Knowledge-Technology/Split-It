@@ -19,6 +19,8 @@ class Profile extends React.Component {
           email: res.data.email
         });
       });
+
+    this.setState({edit: false, newEmail: ""});
   }
 
   constructor(props) {
@@ -68,10 +70,16 @@ class Profile extends React.Component {
         alert("Email is already taken");
       }
       else {
-        alert("Email is available");
+        API.updateEmail(this.state.userID, this.state.newEmail)
+        .then(() => {
+          alert("Email updated");
+          this.componentDidMount();
+        })
+        .catch((err) => {
+          console.log("updateEmail ERROR: " + err);
+        })
       }
     })
-    console.log(this.state);
   };
 
   handleEdit = (e) => {

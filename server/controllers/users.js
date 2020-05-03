@@ -30,7 +30,7 @@ const getUserByEmail = (req, res, next) => {
 }
 
 const updateEmail = (req, res, next) => {
-    return UserServices.updateUserEmail(req.params.userId, req.body.email)
+    return UserServices.updateUserEmail(req.params.userId, req.body.newEmail)
     .then((data) => {
         res.json(data)
     })

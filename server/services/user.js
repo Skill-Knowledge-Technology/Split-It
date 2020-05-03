@@ -38,10 +38,12 @@ const findUserByEmail = async (email) => {
     return User
 }
 
-const updateUserEmail = async (id, email) => {
+const updateUserEmail = async (id, newEmail) => {
     id = parseFloat(id);
+    console.log("id: " + id);
+    console.log("email: " + newEmail)
     db.User.update(
-        { email: email },
+        { email: newEmail },
         { where: { userID: id } }
     )
         .then(result =>

@@ -32,6 +32,9 @@ export default {
   searchByEmail: function(email) {
     return axios.get(`/api/users/findByEmail/${email}`);
   },
+  updateEmail: function(userId, newEmail) {
+    return axios.put(`/api/users/updateEmail/${userId}`, newEmail);
+  },
   createTransaction: function(transData) {
     return axios.post("/api/transactions/createTransaction", transData);
   },
