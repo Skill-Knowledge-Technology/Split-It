@@ -12,6 +12,10 @@ router.get('/:userId', [validatorErrors], userController.getUserById);
 
 router.get('/findByUsername/:username',[validatorErrors], userController.getUserByUsername);
 
+router.get('/findByEmail/:email',[validatorErrors], userController.getUserByEmail);
+
+router.put('/updateEmail/:userId',[validatorErrors], userController.updateEmail);
+
 router.get('/getBalance/:userId', [validatorErrors], userController.getUserBalance);
 
 router.post('/addToBalance', [validatorErrors], userController.addToUserBalance);
