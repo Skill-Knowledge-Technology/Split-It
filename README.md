@@ -1,5 +1,5 @@
 ## Split-It 
-A billing splitting application that solves your headaches when eating out with friends and family! 
+A bill splitting application that solves your headaches when eating out with friends and family! 
   
 ## Motivation
 
