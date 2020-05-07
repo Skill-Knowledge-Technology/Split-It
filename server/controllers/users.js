@@ -37,6 +37,14 @@ const updateEmail = (req, res, next) => {
     .catch(error => next(error))
 }
 
+const updateName = (req, res, next) => {
+    return UserServices.updateUserName(req.params.userId, req.body.newUserName)
+    .then((data) => {
+        res.json(data)
+    })
+    .catch(error => next(error))
+}
+
 const getUserBalance = (req, res, next) => {
     return UserServices.findUserBalance(req.params.userId)
         .then((balance) => {
@@ -109,6 +117,7 @@ module.exports = {
     getUserByUsername,
     getUserByEmail,
     updateEmail,
+    updateName,
     getUserBalance,
     addToUserBalance,
     transferUserBalance,

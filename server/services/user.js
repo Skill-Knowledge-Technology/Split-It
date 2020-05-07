@@ -53,6 +53,21 @@ const updateUserEmail = async (id, newEmail) => {
     console.log('try to update email');
 }
 
+const updateUserName = async (id, newUserName) => {
+    id = parseFloat(id);
+    db.User.update(
+        { username: newUserName },
+        { where: { userID: id } }
+    )
+        .then(result =>
+            console.log(' result is ' + result)
+        )
+        .catch(err =>
+            console.log(err)
+        )
+    console.log('try to update username');
+}
+
 
 const findUser = async (id) => {
     const User = await db.User.findByPk(id);
@@ -179,5 +194,6 @@ module.exports = {
     getJwtToken,
     verifyJwtToken,
     findUserByUsername,
-    updateUserEmail
+    updateUserEmail,
+    updateUserName
 }
