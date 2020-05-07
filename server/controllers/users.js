@@ -38,7 +38,7 @@ const updateEmail = (req, res, next) => {
 }
 
 const updateName = (req, res, next) => {
-    return UserServices.updateUserName(req.params.userId, req.body.newUserName)
+    return UserServices.updateUserName(req.params.userId, req.body.newEmail)
     .then((data) => {
         res.json(data)
     })

@@ -25,7 +25,7 @@ class Profile extends React.Component {
     API.findUser(this.state.userID)
       .then((res) => {
         this.setState({
-          username: res.data.email
+          username: res.data.username
         });
       });
 

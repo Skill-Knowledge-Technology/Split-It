@@ -65,8 +65,9 @@ const updateUserName = async (id, newUserName) => {
         .catch(err =>
             console.log(err)
         )
-    console.log('try to update username');
+    console.log('try to update user name');
 }
+
 
 
 const findUser = async (id) => {
