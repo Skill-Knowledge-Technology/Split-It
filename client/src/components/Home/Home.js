@@ -9,7 +9,7 @@ function Home(props) {
         <div className="col s12 m6 l6">
           <div className="card">
             <div className="card-image">
-              <img src={ require('../../public/Home/Calculator.jpg')}  alt = "Calc" className = "resizeimg"/>
+              <img src={ require('../../public/Home/NewCalculator.png')}  alt = "Calc" className = "resizeimg"/>
             </div>
             {/* <div className="card-title">Manual Input</div>
             <div className="card-content">
@@ -25,7 +25,7 @@ function Home(props) {
         <div className="col s12 m6 l6">
           <div className="card med">
             <div className="card-image">
-              <img src={ require('../../public/Home/Camera.jpg')}  alt = "Camera" className = "resizeimg"/>
+              <img src={ require('../../public/Home/NewCamera.png')}  alt = "Camera" className = "resizeimg"/>
             </div>
             {/* <div className="card-title">Camera</div>
             <div className="card-content">

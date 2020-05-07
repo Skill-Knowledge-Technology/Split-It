@@ -33,8 +33,7 @@ class Sidebar extends Component {
               </a>
             </div>
             <Link to={'/'} className="brand-logo center">
-              <img src={ require('../../public/logo.png')} width = "50px" height="50px" alt=""/>
-                Split It
+              <img src={ require('../../public/logo.png')} height="55px" alt=""/>
             </Link>
           </div>
         </nav>

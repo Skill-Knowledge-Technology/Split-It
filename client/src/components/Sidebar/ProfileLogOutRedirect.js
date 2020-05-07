@@ -8,7 +8,7 @@ const ProfileLogOutRedirect = ({ name, handleUserLogOut, email, image }) => {
       <li>
         <div className="user-view">
           <div className="background">
-            <img src={require("../../public/space.jpg")} alt=""/>
+            <img src={require("../../public/city.png")} alt=""/>
           </div>
           <div>
             <Link to={`/Profile`}>
