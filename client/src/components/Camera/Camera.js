@@ -140,6 +140,7 @@ export default class Camera extends React.Component {
     var text = this.state.text;
     var number = 1;
     var tempOrders = [];
+    var regex  = /^\d+(?:\.\d{0,2})$/;
     text.split('\n').map((item) => {
       var array = item.split(' ');
       // console.log(array);
@@ -148,11 +149,19 @@ export default class Camera extends React.Component {
         this.changeTax(array[array.length-1]);
       }
       // This is for finding orders and saving into the state orders.
-      else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== ''){
+      else if(!isNaN(array[0]) && !isNaN(array[array.length-1]) && array[0] !== '' && array.length > 1){
         var size = array.length;
         var quantity = array[0];
         var cost = array[size-1];
         var order = array.slice(1,size-1).join(" ");
+        tempOrders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
+        number++;
+      }
+      else if(regex.test(array[array.length-1]) && !(array.findIndex(word => 'tax' === word.toLowerCase()) > -1) && !(array.findIndex(word => 'subtotal' === word.toLowerCase()) > -1) && !(array.findIndex(word => 'total' === word.toLowerCase()) > -1) && array[0] !== '' && array.length > 1){
+        var size = array.length;
+        var quantity = 1;
+        var cost = array[size-1];
+        var order = array.slice(0,size-1).join(" ");
         tempOrders.push({number: `Order #${number}`, quantity: quantity, order: order, cost: cost, association: []});
         number++;
       }
