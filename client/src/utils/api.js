@@ -35,6 +35,9 @@ export default {
   updateEmail: function(userId, newEmail) {
     return axios.put(`/api/users/updateEmail/${userId}`, newEmail);
   },
+  updateName: function(userId, newUserName) {
+    return axios.put(`/api/users/updateName/${userId}`, newUserName);
+  },
   createTransaction: function(transData) {
     return axios.post("/api/transactions/createTransaction", transData);
   },

@@ -21,6 +21,15 @@ class Profile extends React.Component {
       });
 
     this.setState({edit: false, newEmail: ""});
+
+    API.findUser(this.state.userID)
+      .then((res) => {
+        this.setState({
+          username: res.data.username
+        });
+      });
+
+    this.setState({edit: false, newUserName: ""});
   }
 
   constructor(props) {
@@ -31,6 +40,7 @@ class Profile extends React.Component {
       email: this.props.email,
       balance: "",
       newEmail: "",
+      newUserName: "",
       uploads: this.props.image,
       edit: false,
     };
@@ -80,6 +90,23 @@ class Profile extends React.Component {
         })
       }
     })
+
+    API.searchByUsername(this.state.newUserName)
+    .then((res) => {
+      if (res.data) {
+        alert("Name is already taken");
+      }
+      else {
+        let newUserNameObj = {newUserName: this.state.newUserName};
+        API.updateName(this.state.userID, newUserNameObj)
+        .then(()=> {
+          this.componentDidMount();
+        })
+        .catch((err) => {
+          console.log("updateUserName ERROR: " + err);
+        })
+      }
+    })
   };
 
   handleEdit = (e) => {
@@ -88,7 +115,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { name, email, balance, uploads, newEmail } = this.state;
+    const { name, email, balance, uploads, newEmail, newUserName } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -140,9 +167,15 @@ class Profile extends React.Component {
                         </div>
                       </div>
                       <div className="row">
-                        <label className="active">Username: </label>
-                        <i className="material-icons left">account_box</i>
-                        <span id="username"> {name}</span>
+                        <div className="input-field col s12">
+                          <i className="material-icons prefix">account_box</i>
+                          <label className="active">Username</label>
+                          <input id="username" type="text" placeholder="Enter User Name" className="validate"
+                            value={newUserName} onChange={this.handleChange("newUserName")} />
+                          <span className="helper-text" data-error="Invalid User Name" data-success="Valid">
+                            Please Enter a Valid User Name
+                        </span>
+                        </div>
                       </div>
                       <form>
                         <div className="row">
