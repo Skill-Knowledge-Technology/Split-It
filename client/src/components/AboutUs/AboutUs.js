@@ -147,7 +147,7 @@ export default class AboutUs extends React.Component {
         </div>
         <div className = "col s12 md8 l8">
           <h4><u>LinkedIn:</u></h4>
-          <a href="https://www.linkedin.com/in/alexjpzhen/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/jia-peng-zhen-6455a1170/</a>
+          <a href="https://www.linkedin.com/in/alexjpzhen/" rel="noopener noreferrer" target="_blank">https://www.linkedin.com/in/alexjpzhen//</a>
           <br/>
           <h4><u>GitHub:</u></h4>
           <a href="https://github.com/alexzhen93" rel="noopener noreferrer" target="_blank">https://github.com/alexzhen93</a>
